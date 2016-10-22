@@ -1,8 +1,9 @@
 package gui;
 
 import java.awt.EventQueue;
-
 import javax.swing.JFrame;
+import GameBoard.BoardGraphics;
+import java.awt.BorderLayout;
 
 public class PlayWindow {
 
@@ -38,6 +39,10 @@ public class PlayWindow {
 		frame = new JFrame();
 		frame.setBounds(100, 100, 450, 300);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		
+		//add the main game area to the center
+		BoardGraphics Island = new BoardGraphics();
+		frame.getContentPane().add(Island, BorderLayout.CENTER);
 	}
 
 }
