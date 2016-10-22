@@ -19,7 +19,7 @@ public class BoardGraphics extends JPanel {
 	@Override
     public void paintComponent(Graphics g) {
         Graphics2D g2d = (Graphics2D) g;
-        g2d.setStroke(new BasicStroke(4.0f, BasicStroke.CAP_SQUARE, BasicStroke.JOIN_MITER));
+        g2d.setStroke(new BasicStroke(2.5f, BasicStroke.CAP_SQUARE, BasicStroke.JOIN_MITER));
         drawGrid(g2d);
     }
 	
@@ -29,15 +29,45 @@ public class BoardGraphics extends JPanel {
 	}
 	
 	private void drawGrid(Graphics2D g2d){
-		g2d.draw(Hexagon(50,50,20));
-		//for(int i=0,)
+		double radius = 25;
+		double shortR = radius * Math.sqrt(3)/2;
+		double Xstart = 190;
+		double Ystart = 60;
+		for(int i=0;i<3;i++){
+			double Xnext = 2*i*shortR+Xstart;
+			g2d.draw(Hexagon(Xnext,Ystart,radius));
+		}
+		Xstart = Xstart-shortR;
+		Ystart = Ystart+1.5*radius;
+		for(int i=0;i<4;i++){
+			double Xnext = 2*i*shortR+Xstart;
+			g2d.draw(Hexagon(Xnext,Ystart,radius));
+		}
+		Xstart = Xstart-shortR;
+		Ystart = Ystart+1.5*radius;
+		for(int i=0;i<5;i++){
+			double Xnext = 2*i*shortR+Xstart;
+			g2d.draw(Hexagon(Xnext,Ystart,radius));
+		}
+		Xstart = Xstart+shortR;
+		Ystart = Ystart+1.5*radius;
+		for(int i=0;i<4;i++){
+			double Xnext = 2*i*shortR+Xstart;
+			g2d.draw(Hexagon(Xnext,Ystart,radius));
+		}
+		Xstart = Xstart+shortR;
+		Ystart = Ystart+1.5*radius;
+		for(int i=0;i<3;i++){
+			double Xnext = 2*i*shortR+Xstart;
+			g2d.draw(Hexagon(Xnext,Ystart,radius));
+		}
 	}
 	
 	private GeneralPath Hexagon(double Xcenter, double Ycenter, double radius ){
 		//calculate the relative location of all points on a hexagon
-		double height = radius * Math.sqrt(3)/2;
-		double Xpoints[] = {Xcenter+radius,	Xcenter+0.5*radius, Xcenter-0.5*radius, Xcenter-radius, Xcenter-0.5*radius, Xcenter+0.5*radius};
-		double Ypoints[] = {Ycenter, 		Ycenter+height, 	Ycenter+height,		Ycenter,		Ycenter-height,		Ycenter-height};
+		double shortR = radius * Math.sqrt(3)/2;
+		double Xpoints[] = {Xcenter+shortR,		Xcenter+shortR,		Xcenter,		Xcenter-shortR, 	Xcenter-shortR, 	Xcenter};
+		double Ypoints[] = {Ycenter+0.5*radius,	Ycenter-0.5*radius, Ycenter-radius,	Ycenter-0.5*radius,	Ycenter+0.5*radius,	Ycenter+radius};
 		GeneralPath hex = new GeneralPath(GeneralPath.WIND_EVEN_ODD,Xpoints.length);
 		//add coordinates to the shape
 		hex.moveTo(Xpoints[0], Ypoints[0]);
