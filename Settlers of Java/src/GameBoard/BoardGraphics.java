@@ -29,10 +29,10 @@ public class BoardGraphics extends JPanel {
 	}
 	
 	private void drawGrid(Graphics2D g2d){
-		double radius = 25;
+		double radius = 62;
 		double shortR = radius * Math.sqrt(3)/2;
-		double Xstart = 190;
-		double Ystart = 60;
+		double Xstart = 3*shortR+10;
+		double Ystart = radius+15;
 		for(int i=0;i<3;i++){
 			double Xnext = 2*i*shortR+Xstart;
 			g2d.draw(Hexagon(Xnext,Ystart,radius));
