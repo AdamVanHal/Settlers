@@ -48,7 +48,7 @@ public class PlayerInfo{
 		return VP;
 	}
 	public boolean calcVP(){
-		
+		return false;
 	}
 	
 	//*****
@@ -58,69 +58,69 @@ public class PlayerInfo{
 			return Pvp;
 	}
 	public boolean calcPvp(){
-		
+		return false;
 	}
 	
 	//*****
 	//road get and set methods
 	//*****
 	public int getRoad(){return Road;}
-	public boolean setRoad(int inp){Road = inp;}
-	public boolean longestRoad(boolean inp){longestRoad = inp;}
+	public boolean setRoad(int inp){Road = inp; return true;}
+	public boolean longestRoad(boolean inp){longestRoad = inp; return true;}
 	
 	//*****
 	//wheat get and set methods
 	//*****
 	public int getWheat(){return Wheat;}
-	public boolean setWheat(int inp){Wheat = inp;}
+	public boolean setWheat(int inp){Wheat = inp; return true;}
 	
 	//*****
 	//Sheep get and set methods
 	//*****
 	public int getSheep(){return Sheep;}
-	public boolean setSheep(int inp){Sheep = inp;}
+	public boolean setSheep(int inp){Sheep = inp; return true;}
 	
 	//*****
 	//Ore get and set methods
 	//*****
 	public int getOre(){return Ore;}
-	public boolean setOre(int inp){Ore = inp;}
+	public boolean setOre(int inp){Ore = inp; return true;}
 	
 	//*****
 	//Brick get and set methods
 	//*****
 	public int getBrick(){return Brick;}
-	public boolean setBrick(int inp){Brick = inp;}
+	public boolean setBrick(int inp){Brick = inp; return true;}
 	
 	//*****
 	//Wood get and set methods
 	//*****
 	public int getWood(){return Wood;}
-	public boolean setWood(int inp){Wood = inp;}
+	public boolean setWood(int inp){Wood = inp; return true;}
 	
 	//*****
 	//Settlement get and set methods
 	//*****
 	public int getSet(){return Set;}
-	public boolean setSet(int inp){Set = inp;}
+	public boolean setSet(int inp){Set = inp; return true;}
 	
 	//*****
 	//Cities get and set methods
 	//*****
 	public int getCities(){return Cities;}
-	public boolean setCities(int inp){Cities = inp;}
+	public boolean setCities(int inp){Cities = inp; return true;}
 	
 	//*****
 	//Knight get and set methods
 	//*****
 	public int getKnights(){return Knights;}
-	public boolean setKnights(int inp){Knights = inp;}
+	public boolean setKnights(int inp){Knights = inp; return true;}
 	
 	//*****
 	//get and set methods for number of development cards
 	//*****
 	public int getDev(){return Dev;}
-	public boolean setDev(int inp){Dev = inp;}
+	public boolean setDev(int inp){Dev = inp; return true;}
 	
 	
 }	
