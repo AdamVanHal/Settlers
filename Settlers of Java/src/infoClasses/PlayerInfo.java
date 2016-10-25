@@ -17,6 +17,7 @@ public class PlayerInfo{
 	int Knights = 0;
 	int Dev = 0;
 	boolean longestRoad = false;
+	boolean largestArmy = false;
 
 	public static void main(String[] args){
 		Scanner kb = new Scanner(System.in);
@@ -48,7 +49,10 @@ public class PlayerInfo{
 		return VP;
 	}
 	public boolean calcVP(){
-		return false;
+		VP = Set+ (Cities * 2);
+		if(longestRoad){VP++;}
+		if(largestArmy){VP++;}
+		return true;
 	}
 	
 	//*****
@@ -58,7 +62,10 @@ public class PlayerInfo{
 			return Pvp;
 	}
 	public boolean calcPvp(){
-		return false;
+		VP = Set+ (Cities * 2);
+		if(longestRoad){VP++;}
+		if(largestArmy){VP++;}
+		return true;
 	}
 	
 	//*****
@@ -66,7 +73,7 @@ public class PlayerInfo{
 	//*****
 	public int getRoad(){return Road;}
 	public boolean setRoad(int inp){Road = inp; return true;}
-	public boolean longestRoad(boolean inp){longestRoad = inp; return true;}
+	public boolean setLongestRoad(boolean inp){longestRoad = inp; return true;}
 	
 	//*****
 	//wheat get and set methods
@@ -115,6 +122,7 @@ public class PlayerInfo{
 	//*****
 	public int getKnights(){return Knights;}
 	public boolean setKnights(int inp){Knights = inp; return true;}
+	public boolean setLargestArmy(boolean inp){largestArmy = inp; return true;}
 	
 	//*****
 	//get and set methods for number of development cards

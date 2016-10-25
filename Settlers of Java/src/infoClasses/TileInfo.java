@@ -8,7 +8,7 @@ public class TileInfo{
 	int id = 0;
 	int resourceType = 0;
 	
-	public  void main(String[] args){
+	public static void main(String[] args){
 	
 	}
 	
