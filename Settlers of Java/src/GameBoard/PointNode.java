@@ -8,7 +8,7 @@ public class PointNode {
 	public PointNode(){
 		adjacentLine = new LineNode[3];
 		adjacentPiece = new PieceNode[3];
-		adjacentPoint = new PointNode[2];
+		adjacentPoint = new PointNode[3];
 		occupancy = "";
 	}
 	public void setOccupancy(String a){
@@ -25,9 +25,10 @@ public class PointNode {
 		adjacentPiece[1] = b;
 		adjacentPiece[2] = c;
 	}
-	public void setAdjacentPoints(PointNode a,PointNode b){
+	public void setAdjacentPoints(PointNode a,PointNode b,PointNode c){
 		adjacentPoint[0] = a;
 		adjacentPoint[1] = b;
+		adjacentPoint[2] = c;
 	}
 	public String getOccupancy(){
 		return occupancy;
@@ -38,5 +39,9 @@ public class PointNode {
 
 	public PieceNode[] getAdjacentPiece(){
 		return adjacentPiece;
+	}
+	
+	public PointNode[] getAdjacentPoint(){
+		return adjacentPoint;
 	}
 }
