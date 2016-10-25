@@ -44,83 +44,83 @@ public class PlayerInfo{
 	//*****
 	//actual victory points methods
 	//*****
-	public static int getVP(){
+	public int getVP(){
 		return VP;
 	}
-	public static boolean calcVP(){
+	public boolean calcVP(){
 		
 	}
 	
 	//*****
 	//public victory points methods
 	//*****
-	public static int Pvp(){
+	public int Pvp(){
 			return Pvp;
 	}
-	public static boolean calcPvp(){
+	public boolean calcPvp(){
 		
 	}
 	
 	//*****
 	//road get and set methods
 	//*****
-	public static int getRoad(){return Road;}
-	public stativ boolean setRoad(int inp){Road = inp;}
-	public static boolean longestRoad(boolean inp){longestRoad = inp;}
+	public int getRoad(){return Road;}
+	public boolean setRoad(int inp){Road = inp;}
+	public boolean longestRoad(boolean inp){longestRoad = inp;}
 	
 	//*****
 	//wheat get and set methods
 	//*****
-	public static int getWheat(){return Wheat;}
-	public static boolean setWheat(int inp){Wheat = inp;}
+	public int getWheat(){return Wheat;}
+	public boolean setWheat(int inp){Wheat = inp;}
 	
 	//*****
 	//Sheep get and set methods
 	//*****
-	public static int getSheep(){return Sheep;}
-	public static boolean setSheep(int inp){Sheep = inp;}
+	public int getSheep(){return Sheep;}
+	public boolean setSheep(int inp){Sheep = inp;}
 	
 	//*****
 	//Ore get and set methods
 	//*****
-	public static int getOre(){return Ore;}
-	public static boolean setOre(int inp){Ore = inp;}
+	public int getOre(){return Ore;}
+	public boolean setOre(int inp){Ore = inp;}
 	
 	//*****
 	//Brick get and set methods
 	//*****
-	public static int getBrick(){return Brick;}
-	public static boolean setBrick(int inp){Brick = inp;}
+	public int getBrick(){return Brick;}
+	public boolean setBrick(int inp){Brick = inp;}
 	
 	//*****
 	//Wood get and set methods
 	//*****
-	public static int getWood(){return Wood;}
-	public static boolean setWood(int inp){Wood = inp;}
+	public int getWood(){return Wood;}
+	public boolean setWood(int inp){Wood = inp;}
 	
 	//*****
 	//Settlement get and set methods
 	//*****
-	public static int getSet(){return Set;}
-	public static boolean setSet(int inp){Set = inp;}
+	public int getSet(){return Set;}
+	public boolean setSet(int inp){Set = inp;}
 	
 	//*****
 	//Cities get and set methods
 	//*****
-	public static int getCities(){return Cities;}
-	public static boolean setCities(int inp){Cities = inp;}
+	public int getCities(){return Cities;}
+	public boolean setCities(int inp){Cities = inp;}
 	
 	//*****
 	//Knight get and set methods
 	//*****
-	public static int getKnights(){return Knights;}
-	public static boolean setKnights(int inp){Knights = inp;}
+	public int getKnights(){return Knights;}
+	public boolean setKnights(int inp){Knights = inp;}
 	
 	//*****
 	//get and set methods for number of development cards
 	//*****
-	public static int getDev(){return Dev;}
-	public static boolean setDev(int inp){Dev = inp;}
+	public int getDev(){return Dev;}
+	public boolean setDev(int inp){Dev = inp;}
 	
 	
 }	
