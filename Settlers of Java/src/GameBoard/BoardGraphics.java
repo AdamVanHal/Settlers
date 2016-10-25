@@ -5,21 +5,23 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Polygon;
 import java.awt.geom.GeneralPath;
+import java.awt.geom.Point2D;
 import java.awt.Stroke;
+import java.awt.geom.Point2D.Double;
+import java.util.ArrayList;
 
 import javax.swing.JPanel;
 
 public class BoardGraphics extends JPanel {
 
-	/**
-	 * 
-	 */
+	//auto generated id
 	private static final long serialVersionUID = -6080271973075824997L;
-
+	//get the graphics object from the parent by overriding the normal paint and making our own
 	@Override
     public void paintComponent(Graphics g) {
+		//cast to the more capable graphics type
         Graphics2D g2d = (Graphics2D) g;
-        g2d.setStroke(new BasicStroke(2.5f, BasicStroke.CAP_SQUARE, BasicStroke.JOIN_MITER));
+        //draw the hex grid
         drawGrid(g2d);
     }
 	
@@ -29,36 +31,54 @@ public class BoardGraphics extends JPanel {
 	}
 	
 	private void drawGrid(Graphics2D g2d){
-		double radius = 62;
+		//set the rules for drawing with the graphics object passed in
+        g2d.setStroke(new BasicStroke(2.5f, BasicStroke.CAP_SQUARE, BasicStroke.JOIN_MITER));
+		//set the length from the center to the far vertices of the hex. 
+        //The radius of the circumscribed circle
+        double radius = 62;
+        //calculate the radius of the inscribed circle
+        //this helps with the math to place them
 		double shortR = radius * Math.sqrt(3)/2;
-		double Xstart = 3*shortR+10;
-		double Ystart = radius+15;
+		//center of the topmost left hexagon
+		Point2D.Double start = new Point2D.Double(3*shortR+10, radius+15);
+		double Xstart = start.getX();
+		double Ystart = start.getY();
+		
+		//array with the center points of all hexagon
+		ArrayList<Point2D.Double> centerPoints = new ArrayList<Point2D.Double>();
+		
+		
 		for(int i=0;i<3;i++){
 			double Xnext = 2*i*shortR+Xstart;
+			centerPoints.add(new Point2D.Double(Xnext,Ystart));
 			g2d.draw(Hexagon(Xnext,Ystart,radius));
 		}
 		Xstart = Xstart-shortR;
 		Ystart = Ystart+1.5*radius;
 		for(int i=0;i<4;i++){
 			double Xnext = 2*i*shortR+Xstart;
+			centerPoints.add(new Point2D.Double(Xnext,Ystart));
 			g2d.draw(Hexagon(Xnext,Ystart,radius));
 		}
 		Xstart = Xstart-shortR;
 		Ystart = Ystart+1.5*radius;
 		for(int i=0;i<5;i++){
 			double Xnext = 2*i*shortR+Xstart;
+			centerPoints.add(new Point2D.Double(Xnext,Ystart));
 			g2d.draw(Hexagon(Xnext,Ystart,radius));
 		}
 		Xstart = Xstart+shortR;
 		Ystart = Ystart+1.5*radius;
 		for(int i=0;i<4;i++){
 			double Xnext = 2*i*shortR+Xstart;
+			centerPoints.add(new Point2D.Double(Xnext,Ystart));
 			g2d.draw(Hexagon(Xnext,Ystart,radius));
 		}
 		Xstart = Xstart+shortR;
 		Ystart = Ystart+1.5*radius;
 		for(int i=0;i<3;i++){
 			double Xnext = 2*i*shortR+Xstart;
+			centerPoints.add(new Point2D.Double(Xnext,Ystart));
 			g2d.draw(Hexagon(Xnext,Ystart,radius));
 		}
 	}

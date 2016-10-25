@@ -3,9 +3,10 @@ package gui;
 import java.awt.EventQueue;
 import javax.swing.JFrame;
 import GameBoard.BoardGraphics;
-import java.awt.BorderLayout;
 import javax.swing.JPanel;
 import javax.swing.JButton;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 public class PlayWindow {
 
@@ -53,8 +54,15 @@ public class PlayWindow {
 		frame.getContentPane().add(Status);
 		Status.setLayout(null);
 		
-		JButton btnNewButton = new JButton("New button");
-		btnNewButton.setBounds(61, 88, 89, 23);
-		Status.add(btnNewButton);
+		//Generic button that currently does nothing
+		JButton btnEndTurn = new JButton("End Turn");
+		btnEndTurn.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseReleased(MouseEvent arg0) {
+				
+			}
+		});
+		btnEndTurn.setBounds(61, 88, 89, 23);
+		Status.add(btnEndTurn);
 	}
 }
