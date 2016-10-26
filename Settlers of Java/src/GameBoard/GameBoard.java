@@ -1,19 +1,15 @@
 package GameBoard;
 
 public class GameBoard {
+	//Used to test node arrays, not actually relevant to catan
 	public static void main(String[] args){
-		GameBoard board = new GameBoard();
-		board.setLineArray();
-		board.setPointArray();
-		board.setPieceArray();
-		for(int i = 0; i < 72; i++){
-			System.out.print((i+1)+": ");
-			System.out.println(board.get(i));
-		}
+
 	}
 	LineNode[] boardLines;
-	PointNode[] boardPoints;
+	public PointNode[] boardPoints;
 	PieceNode[] boardPieces;
+	
+	//initializes the GameBoard and creates/sets values for all the arrays
 	public GameBoard(){
 		boardLines = new LineNode[72];
 		for(int i = 0; i < 72; i++){
@@ -27,7 +23,12 @@ public class GameBoard {
 		for(int i = 0; i < 19; i++){
 			boardPieces[i] = new PieceNode();
 		}
+		setLineArray();
+		setPointArray();
+		setPieceArray();
 	}
+	
+	//sets all the adjacent values for each line
 	public void setLineArray(){
 		boardLines[0].setAdjacentLines(boardLines[1], boardLines[6], null, null);
 		boardLines[0].setAdjacentPoints(boardPoints[0], boardPoints[3]);
@@ -318,6 +319,8 @@ public class GameBoard {
 		boardLines[71].setAdjacentPieces(boardPieces[18], null);
 		boardLines[71].setOccupancy("72");
 	}
+	
+	//sets all the adjacent values for each point
 	public void setPointArray(){
 		boardPoints[0].setAdjacentLines(boardLines[0], boardLines[1], null);
 		boardPoints[0].setAdjacentPoints(boardPoints[3], boardPoints[4], null);
@@ -536,12 +539,108 @@ public class GameBoard {
 		boardPoints[53].setAdjacentPieces(boardPieces[18], null, null);
 		boardPoints[53].setOccupancy("54");
 	}
+	
+	//sets the numbers of each piece to correspond with drawing
 	public void setPieceArray(){
 		for(int i = 0; i < 19; i++){
 			boardPieces[i].setNumber(i+1);
 		}
+		int[] resourcesArr = new int[19];
+		for(int i = 0; i < 19; i++){
+			if(i < 1){
+				resourcesArr[i] = 0;
+				boardPieces[i].setTileResource(resourcesArr[i]);
+			}
+			else if(i < 5 && i > 0){
+				resourcesArr[i] = 1;
+				boardPieces[i].setTileResource(resourcesArr[i]);
+			}
+			else if(i < 9 && i > 4){
+				resourcesArr[i] = 2;
+				boardPieces[i].setTileResource(resourcesArr[i]);
+			}
+			else if(i < 13 && i > 8){
+				resourcesArr[i] = 3;
+				boardPieces[i].setTileResource(resourcesArr[i]);
+			}
+			else if(i < 16 && i > 12){
+				resourcesArr[i] = 4;
+				boardPieces[i].setTileResource(resourcesArr[i]);
+			}
+			else{
+				resourcesArr[i] = 5;
+				boardPieces[i].setTileResource(resourcesArr[i]);
+			}
+		}
+		int[] dieArr = new int[19];
+		for(int i = 0; i < 19; i++){
+			if(i == 0){
+				dieArr[i] = 0;
+				boardPieces[i].setTileID(dieArr[i]);
+			}
+			else if(i == 1){
+				dieArr[i] = 2;
+				boardPieces[i].setTileID(dieArr[i]);
+			}
+			else if(i == 2 || i == 3){
+				dieArr[i] = 3;
+				boardPieces[i].setTileID(dieArr[i]);
+			}
+			else if(i == 4 || i == 5){
+				dieArr[i] = 4;
+				boardPieces[i].setTileID(dieArr[i]);
+			}
+			else if(i == 6 || i == 7){
+				dieArr[i] = 5;
+				boardPieces[i].setTileID(dieArr[i]);
+			}
+			else if(i == 8 || i == 9){
+				dieArr[i] = 6;
+				boardPieces[i].setTileID(dieArr[i]);
+			}else if(i == 10 || i == 11){
+				dieArr[i] = 8;
+				boardPieces[i].setTileID(dieArr[i]);
+			}
+			else if(i == 12 || i == 13){
+				dieArr[i] = 9;
+				boardPieces[i].setTileID(dieArr[i]);
+			}
+			else if(i == 14 || i == 15){
+				dieArr[i] = 10;
+				boardPieces[i].setTileID(dieArr[i]);
+			}
+			else if(i == 16 || i == 17){
+				dieArr[i] = 11;
+				boardPieces[i].setTileID(dieArr[i]);
+			}
+			else{
+				dieArr[i] = 12;
+				boardPieces[i].setTileID(dieArr[i]);
+			}
+		}
 	}
-	public int get(int i){
-		return boardLines[i].getAdjacentPiece()[0].getNumber();
+	public int getDieVal(int i,int a){
+		if(boardLines[i].getAdjacentPiece()[a] == null){
+			return (-1);
+		}
+		else{
+			return boardLines[i].getAdjacentPiece()[a].getTileID();
+		}
+	}
+	public int getResource(int i,int a){
+		if(boardLines[i].getAdjacentPiece()[a] == null){
+			return (-1);
+		}
+		else{
+			return boardLines[i].getAdjacentPiece()[a].getTileResource();
+		}
+	}
+	public int getNum(int i, int a){
+		if(boardLines[i].getAdjacentPiece()[a] == null){
+			return (-1);
+		}
+		else{
+			return boardLines[i].getAdjacentPiece()[a].getNumber();
+		}
 	}
 }
