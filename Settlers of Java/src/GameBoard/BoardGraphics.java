@@ -1,6 +1,7 @@
 package GameBoard;
 
 import java.awt.BasicStroke;
+import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Polygon;
@@ -109,20 +110,10 @@ public class BoardGraphics extends JPanel {
 			if(i>5){Xstart+=0.5*shortR;}
 			//calculate number of edges in row
 			int col=0;
-			if(i%2==0&&i<5){
-				col = 6+i;
-			}
-			if(i%2==0&&i>5){
-				col = 10-(i-6);
-			}
-			if(i%2==1&&i<6){
-				col = (int)i/2+4;
-			}
-			if(i%2==1&&i>6){
-				col = (int)6 - (i-5)/2;
-			}
-			String s = i + ": " + col;
-			System.out.println(s);
+			if(i%2==0&&i<5){col = 6+i;}
+			if(i%2==0&&i>5){col = 10-(i-6);}
+			if(i%2==1&&i<6){col = (int)i/2+4;}
+			if(i%2==1&&i>6){col = (int)6 - (i-5)/2;}
 			//move in X position
 			for(int j=0;j<col;j++){
 				double Xnext;
@@ -155,7 +146,9 @@ public class BoardGraphics extends JPanel {
         g2d.setStroke(new BasicStroke(2.5f, BasicStroke.CAP_SQUARE, BasicStroke.JOIN_MITER));
 		//draw tiles
         for(int i=0; i<centerPoints.size();i++){
-        	g2d.draw(Hexagon(centerPoints.get(i).getX(),centerPoints.get(i).getY(),radius));
+        	g2d.setPaint(new Color((float)Math.random(),(float)Math.random(),(float)Math.random(),(float)Math.random()));
+        	g2d.fill(Hexagon(centerPoints.get(i).getX(),centerPoints.get(i).getY(),radius));
+        	//g2d.draw(Hexagon(centerPoints.get(i).getX(),centerPoints.get(i).getY(),radius));
         }
         //draw labels for tiles, vertexes and edges
         for(int i=0; i<centerPoints.size();i++){
