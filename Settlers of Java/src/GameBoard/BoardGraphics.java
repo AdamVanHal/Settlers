@@ -146,8 +146,10 @@ public class BoardGraphics extends JPanel {
         g2d.setStroke(new BasicStroke(2.5f, BasicStroke.CAP_SQUARE, BasicStroke.JOIN_MITER));
 		//draw tiles
         for(int i=0; i<centerPoints.size();i++){
+        	//set the colour used by graphics and fill in a hexagon
         	g2d.setPaint(new Color((float)Math.random(),(float)Math.random(),(float)Math.random(),(float)Math.random()));
         	g2d.fill(Hexagon(centerPoints.get(i).getX(),centerPoints.get(i).getY(),radius));
+        	//draw hex outline
         	//g2d.draw(Hexagon(centerPoints.get(i).getX(),centerPoints.get(i).getY(),radius));
         }
         //draw labels for tiles, vertexes and edges
