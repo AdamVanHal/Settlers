@@ -31,11 +31,11 @@ public class BoardGraphics extends JPanel {
 	//center of the topmost left hexagon
 	private Point2D.Double start = new Point2D.Double(3*shortR+30, radius+65);
 	//array with the center points of all hexagon
-	private ArrayList<Point2D.Double> centerPoints = new ArrayList<Point2D.Double>();
+	private ArrayList<Point2D.Double> centerPoints = new ArrayList<Point2D.Double>(25);
 	//array of all the vertex locations that can have settlements.
-	private ArrayList<Point2D.Double> vertex = new ArrayList<Point2D.Double>();
+	private ArrayList<Point2D.Double> vertex = new ArrayList<Point2D.Double>(60);
 	//array of all centers of edge locations where roads could be
-	private ArrayList<Point2D.Double> edge = new ArrayList<Point2D.Double>();
+	private ArrayList<Point2D.Double> edge = new ArrayList<Point2D.Double>(80);
 	//store the state the program is in for hit checking on the map
 	//0=do no checks
 	//1=try to build settlement
@@ -48,97 +48,10 @@ public class BoardGraphics extends JPanel {
 		BoardGraphics bg = this;
 		//store original Cursor in case we change it
 		Cursor old = bg.getCursor();
-
-		//construct the array of center locations
-		double Xstart = start.getX();
-		double Ystart = start.getY();
-		for(int i=0;i<3;i++){
-			double Xnext = 2*i*shortR+Xstart;
-			centerPoints.add(new Point2D.Double(Xnext,Ystart));
-		}
-		Xstart = Xstart-shortR;
-		Ystart = Ystart+1.5*radius;
-		for(int i=0;i<4;i++){
-			double Xnext = 2*i*shortR+Xstart;
-			centerPoints.add(new Point2D.Double(Xnext,Ystart));
-		}
-		Xstart = Xstart-shortR;
-		Ystart = Ystart+1.5*radius;
-		for(int i=0;i<5;i++){
-			double Xnext = 2*i*shortR+Xstart;
-			centerPoints.add(new Point2D.Double(Xnext,Ystart));
-		}
-		Xstart = Xstart+shortR;
-		Ystart = Ystart+1.5*radius;
-		for(int i=0;i<4;i++){
-			double Xnext = 2*i*shortR+Xstart;
-			centerPoints.add(new Point2D.Double(Xnext,Ystart));
-		}
-		Xstart = Xstart+shortR;
-		Ystart = Ystart+1.5*radius;
-		for(int i=0;i<3;i++){
-			double Xnext = 2*i*shortR+Xstart;
-			centerPoints.add(new Point2D.Double(Xnext,Ystart));
-		}
-		
-		//add vertex points
-		Xstart = start.getX();
-		Ystart = start.getY()-radius;
-		//move in Y direction
-		for(int i=0;i<12;i++){
-			//adjust y position as we move in rows
-			//moving from even to odd rows is half a radius down, odd to even is a full radius moved
-			if(i%2==0 && i!=0){Ystart+=radius;}
-			if(i%2==1){Ystart+=0.5*radius;}
-			//adjust the first x coordinate
-			//we go out one shortR on even to odd transitions in the top half
-			//and we go in one shortR on even to odd transitions in the bottom
-			if(i%2==1 && i<6){Xstart-=shortR;}
-			if(i%2==1 && i>6){Xstart+=shortR;}
-			//calculate number of vertexes in row
-			int col = 6;
-			if(i<=4){
-				col = 3+((int)((i+1)/2));
-			}
-			if(i>=7){
-				col = 6-((int)((i-5)/2));
-			}
-			//move in X position
-			for(int j=0;j<col;j++){
-				double Xnext = Xstart+2*j*shortR;
-				vertex.add(new Point2D.Double(Xnext, Ystart));
-			}
-		}//end calculate vertexes
-		
-		//add locations of edge centers
-		Xstart = start.getX()-0.5*shortR;
-		Ystart = start.getY()-0.75*radius;
-		//move in Y direction
-		for(int i=0;i<11;i++){
-			//adjust y position as we move in rows
-			//moving down 0.75 radius every time
-			if(i!=0){Ystart+=0.75*radius;}
-			//adjust the first x coordinate
-			//always step out half a short radius until row 5 then in
-			if(i!=0 && i<=5){Xstart-=0.5*shortR;}
-			if(i>5){Xstart+=0.5*shortR;}
-			//calculate number of edges in row
-			int col=0;
-			if(i%2==0&&i<5){col = 6+i;}
-			if(i%2==0&&i>5){col = 10-(i-6);}
-			if(i%2==1&&i<6){col = (int)i/2+4;}
-			if(i%2==1&&i>6){col = (int)6 - (i-5)/2;}
-			//move in X position
-			for(int j=0;j<col;j++){
-				double Xnext;
-				if(i%2==0){
-					Xnext = Xstart+shortR*j;
-				}else{
-					Xnext = Xstart+2*j*shortR;
-				}
-				edge.add(new Point2D.Double(Xnext, Ystart));
-			}
-		}//end edge center calc
+		//calculate the important points on the grid, store in global array
+		generateCenters();
+		generateVertex();
+		generateEdges();
 		
 		//Mouse listener that tracks clicks in map
 		bg.addMouseListener(new MouseAdapter(){
@@ -268,5 +181,100 @@ public class BoardGraphics extends JPanel {
 		//close the polygon off
 		hex.closePath();
 		return hex;
+	}
+	
+	private void generateCenters(){
+		//construct the array of center locations
+		double Xstart = start.getX();
+		double Ystart = start.getY();
+		for(int i=0;i<3;i++){
+			double Xnext = 2*i*shortR+Xstart;
+			centerPoints.add(new Point2D.Double(Xnext,Ystart));
+		}
+		Xstart = Xstart-shortR;
+		Ystart = Ystart+1.5*radius;
+		for(int i=0;i<4;i++){
+			double Xnext = 2*i*shortR+Xstart;
+			centerPoints.add(new Point2D.Double(Xnext,Ystart));
+		}
+		Xstart = Xstart-shortR;
+		Ystart = Ystart+1.5*radius;
+		for(int i=0;i<5;i++){
+			double Xnext = 2*i*shortR+Xstart;
+			centerPoints.add(new Point2D.Double(Xnext,Ystart));
+		}
+		Xstart = Xstart+shortR;
+		Ystart = Ystart+1.5*radius;
+		for(int i=0;i<4;i++){
+			double Xnext = 2*i*shortR+Xstart;
+			centerPoints.add(new Point2D.Double(Xnext,Ystart));
+		}
+		Xstart = Xstart+shortR;
+		Ystart = Ystart+1.5*radius;
+		for(int i=0;i<3;i++){
+			double Xnext = 2*i*shortR+Xstart;
+			centerPoints.add(new Point2D.Double(Xnext,Ystart));
+		}
+	}
+	private void generateVertex(){
+		//add vertex points
+		double Xstart = start.getX();
+		double Ystart = start.getY()-radius;
+		//move in Y direction
+		for(int i=0;i<12;i++){
+			//adjust y position as we move in rows
+			//moving from even to odd rows is half a radius down, odd to even is a full radius moved
+			if(i%2==0 && i!=0){Ystart+=radius;}
+			if(i%2==1){Ystart+=0.5*radius;}
+			//adjust the first x coordinate
+			//we go out one shortR on even to odd transitions in the top half
+			//and we go in one shortR on even to odd transitions in the bottom
+			if(i%2==1 && i<6){Xstart-=shortR;}
+			if(i%2==1 && i>6){Xstart+=shortR;}
+			//calculate number of vertexes in row
+			int col = 6;
+			if(i<=4){
+				col = 3+((int)((i+1)/2));
+			}
+			if(i>=7){
+				col = 6-((int)((i-5)/2));
+			}
+			//move in X position
+			for(int j=0;j<col;j++){
+				double Xnext = Xstart+2*j*shortR;
+				vertex.add(new Point2D.Double(Xnext, Ystart));
+			}
+		}//end calculate vertexes
+	}
+	private void generateEdges(){
+		//add locations of edge centers
+		double Xstart = start.getX()-0.5*shortR;
+		double Ystart = start.getY()-0.75*radius;
+		//move in Y direction
+		for(int i=0;i<11;i++){
+			//adjust y position as we move in rows
+			//moving down 0.75 radius every time
+			if(i!=0){Ystart+=0.75*radius;}
+			//adjust the first x coordinate
+			//always step out half a short radius until row 5 then in
+			if(i!=0 && i<=5){Xstart-=0.5*shortR;}
+			if(i>5){Xstart+=0.5*shortR;}
+			//calculate number of edges in row
+			int col=0;
+			if(i%2==0&&i<5){col = 6+i;}
+			if(i%2==0&&i>5){col = 10-(i-6);}
+			if(i%2==1&&i<6){col = (int)i/2+4;}
+			if(i%2==1&&i>6){col = (int)6 - (i-5)/2;}
+			//move in X position
+			for(int j=0;j<col;j++){
+				double Xnext;
+				if(i%2==0){
+					Xnext = Xstart+shortR*j;
+				}else{
+					Xnext = Xstart+2*j*shortR;
+				}
+				edge.add(new Point2D.Double(Xnext, Ystart));
+			}
+		}//end edge center calc
 	}
 }
