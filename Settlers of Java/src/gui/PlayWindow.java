@@ -40,13 +40,13 @@ public class PlayWindow {
 	 */
 	private void initialize() {
 		frame = new JFrame();
-		frame.setBounds(100, 100, 750, 600);
+		frame.setBounds(100, 100, 871, 694);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 		
 		//add the main game area to the center
 		BoardGraphics Island = new BoardGraphics();
-		Island.setBounds(160, 0, 564, 550);
+		Island.setBounds(160, 0, 685, 644);
 		frame.getContentPane().add(Island);
 		
 		JPanel Status = new JPanel();

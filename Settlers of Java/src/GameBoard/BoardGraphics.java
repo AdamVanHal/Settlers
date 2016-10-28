@@ -10,6 +10,10 @@ import java.awt.geom.Point2D;
 import java.awt.Stroke;
 import java.awt.geom.Point2D;
 import java.util.ArrayList;
+import javax.swing.JButton;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.awt.Cursor;
 
 import javax.swing.JPanel;
 
@@ -20,21 +24,31 @@ public class BoardGraphics extends JPanel {
 	
 	//set the length from the center to the far vertices of the hex. 
     //The radius of the circumscribed circle
-	public double radius = 62;
+	private double radius = 62;
 	//calculate the radius of the inscribed circle
     //this helps with the math to place them
-	public double shortR = radius * Math.sqrt(3)/2;
+	private double shortR = radius * Math.sqrt(3)/2;
 	//center of the topmost left hexagon
-	public Point2D.Double start = new Point2D.Double(3*shortR+10, radius+15);
+	private Point2D.Double start = new Point2D.Double(3*shortR+30, radius+65);
 	//array with the center points of all hexagon
-	public ArrayList<Point2D.Double> centerPoints = new ArrayList<Point2D.Double>();
+	private ArrayList<Point2D.Double> centerPoints = new ArrayList<Point2D.Double>();
 	//array of all the vertex locations that can have settlements.
-	public ArrayList<Point2D.Double> vertex = new ArrayList<Point2D.Double>();
+	private ArrayList<Point2D.Double> vertex = new ArrayList<Point2D.Double>();
 	//array of all centers of edge locations where roads could be
-	public ArrayList<Point2D.Double> edge = new ArrayList<Point2D.Double>();
+	private ArrayList<Point2D.Double> edge = new ArrayList<Point2D.Double>();
+	//store the state the program is in for hit checking on the map
+	//0=do no checks
+	//1=try to build settlement
+	//2=try to build road
+	//3=try to build city
+	private int cursorState = 0;
 	
 	//constructor to setup public variables and create any swing components for this panel
 	public BoardGraphics(){
+		BoardGraphics bg = this;
+		//store original Cursor in case we change it
+		Cursor old = bg.getCursor();
+
 		//construct the array of center locations
 		double Xstart = start.getX();
 		double Ystart = start.getY();
@@ -124,7 +138,82 @@ public class BoardGraphics extends JPanel {
 				}
 				edge.add(new Point2D.Double(Xnext, Ystart));
 			}
-		}
+		}//end edge center calc
+		
+		//Mouse listener that tracks clicks in map
+		bg.addMouseListener(new MouseAdapter(){
+			@Override
+			public void mouseReleased(MouseEvent arg0){
+				bg.setCursor(old);
+				if(cursorState == 1){
+					Point2D pos = bg.getMousePosition();
+					for(int i=0;i<vertex.size();i++){
+						if(vertex.get(i).distance(pos)<(radius/3)){
+							System.out.println("Build Settlement");
+							break;
+						}
+					}
+					cursorState = 0;
+				}
+				if(cursorState == 2){
+					Point2D pos = bg.getMousePosition();
+					for(int i=0;i<edge.size();i++){
+						if(edge.get(i).distance(pos)<(radius/3)){
+							System.out.println("Build Road");
+							break;
+						}
+					}
+					cursorState = 0;
+				}
+				if(cursorState == 3){
+					Point2D pos = bg.getMousePosition();
+					for(int i=0;i<vertex.size();i++){
+						if(vertex.get(i).distance(pos)<(radius/3)){
+							System.out.println("Build City");
+							break;
+						}
+					}
+					cursorState = 0;
+				}
+			}
+		});
+		
+		//add buttons for building
+		JButton bldSettlement = new JButton("Build Settlement");
+		bldSettlement.setBounds(0, 0, 89, 23);
+		bldSettlement.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseReleased(MouseEvent arg0) {
+				Cursor c = new Cursor(Cursor.HAND_CURSOR);
+				bg.setCursor(c);
+				cursorState = 1;
+			}
+		});
+		bg.add(bldSettlement);
+		
+		JButton bldRoad = new JButton("Build Road");
+		bldRoad.setBounds(95, 0, 89, 23);
+		bldRoad.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseReleased(MouseEvent arg0) {
+				Cursor c = new Cursor(Cursor.HAND_CURSOR);
+				bg.setCursor(c);
+				cursorState = 2;
+			}
+		});
+		bg.add(bldRoad);
+		
+		JButton bldCity = new JButton("Build City");
+		bldCity.setBounds(184, 0, 89, 23);
+		bldCity.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseReleased(MouseEvent arg0) {
+				Cursor c = new Cursor(Cursor.HAND_CURSOR);
+				bg.setCursor(c);
+				cursorState = 3;
+			}
+		});
+		bg.add(bldCity);
 	}
 	
 	//get the graphics object from the parent by overriding the normal paint and making our own
