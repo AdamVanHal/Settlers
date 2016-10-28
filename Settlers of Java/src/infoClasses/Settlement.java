@@ -8,6 +8,7 @@ public class Settlement {
 	int roll;
 	int[] pieceDieVal;
 	int[] resource;
+	//Creates a Settlements object that initiates all the variables
 	public Settlement(PointNode a, PlayerInfo b){
 		player = b;
 		pieceDieVal = new int[3];

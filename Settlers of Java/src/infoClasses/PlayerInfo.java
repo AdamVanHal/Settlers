@@ -2,6 +2,7 @@ package infoClasses;
 
 import java.util.Scanner;
 import java.io.*;
+import GameBoard.PointNode;
 
 public class PlayerInfo{
 	int VP = 0;
@@ -18,6 +19,7 @@ public class PlayerInfo{
 	int Dev = 0;
 	boolean longestRoad = false;
 	boolean largestArmy = false;
+	Settlement[] settlements;
 
 	public static void main(String[] args){
 		Scanner kb = new Scanner(System.in);
@@ -40,6 +42,11 @@ public class PlayerInfo{
 								"23.getDev		24.setDev\n");
 			choice = kb.nextInt();
 		}
+	}
+	//Creates a PlayerInfo object that initiates the settlement tracking array
+	public PlayerInfo(){
+		settlements = new Settlement[5];
+		Set = 5;
 	}
 	
 	//*****
@@ -129,6 +136,34 @@ public class PlayerInfo{
 	//*****
 	public int getDev(){return Dev;}
 	public boolean setDev(int inp){Dev = inp; return true;}
+	//Adds a settlement to an array of settlements keeping track of where this players settlements are
+	//Only sets a settlement if space is empty, and the player has settlements left
+	public void setSettlement(PointNode a, PlayerInfo b){
+		for(int i = 0; i < 5; i++){
+			if(settlements[i] == null){
+				settlements[i] = new Settlement(a,b);
+				if(a.setSettlement(settlements[i])){
+					System.out.println("success");
+					Set--;
+				}
+				else{
+					settlements[i] = null;
+				}
+				i = 5;
+			}
+		}
+	}
+	//Gathers resources from all settlements currently on the board for this player
+	public void gatherResources(int a){
+		for(int i = 0; i < 5; i++){
+			if(settlements[i] == null){
+				i = 5;
+			}
+			else{
+				settlements[i].getResources(a);
+			}
+		}
+	}
 	
 	
 }	

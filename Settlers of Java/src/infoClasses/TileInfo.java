@@ -1,7 +1,5 @@
 package infoClasses;
 
-import java.util.Scanner;
-import java.io.*;
 
 public class TileInfo{
 	int dieVal = 0;

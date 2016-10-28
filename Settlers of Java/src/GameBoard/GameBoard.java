@@ -619,28 +619,8 @@ public class GameBoard {
 			}
 		}
 	}
-	public int getDieVal(int i,int a){
-		if(boardLines[i].getAdjacentPiece()[a] == null){
-			return (-1);
-		}
-		else{
-			return boardLines[i].getAdjacentPiece()[a].getTileID();
-		}
-	}
-	public int getResource(int i,int a){
-		if(boardLines[i].getAdjacentPiece()[a] == null){
-			return (-1);
-		}
-		else{
-			return boardLines[i].getAdjacentPiece()[a].getTileResource();
-		}
-	}
-	public int getNum(int i, int a){
-		if(boardLines[i].getAdjacentPiece()[a] == null){
-			return (-1);
-		}
-		else{
-			return boardLines[i].getAdjacentPiece()[a].getNumber();
-		}
+	
+	public PointNode getPoint(int i){
+		return boardPoints[i];
 	}
 }
