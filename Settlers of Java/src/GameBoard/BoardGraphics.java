@@ -226,7 +226,7 @@ public class BoardGraphics extends JPanel {
     }
 	
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
+		// stub for if we decide to make this stand alone for prototyping reasons
 
 	}
 	
