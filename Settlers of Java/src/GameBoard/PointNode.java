@@ -1,12 +1,14 @@
 package GameBoard;
 
 import infoClasses.Settlement;
+import infoClasses.City;
 
 public class PointNode {
 	LineNode[] adjacentLine;
 	PieceNode[] adjacentPiece;
 	PointNode[] adjacentPoint;
 	Settlement settlement;
+	City city;
 	String occupancy;
 	public PointNode(){
 		adjacentLine = new LineNode[3];
@@ -72,8 +74,26 @@ public class PointNode {
 			return false;
 		}
 	}
-	
+	//gets the settlement currently set to this point
 	public Settlement getSettlement(){
 		return settlement;
+	}
+	//checks if a settlement is currently set at this point
+	public boolean hasSettlement(){
+		if(settlement == null){
+			return false;
+		}
+		else{
+			return true;
+		}
+	}
+	public boolean setCity(City a){
+		if(hasSettlement()){
+			city = a;
+			return true;
+		}
+		else{
+			return false;
+		}
 	}
 }

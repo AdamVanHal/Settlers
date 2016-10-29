@@ -20,6 +20,7 @@ public class PlayerInfo{
 	boolean longestRoad = false;
 	boolean largestArmy = false;
 	Settlement[] settlements;
+	City[] cities;
 
 	public static void main(String[] args){
 		Scanner kb = new Scanner(System.in);
@@ -46,7 +47,9 @@ public class PlayerInfo{
 	//Creates a PlayerInfo object that initiates the settlement tracking array
 	public PlayerInfo(){
 		settlements = new Settlement[5];
+		cities = new City[4];
 		Set = 5;
+		Cities = 4;
 	}
 	
 	//*****
@@ -136,6 +139,7 @@ public class PlayerInfo{
 	//*****
 	public int getDev(){return Dev;}
 	public boolean setDev(int inp){Dev = inp; return true;}
+	
 	//Adds a settlement to an array of settlements keeping track of where this players settlements are
 	//Only sets a settlement if space is empty, and the player has settlements left
 	public void setSettlement(PointNode a, PlayerInfo b){
@@ -145,6 +149,7 @@ public class PlayerInfo{
 				if(a.setSettlement(settlements[i])){
 					System.out.println("success");
 					Set--;
+					VP++;
 				}
 				else{
 					settlements[i] = null;
@@ -153,6 +158,23 @@ public class PlayerInfo{
 			}
 		}
 	}
+	public void setCity(PointNode a,PlayerInfo b){
+		for(int i = 0; i < 4; i++){
+			if(cities[i] == null){
+				cities[i] = new City(a,b);
+				if(a.hasSettlement()){
+					System.out.println("success");
+					Cities--;
+					VP++;
+				}
+				else{
+					cities[i] = null;
+				}
+			}
+			i = 4;
+		}
+	}
+	
 	//Gathers resources from all settlements currently on the board for this player
 	public void gatherResources(int a){
 		for(int i = 0; i < 5; i++){
@@ -161,6 +183,14 @@ public class PlayerInfo{
 			}
 			else{
 				settlements[i].getResources(a);
+			}
+		}
+		for(int i = 0; i < 5; i++){
+			if(cities[i] == null){
+				i = 5;
+			}
+			else{
+				cities[i].getResources(a);
 			}
 		}
 	}
