@@ -5,6 +5,7 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Polygon;
+import java.awt.geom.Ellipse2D;
 import java.awt.geom.GeneralPath;
 import java.awt.geom.Point2D;
 import java.awt.Stroke;
@@ -54,35 +55,50 @@ public class BoardGraphics extends JPanel {
 		generateEdges();
 		
 		//Mouse listener that tracks clicks in map
+		//Code currently uses states to find out if the user is trying to build something when clicking
+		//this code is setup to execute code when it finds where the user is clicking and resets the state
+		//Currently this does nothing if the position is not a valid coordinate for building
 		bg.addMouseListener(new MouseAdapter(){
 			@Override
 			public void mouseReleased(MouseEvent arg0){
 				bg.setCursor(old);
+				//Check for build settlement state
 				if(cursorState == 1){
 					Point2D pos = bg.getMousePosition();
 					for(int i=0;i<vertex.size();i++){
+						//check if the position of the cursor on click is within 1/3 of a radius of a vertex
+						//this removes any ambiguity of what the user is clicking on
 						if(vertex.get(i).distance(pos)<(radius/3)){
-							System.out.println("Build Settlement");
+							//place code to build settlement here
+							System.out.println("Build Settlement @ "+(i+1));
 							break;
 						}
 					}
 					cursorState = 0;
 				}
+				//check for build road state
 				if(cursorState == 2){
 					Point2D pos = bg.getMousePosition();
 					for(int i=0;i<edge.size();i++){
+						//check if the position of the cursor on click is within 1/3 of a radius of a vertex
+						//this removes any ambiguity of what the user is clicking on
 						if(edge.get(i).distance(pos)<(radius/3)){
-							System.out.println("Build Road");
+							//place code here to build road
+							System.out.println("Build Road @ "+(i+1));
 							break;
 						}
 					}
 					cursorState = 0;
 				}
+				//check for build city state
 				if(cursorState == 3){
 					Point2D pos = bg.getMousePosition();
 					for(int i=0;i<vertex.size();i++){
+						//check if the position of the cursor on click is within 1/3 of a radius of a vertex
+						//this removes any ambiguity of what the user is clicking on
 						if(vertex.get(i).distance(pos)<(radius/3)){
-							System.out.println("Build City");
+							//place code here to build city
+							System.out.println("Build City @ "+(i+1));
 							break;
 						}
 					}
@@ -99,6 +115,7 @@ public class BoardGraphics extends JPanel {
 			public void mouseReleased(MouseEvent arg0) {
 				Cursor c = new Cursor(Cursor.HAND_CURSOR);
 				bg.setCursor(c);
+				//set state to acknowledge to the other listener code that we are building
 				cursorState = 1;
 			}
 		});
@@ -111,6 +128,7 @@ public class BoardGraphics extends JPanel {
 			public void mouseReleased(MouseEvent arg0) {
 				Cursor c = new Cursor(Cursor.HAND_CURSOR);
 				bg.setCursor(c);
+				//set state to acknowledge to the other listener code that we are building
 				cursorState = 2;
 			}
 		});
@@ -123,6 +141,7 @@ public class BoardGraphics extends JPanel {
 			public void mouseReleased(MouseEvent arg0) {
 				Cursor c = new Cursor(Cursor.HAND_CURSOR);
 				bg.setCursor(c);
+				//set state to acknowledge to the other listener code that we are building
 				cursorState = 3;
 			}
 		});
