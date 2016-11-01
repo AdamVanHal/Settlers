@@ -1,3 +1,9 @@
+/*
+*	@file TileInfo.java
+*	@author Stuart Wreath
+*	@date 11-1-16
+*	@brief a class that controls the resource value, and number on the tiles of the game board
+*/
 package infoClasses;
 
 
