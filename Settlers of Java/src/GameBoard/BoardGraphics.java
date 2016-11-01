@@ -1,3 +1,9 @@
+/*
+*	@file BoardGaphics.java
+*	@author Adam Van Hal
+*	@date 10-17-16
+*	@Extends JPanel to create a custom graphic element for the GUI screen with the hexagon board
+*/
 package GameBoard;
 
 import java.awt.BasicStroke;
