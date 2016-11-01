@@ -3,6 +3,7 @@ package infoClasses;
 import java.util.Scanner;
 import java.io.*;
 import GameBoard.PointNode;
+import GameBoard.LineNode;
 
 public class PlayerInfo{
 	int VP = 0;
@@ -15,12 +16,14 @@ public class PlayerInfo{
 	int Wood = 0;
 	int Set = 0;
 	int Cities = 0;
+	int Roads = 0;
 	int Knights = 0;
 	int Dev = 0;
 	boolean longestRoad = false;
 	boolean largestArmy = false;
 	Settlement[] settlements;
 	City[] cities;
+	Road[] roads;
 
 	public static void main(String[] args){
 		Scanner kb = new Scanner(System.in);
@@ -48,8 +51,10 @@ public class PlayerInfo{
 	public PlayerInfo(){
 		settlements = new Settlement[5];
 		cities = new City[4];
+		roads = new Road[15];
 		Set = 5;
 		Cities = 4;
+		Roads = 15;
 	}
 	
 	//*****
@@ -128,6 +133,12 @@ public class PlayerInfo{
 	public boolean setCities(int inp){Cities = inp; return true;}
 	
 	//*****
+	//Roads get and set methods
+	//*****
+	public int getRoads(){return Roads;}
+	public boolean setRoads(int inp){Roads = inp; return true;}
+	
+	//*****
 	//Knight get and set methods
 	//*****
 	public int getKnights(){return Knights;}
@@ -139,6 +150,10 @@ public class PlayerInfo{
 	//*****
 	public int getDev(){return Dev;}
 	public boolean setDev(int inp){Dev = inp; return true;}
+	
+	public Road[] getRoadArray(){
+		return roads;
+	}
 	
 	//Adds a settlement to an array of settlements keeping track of where this players settlements are
 	//Only sets a settlement if space is empty, and the player has settlements left
@@ -165,6 +180,7 @@ public class PlayerInfo{
 				if(a.hasSettlement()){
 					System.out.println("success");
 					Cities--;
+					Set++;
 					VP++;
 				}
 				else{
@@ -174,7 +190,22 @@ public class PlayerInfo{
 			i = 4;
 		}
 	}
-	
+	public void setRoad(LineNode a, PlayerInfo b){
+		for(int i = 0; i < 15; i++){
+			if(roads[i] == null){
+				roads[i] = new Road(a,b);
+				if(a.setRoad(roads[i],roads)){
+					System.out.println("success");
+					Roads--;
+				}
+				else{
+					System.out.println("fail");
+					roads[i] = null;
+				}
+				i = 15;
+			}
+		}
+	}
 	//Gathers resources from all settlements currently on the board for this player
 	public void gatherResources(int a){
 		for(int i = 0; i < 5; i++){

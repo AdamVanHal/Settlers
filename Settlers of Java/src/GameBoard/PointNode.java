@@ -80,7 +80,7 @@ public class PointNode {
 	}
 	//checks if a settlement is currently set at this point
 	public boolean hasSettlement(){
-		if(settlement == null){
+		if(settlement == null && city == null){
 			return false;
 		}
 		else{

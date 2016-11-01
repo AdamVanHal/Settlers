@@ -53,4 +53,7 @@ public class Settlement {
 			}
 		}
 	}
+	public PlayerInfo getPlayer(){
+		return player;
+	}
 }
