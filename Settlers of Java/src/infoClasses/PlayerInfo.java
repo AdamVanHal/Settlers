@@ -14,7 +14,6 @@ import GameBoard.LineNode;
 public class PlayerInfo{
 	int VP = 0;
 	int Pvp = 0;
-	int Road = 0;
 	int Wheat = 0;
 	int Sheep = 0;
 	int Ore = 0;
@@ -85,14 +84,7 @@ public class PlayerInfo{
 		if(largestArmy){VP++;}
 		return true;
 	}
-	
-	//*****
-	//road get and set methods
-	//*****
-	public int getRoad(){return Road;}
-	public boolean setRoad(int inp){Road = inp; return true;}
-	public boolean setLongestRoad(boolean inp){longestRoad = inp; return true;}
-	
+		
 	//*****
 	//wheat get and set methods
 	//*****
@@ -140,6 +132,8 @@ public class PlayerInfo{
 	//*****
 	public int getRoads(){return Roads;}
 	public boolean setRoads(int inp){Roads = inp; return true;}
+	public boolean setLongestRoad(boolean inp){longestRoad = inp; return true;}
+
 	
 	//*****
 	//Knight get and set methods
