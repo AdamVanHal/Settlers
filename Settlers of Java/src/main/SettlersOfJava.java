@@ -1,3 +1,9 @@
+/*
+*	@file SettlersOfJava.java
+*	@author Ryan Niday
+*	@date 11-1-16
+*	@brief a simple test class for the back end of catan
+*/
 package main;
 
 import GameBoard.GameBoard;
@@ -19,7 +25,6 @@ public class SettlersOfJava {
 		players[1].setRoad(game.getLine(3),players[1]);
 		players[0].setSettlement(game.getPoint(1),players[0]);
 		players[0].setRoad(game.getLine(2),players[0]);
-		players[0].setRoad(game.getLine(5),players[0]);
 		for(int i = 0; i < 20; i++){
 			int a = d6.roll();
 			int b = d6.roll();

@@ -1,3 +1,9 @@
+/*
+*	@file PlayrInfo.java
+*	@author Stuart Wreath/Ryan Niday
+*	@date 11-1-16
+*	@brief a class to keep track of player's cards and stats during a game of catan
+*/
 package infoClasses;
 
 import java.util.Scanner;
@@ -47,9 +53,12 @@ public class PlayerInfo{
 			choice = kb.nextInt();
 		}
 	}
-	//Creates a PlayerInfo object that initiates the settlement tracking array
+	/* @pre none
+	*  @post creates a PlayerInfo object with variables initialed to appropriate values
+	*  @return none
+	*/
 	public PlayerInfo(){
-		settlements = new Settlement[5];
+		settlements = new Settlement[9];
 		cities = new City[4];
 		roads = new Road[15];
 		Set = 5;
@@ -62,12 +71,6 @@ public class PlayerInfo{
 	//*****
 	public int getVP(){
 		return VP;
-	}
-	public boolean calcVP(){
-		VP = Set+ (Cities * 2);
-		if(longestRoad){VP++;}
-		if(largestArmy){VP++;}
-		return true;
 	}
 	
 	//*****
@@ -157,8 +160,12 @@ public class PlayerInfo{
 	
 	//Adds a settlement to an array of settlements keeping track of where this players settlements are
 	//Only sets a settlement if space is empty, and the player has settlements left
+	/* @pre a is a valid PointNode, b is a valid PlayerInfo
+	*  @post if settlement is allowed in requested space, then a new Settlement is set in first open spot in settlements array
+	*  @return none
+	*/
 	public void setSettlement(PointNode a, PlayerInfo b){
-		for(int i = 0; i < 5; i++){
+		for(int i = 0; i < 9; i++){
 			if(settlements[i] == null){
 				settlements[i] = new Settlement(a,b);
 				if(a.setSettlement(settlements[i])){
@@ -169,10 +176,15 @@ public class PlayerInfo{
 				else{
 					settlements[i] = null;
 				}
-				i = 5;
+				i = 9;
 			}
 		}
 	}
+	
+	/* @pre a is a valid PointNode, b is a valid PlayerInfo
+	*  @post if city is allowed in requested space, then a new City is set in first open spot in cities array
+	*  @return none
+	*/
 	public void setCity(PointNode a,PlayerInfo b){
 		for(int i = 0; i < 4; i++){
 			if(cities[i] == null){
@@ -190,6 +202,11 @@ public class PlayerInfo{
 			i = 4;
 		}
 	}
+	
+	/* @pre a is a valid LineNode, b is a valid PlayerInfo
+	*  @post if road is allowed in requested space, then a new Road is set in first open spot in roads array
+	*  @return none
+	*/
 	public void setRoad(LineNode a, PlayerInfo b){
 		for(int i = 0; i < 15; i++){
 			if(roads[i] == null){
@@ -207,10 +224,14 @@ public class PlayerInfo{
 		}
 	}
 	//Gathers resources from all settlements currently on the board for this player
+	/* @pre a is a valid int
+	*  @post adjusts resource values by inputing a into a the player's current Settlements
+	*  @return none
+	*/
 	public void gatherResources(int a){
-		for(int i = 0; i < 5; i++){
+		for(int i = 0; i < 9; i++){
 			if(settlements[i] == null){
-				i = 5;
+				i = 9;
 			}
 			else{
 				settlements[i].getResources(a);
@@ -218,7 +239,7 @@ public class PlayerInfo{
 		}
 		for(int i = 0; i < 5; i++){
 			if(cities[i] == null){
-				i = 5;
+				i = 9;
 			}
 			else{
 				cities[i].getResources(a);

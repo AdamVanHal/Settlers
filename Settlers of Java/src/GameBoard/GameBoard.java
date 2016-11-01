@@ -1,15 +1,20 @@
+/*
+*	@file GameBoard.java
+*	@author Ryan Niday
+*	@date 11-1-16
+*	@brief a class used to compile the whole catan game board into a useable state
+*/
 package GameBoard;
 
 public class GameBoard {
-	//Used to test node arrays, not actually relevant to catan
-	public static void main(String[] args){
-
-	}
 	LineNode[] boardLines;
 	public PointNode[] boardPoints;
 	PieceNode[] boardPieces;
 	
-	//initializes the GameBoard and creates/sets values for all the arrays
+	/* @pre none
+	*  @post creates a GameBoard object and initializes all arrays, and sets all array values
+	*  @return none
+	*/
 	public GameBoard(){
 		boardLines = new LineNode[72];
 		for(int i = 0; i < 72; i++){
@@ -28,7 +33,10 @@ public class GameBoard {
 		setPieceArray();
 	}
 	
-	//sets all the adjacent values for each line
+	/* @pre none
+	*  @post boardLines array has proper values set as corresponding to the board
+	*  @return none
+	*/
 	public void setLineArray(){
 		boardLines[0].setAdjacentLines(boardLines[1], boardLines[6], null, null);
 		boardLines[0].setAdjacentPoints(boardPoints[0], boardPoints[3]);
@@ -320,7 +328,10 @@ public class GameBoard {
 		boardLines[71].setOccupancy("72");
 	}
 	
-	//sets all the adjacent values for each point
+	/* @pre none
+	*  @post boardPoints array has proper values set as corresponding to the board
+	*  @return none
+	*/
 	public void setPointArray(){
 		boardPoints[0].setAdjacentLines(boardLines[0], boardLines[1], null);
 		boardPoints[0].setAdjacentPoints(boardPoints[3], boardPoints[4], null);
@@ -540,7 +551,10 @@ public class GameBoard {
 		boardPoints[53].setOccupancy("54");
 	}
 	
-	//sets the numbers of each piece to correspond with drawing
+	/* @pre none
+	*  @post boardPieces array has proper values set as corresponding to the board
+	*  @return none
+	*/
 	public void setPieceArray(){
 		for(int i = 0; i < 19; i++){
 			boardPieces[i].setNumber(i+1);
@@ -620,10 +634,18 @@ public class GameBoard {
 		}
 	}
 	
+	/* @pre i is valid int
+	*  @post none
+	*  @return boardPionts array of element i
+	*/
 	public PointNode getPoint(int i){
 		return boardPoints[i];
 	}
 	
+	/* @pre i is valid int
+	*  @post none
+	*  @return boardLines array of element i
+	*/
 	public LineNode getLine(int i){
 		return boardLines[i];
 	}

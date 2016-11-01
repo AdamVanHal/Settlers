@@ -1,3 +1,9 @@
+/*
+*	@file Settlements.java
+*	@author Ryan Niday
+*	@date 11-1-16
+*	@brief a class to perform the actions of a settlement from catan
+*/
 package infoClasses;
 
 import GameBoard.PointNode;
@@ -8,7 +14,11 @@ public class Settlement {
 	int roll;
 	int[] pieceDieVal;
 	int[] resource;
-	//Creates a Settlements object that initiates all the variables
+	
+	/* @pre a is a valid PointNode, b is a valid PlayerInfo
+	*  @post a Settlement object is created and variables are initialized to appropriate values
+	*  @return none
+	*/
 	public Settlement(PointNode a, PlayerInfo b){
 		player = b;
 		pieceDieVal = new int[3];
@@ -31,6 +41,11 @@ public class Settlement {
 			}
 		}
 	}
+	
+	/* @pre a is a valid int
+	*  @post edits values in player object in comparison to the inputed a value
+	*  @return none
+	*/
 	public void getResources(int a){
 		roll = a;
 		for(int i = 0; i < 3; i++){
@@ -53,6 +68,11 @@ public class Settlement {
 			}
 		}
 	}
+	
+	/* @pre none
+	*  @post none
+	*  @return player
+	*/
 	public PlayerInfo getPlayer(){
 		return player;
 	}

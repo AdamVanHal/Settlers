@@ -1,3 +1,9 @@
+/*
+*	@file City.java
+*	@author Ryan Niday
+*	@date 11-1-16
+*	@brief a class to perform the activities of a city from catan
+*/
 package infoClasses;
 
 import GameBoard.PointNode;
@@ -8,7 +14,10 @@ public class City {
 	int roll;
 	int[] pieceDieVal;
 	int[] resource;
-	//Creates a Settlements object that initiates all the variables
+	/* @pre a is a valid PointNode, b is a valid PlayerInfo
+	*  @post a City object is created with variables initialized to appropriate values
+	*  @return none
+	*/
 	public City(PointNode a, PlayerInfo b){
 		player = b;
 		pieceDieVal = new int[3];
@@ -31,6 +40,11 @@ public class City {
 			}
 		}
 	}
+	
+	/* @pre a is a valid int
+	*  @post edits values in player object in comparison to the inputed a value
+	*  @return none
+	*/
 	public void getResources(int a){
 		roll = a;
 		for(int i = 0; i < 3; i++){
