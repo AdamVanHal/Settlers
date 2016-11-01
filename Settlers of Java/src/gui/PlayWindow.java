@@ -1,3 +1,9 @@
+/*
+*	@file PlayWindow.java
+*	@author Adam Van Hal
+*	@date 10-17-16
+*	@Creates a place to draw the game boar and interact with players
+*/
 package gui;
 
 import java.awt.EventQueue;
