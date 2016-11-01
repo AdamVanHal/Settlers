@@ -10,7 +10,7 @@ import java.awt.event.MouseEvent;
 
 public class PlayWindow {
 
-	private JFrame frame;
+	public JFrame frame;
 
 	/*
 	 * @pre    None
@@ -45,7 +45,7 @@ public class PlayWindow {
 	 * @return None
 	 */
 	private void initialize() {
-		frame = new JFrame();
+		frame = new JFrame("Settlers of Java");
 		frame.setBounds(100, 100, 871, 694);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
@@ -65,7 +65,7 @@ public class PlayWindow {
 		btnEndTurn.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseReleased(MouseEvent arg0) {
-				
+				frame.dispose();
 			}
 		});
 		btnEndTurn.setBounds(61, 88, 89, 23);
