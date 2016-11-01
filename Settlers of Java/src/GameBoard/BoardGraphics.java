@@ -44,7 +44,11 @@ public class BoardGraphics extends JPanel {
 	//3=try to build city
 	private int cursorState = 0;
 	
-	//constructor to setup public variables and create any swing components for this panel
+	/*
+	 * @pre    None
+	 * @post   Constructor to setup public variables and create any swing components for this panel 
+	 * @return None
+	 */
 	public BoardGraphics(){
 		BoardGraphics bg = this;
 		//store original Cursor in case we change it
@@ -148,7 +152,11 @@ public class BoardGraphics extends JPanel {
 		bg.add(bldCity);
 	}
 	
-	//get the graphics object from the parent by overriding the normal paint and making our own
+	/*
+	 * @pre    A valid Graphics object from the parent
+	 * @post   Uses the graphics object passed to it and overrides the paint command to paint our objects 
+	 * @return None
+	 */
 	@Override
     public void paintComponent(Graphics g) {
 		//cast to the more capable graphics type
@@ -157,11 +165,21 @@ public class BoardGraphics extends JPanel {
         drawGrid(g2d);
     }
 	
+	/*
+	 * @pre    None
+	 * @post   None 
+	 * @return None
+	 */
 	public static void main(String[] args) {
 		// stub for if we decide to make this stand alone for prototyping reasons
 
 	}
 	
+	/*
+	 * @pre    Valid Graphics2D object from caller to draw with
+	 * @post   Draw the game grid in the proper position 
+	 * @return None
+	 */
 	private void drawGrid(Graphics2D g2d){
 		//set the rules for drawing with the graphics object passed in
         g2d.setStroke(new BasicStroke(2.5f, BasicStroke.CAP_SQUARE, BasicStroke.JOIN_MITER));
@@ -186,6 +204,11 @@ public class BoardGraphics extends JPanel {
         }
 	}
 	
+	/*
+	 * @pre    Center of the hexagon and the radius of the hexagon
+	 * @post   None 
+	 * @return GeneralPath object that describes the perimeter of a hexagon
+	 */
 	private GeneralPath Hexagon(double Xcenter, double Ycenter, double radius ){
 		//calculate the relative location of all points on a hexagon
 		double shortR = radius * Math.sqrt(3)/2;
@@ -202,6 +225,11 @@ public class BoardGraphics extends JPanel {
 		return hex;
 	}
 	
+	/*
+	 * @pre    Valid Radius and start point defined in gobal variables
+	 * @post   Centers of all hexagons found 
+	 * @return None
+	 */
 	private void generateCenters(){
 		//construct the array of center locations
 		double Xstart = start.getX();
@@ -235,6 +263,11 @@ public class BoardGraphics extends JPanel {
 			centerPoints.add(new Point2D.Double(Xnext,Ystart));
 		}
 	}
+	/*
+	 * @pre    Valid Radius and start point defined in gobal variables
+	 * @post   Vertexes of all hexagons found 
+	 * @return None
+	 */
 	private void generateVertex(){
 		//add vertex points
 		double Xstart = start.getX();
@@ -265,6 +298,11 @@ public class BoardGraphics extends JPanel {
 			}
 		}//end calculate vertexes
 	}
+	/*
+	 * @pre    Valid Radius and start point defined in gobal variables
+	 * @post   Centers of the edges of all hexagons found 
+	 * @return None
+	 */
 	private void generateEdges(){
 		//add locations of edge centers
 		double Xstart = start.getX()-0.5*shortR;

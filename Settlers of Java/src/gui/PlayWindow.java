@@ -12,8 +12,10 @@ public class PlayWindow {
 
 	private JFrame frame;
 
-	/**
-	 * Launch the application.
+	/*
+	 * @pre    None
+	 * @post   Launches the play window, primarily used in standalone testing. 
+	 * @return None
 	 */
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
@@ -28,15 +30,19 @@ public class PlayWindow {
 		});
 	}
 
-	/**
-	 * Create the application.
+	/*
+	 * @pre    None
+	 * @post   Calls private function to initialize the gui 
+	 * @return None
 	 */
 	public PlayWindow() {
 		initialize();
 	}
 
-	/**
-	 * Initialize the contents of the frame.
+	/*
+	 * @pre    None
+	 * @post   Initializes all GUI components and their listeners, including the board element 
+	 * @return None
 	 */
 	private void initialize() {
 		frame = new JFrame();
