@@ -51,6 +51,7 @@ public class PlayerInfo{
 								"23.getDev		24.setDev\n");
 			choice = kb.nextInt();
 		}
+		kb.close();
 	}
 	/* @pre none
 	*  @post creates a PlayerInfo object with variables initialed to appropriate values
