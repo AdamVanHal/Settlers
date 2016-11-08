@@ -51,7 +51,6 @@ public class PlayerInfo{
 								"23.getDev		24.setDev\n");
 			choice = kb.nextInt();
 		}
-		kb.close();
 	}
 	/* @pre none
 	*  @post creates a PlayerInfo object with variables initialed to appropriate values
@@ -133,6 +132,7 @@ public class PlayerInfo{
 	//*****
 	public int getRoads(){return Roads;}
 	public boolean setRoads(int inp){Roads = inp; return true;}
+	public boolean getLongestRoad(){return longestRoad;}
 	public boolean setLongestRoad(boolean inp){longestRoad = inp; return true;}
 
 	

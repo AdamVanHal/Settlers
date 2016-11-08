@@ -7,24 +7,28 @@ public class LongestRoad {
 	int current;
 	PlayerInfo[] players;
 	LineNode[] consecutiveRoad;
-	public LongestRoad(PlayerInfo[] a){
-		longest = 5;
-		players = a;
+	public LongestRoad(){
+		longest = 4;
 		consecutiveRoad = new LineNode[15];
 	}
 	
 	public void setRoadArray(LineNode a){
 		for(int i = 0; i < 15; i++){
 			if(consecutiveRoad[i] == null){
-				consecutiveRoad[i] = a;
-				current++;
-				return;
+				if(a.getRoad() == null){
+					current = 0;
+				}
+				else{
+					consecutiveRoad[i] = a;
+					current++;
+					return;
+				}
 			}
 		}
 	}
 	
 	public boolean checkRoad(PlayerInfo player){
-		if(current < longest){
+		if(current <= longest){
 			consecutiveRoad = new LineNode[15];
 			current = 0;
 			return false;
