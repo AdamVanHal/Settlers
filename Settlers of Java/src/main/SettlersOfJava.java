@@ -9,9 +9,11 @@ package main;
 import GameBoard.GameBoard;
 import infoClasses.PlayerInfo;
 import Utilities.Dice;
+import infoClasses.LongestRoad;
 
 public class SettlersOfJava {
 	public static void main(String[] args){
+		LongestRoad lRoad;
 		Dice d6 = new Dice(6);
 		GameBoard game = new GameBoard();
 		PlayerInfo[] players = new PlayerInfo[4];
@@ -22,7 +24,10 @@ public class SettlersOfJava {
 		players[1].setSettlement(game.getPoint(9),players[1]);
 		players[1].setCity(game.getPoint(9),players[1]);
 		players[1].setRoad(game.getLine(4),players[1]);
-		players[1].setRoad(game.getLine(3),players[1]);
+		players[1].setRoad(game.getLine(8),players[1]);
+		players[1].setRoad(game.getLine(14),players[1]);
+		players[1].setRoad(game.getLine(20),players[1]);
+		players[1].setRoad(game.getLine(27),players[1]);
 		players[0].setSettlement(game.getPoint(1),players[0]);
 		players[0].setRoad(game.getLine(2),players[0]);
 		for(int i = 0; i < 20; i++){
@@ -45,6 +50,12 @@ public class SettlersOfJava {
 		System.out.println("Settlements left: " + players[0].getSet());
 		System.out.println("Cities left: " + players[0].getCities());
 		System.out.println("Victory Points: " + players[0].getVP());
-		System.out.println("Roads left: " + players[0].getRoads());
+		System.out.println("Roads left: " + players[0].getRoads() + "\n\n\n");
+		lRoad.setRoadArray(game.getLine(4));
+		lRoad.setRoadArray(game.getLine(8));
+		lRoad.setRoadArray(game.getLine(14));
+		lRoad.setRoadArray(game.getLine(20));
+		lRoad.setRoadArray(game.getLine(27));
+		System.out.println(lRoad.checkRoad(players[1]));
 	}
 }

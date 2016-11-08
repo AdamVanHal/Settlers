@@ -159,6 +159,10 @@ public class PlayerInfo{
 	*  @return none
 	*/
 	public void setSettlement(PointNode a, PlayerInfo b){
+		if(Set <= 0){
+			System.out.println("No Settlements left");
+			return;
+		}
 		for(int i = 0; i < 9; i++){
 			if(settlements[i] == null){
 				settlements[i] = new Settlement(a,b);
