@@ -35,8 +35,8 @@ public class SettlersOfJava {
 		players[0].setRoad(game.getLine(6),players[0]);
 		players[0].setRoad(game.getLine(10),players[0]);
 		players[0].setRoad(game.getLine(18),players[0]);
-		game.getPiece(5).setRobber(true);
-		game.getPiece(2).setRobber(true);
+		//game.getPiece(5).setRobber(true);
+		//game.getPiece(2).setRobber(true);
 		for(int i = 0; i < 20; i++){
 			int a = d6.roll();
 			int b = d6.roll();
@@ -90,5 +90,20 @@ public class SettlersOfJava {
 		}
 		System.out.println("Player1's longest road status: "+players[1].getLongestRoad());
 		System.out.println("Player2's longest road status: "+players[0].getLongestRoad());
+		players[0].tradeOffer(players[0], players[1]);
+		System.out.println("Player1: ");
+		System.out.println("Wheat: " + players[1].getWheat());
+		System.out.println("Wood: " + players[1].getWood());
+		System.out.println("Settlements left: " + players[1].getSet());
+		System.out.println("Cities left: " + players[1].getCities());
+		System.out.println("Victory Points: " + players[1].getVP());
+		System.out.println("Roads left: " + players[1].getRoads());
+		System.out.println("Player2: ");
+		System.out.println("Wheat: " + players[0].getWheat());
+		System.out.println("Wood: " + players[0].getWood());
+		System.out.println("Settlements left: " + players[0].getSet());
+		System.out.println("Cities left: " + players[0].getCities());
+		System.out.println("Victory Points: " + players[0].getVP());
+		System.out.println("Roads left: " + players[0].getRoads() + "\n\n");
 	}
 }

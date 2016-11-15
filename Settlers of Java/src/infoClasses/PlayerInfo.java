@@ -13,6 +13,7 @@ import GameBoard.PointNode;
 import GameBoard.LineNode;
 
 public class PlayerInfo{
+	Scanner myScan;
 	int VP = 0;
 	int Pvp = 0;
 	int Wheat = 0;
@@ -64,6 +65,7 @@ public class PlayerInfo{
 		Set = 5;
 		Cities = 4;
 		Roads = 15;
+		myScan = new Scanner(System.in);
 	}
 	
 	//*****
@@ -287,6 +289,110 @@ public class PlayerInfo{
 				b.setWood(b.getWood() - 1);
 				b.setBrick(b.getBrick() - 1);
 			}
+		}
+	}
+	
+	public void tradeOffer(PlayerInfo a,PlayerInfo b){
+		int[] offer = new int[5];
+		int[] request = new int[5];
+		System.out.println("How much wheat do you offer?");
+		offer[0] = myScan.nextInt();
+		while(a.getWheat() < offer[0] || offer[0] < 0){
+			System.out.println("How much do you really offer?");
+			offer[0] = myScan.nextInt();
+		}
+		System.out.println("How much wood do you offer?");
+		offer[1] = myScan.nextInt();
+		while(a.getWood() < offer[1] || offer[1] < 0){
+			System.out.println("How much do you really offer?");
+			offer[1] = myScan.nextInt();
+		}
+		System.out.println("How much brick do you offer?");
+		offer[2] = myScan.nextInt();
+		while(a.getBrick() < offer[2] || offer[2] < 0){
+			System.out.println("How much do you really offer?");
+			offer[2] = myScan.nextInt();
+		}
+		System.out.println("How much ore do you offer?");
+		offer[3] = myScan.nextInt();
+		while(a.getOre() < offer[3] || offer[3] < 0){
+			System.out.println("How much do you really offer?");
+			offer[3] = myScan.nextInt();
+		}
+		System.out.println("How much sheep do you offer?");
+		offer[4] = myScan.nextInt();
+		while(a.getSheep() < offer[4] || offer[4] < 0){
+			System.out.println("How much do you really offer?");
+			offer[4] = myScan.nextInt();
+		}
+		System.out.println("How much wheat do you request?");
+		request[0] = myScan.nextInt();
+		while(b.getWheat() < request[0] || request[0] < 0){
+			System.out.println("Please request a valid number");
+			request[0] = myScan.nextInt();
+		}
+		System.out.println("How much wood do you request?");
+		request[1] = myScan.nextInt();
+		while(b.getWood() < request[1] || request[1] < 0){
+			System.out.println("Please request a valid number");
+			request[1] = myScan.nextInt();
+		}
+		System.out.println("How much brick do you request?");
+		request[2] = myScan.nextInt();
+		while(b.getBrick() < request[2] || request[2] < 0){
+			System.out.println("Please request a valid number");
+			request[2] = myScan.nextInt();
+		}
+		System.out.println("How much ore do you request?");
+		request[3] = myScan.nextInt();
+		while(b.getOre() < request[3] || request[3] < 0){
+			System.out.println("Please request a valid number");
+			request[3] = myScan.nextInt();
+		}
+		System.out.println("How much sheep do you request?");
+		request[4] = myScan.nextInt();
+		while(b.getSheep() < request[4] || request[4] < 0){
+			System.out.println("Please request a valid number");
+			request[4] = myScan.nextInt();
+		}
+		if(offerAcceptance(offer,request)){
+			a.setWheat(a.getWheat() - offer[0] + request[0]);
+			a.setWood(a.getWood() - offer[1] + request[1]);
+			a.setBrick(a.getBrick() - offer[2] + request[2]);
+			a.setOre(a.getOre() - offer[3] + request[3]);
+			a.setSheep(a.getSheep() - offer[4] + request[4]);
+			b.setWheat(b.getWheat() + offer[0] - request[0]);
+			b.setWood(b.getWood() + offer[1] - request[1]);
+			b.setBrick(b.getBrick() + offer[2] - request[2]);
+			b.setOre(b.getOre() + offer[3] - request[3]);
+			b.setSheep(b.getSheep() + offer[4] - request[4]);
+		}
+		else{
+			System.out.println("Trade declined");
+		}
+	}
+	
+	public boolean offerAcceptance(int[] offer, int[] request){
+		int decision;
+		System.out.println("Other player's offer:");
+		System.out.println("Wheat: " + offer[0]);
+		System.out.println("Wood: " + offer[1]);
+		System.out.println("Brick: " + offer[2]);
+		System.out.println("Ore: " + offer[3]);
+		System.out.println("Sheep: " + offer[4]);
+		System.out.println("Other player's request:");
+		System.out.println("Wheat: " + request[0]);
+		System.out.println("Wood: " + request[1]);
+		System.out.println("Brick: " + request[2]);
+		System.out.println("Ore: " + request[3]);
+		System.out.println("Sheep: " + request[4]);
+		System.out.println("Do you accept the deal?(1 for yes, 0 for no)");
+		decision = myScan.nextInt();
+		if(decision == 1){
+			return true;
+		}
+		else{ 
+			return false;
 		}
 	}
 	
