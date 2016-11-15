@@ -42,6 +42,9 @@ public class SettlersOfJava {
 			players[1].gatherResources(a+b);
 			players[0].gatherResources(a+b);
 		}
+		players[1].setBrick(1);
+		players[1].setSheep(1);
+		players[1].buySettlement(game.getPoint(20), players[1]);
 		System.out.println("Player1: ");
 		System.out.println("Wheat: " + players[1].getWheat());
 		System.out.println("Wood: " + players[1].getWood());

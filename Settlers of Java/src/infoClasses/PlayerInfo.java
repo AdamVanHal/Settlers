@@ -8,6 +8,7 @@ package infoClasses;
 
 import java.util.Scanner;
 import java.io.*;
+
 import GameBoard.PointNode;
 import GameBoard.LineNode;
 
@@ -159,10 +160,10 @@ public class PlayerInfo{
 	*  @post if settlement is allowed in requested space, then a new Settlement is set in first open spot in settlements array
 	*  @return none
 	*/
-	public void setSettlement(PointNode a, PlayerInfo b){
+	public boolean setSettlement(PointNode a, PlayerInfo b){
 		if(Set <= 0){
 			System.out.println("No Settlements left");
-			return;
+			return false;
 		}
 		for(int i = 0; i < 9; i++){
 			if(settlements[i] == null){
@@ -171,20 +172,22 @@ public class PlayerInfo{
 					System.out.println("success");
 					Set--;
 					VP++;
+					return true;
 				}
 				else{
 					settlements[i] = null;
 				}
-				i = 9;
+				return false;
 			}
 		}
+		return false;
 	}
 	
 	/* @pre a is a valid PointNode, b is a valid PlayerInfo
 	*  @post if city is allowed in requested space, then a new City is set in first open spot in cities array
 	*  @return none
 	*/
-	public void setCity(PointNode a,PlayerInfo b){
+	public boolean setCity(PointNode a,PlayerInfo b){
 		for(int i = 0; i < 4; i++){
 			if(cities[i] == null){
 				cities[i] = new City(a,b);
@@ -193,34 +196,40 @@ public class PlayerInfo{
 					Cities--;
 					Set++;
 					VP++;
+					return true;
 				}
 				else{
 					cities[i] = null;
 				}
 			}
 			i = 4;
+			return false;
 		}
+		return false;
 	}
 	
 	/* @pre a is a valid LineNode, b is a valid PlayerInfo
 	*  @post if road is allowed in requested space, then a new Road is set in first open spot in roads array
 	*  @return none
 	*/
-	public void setRoad(LineNode a, PlayerInfo b){
+	public boolean setRoad(LineNode a, PlayerInfo b){
 		for(int i = 0; i < 15; i++){
 			if(roads[i] == null){
 				roads[i] = new Road(a,b);
 				if(a.setRoad(roads[i],roads)){
 					System.out.println("success");
 					Roads--;
+					return true;
 				}
 				else{
 					System.out.println("fail");
 					roads[i] = null;
 				}
 				i = 15;
+				return false;
 			}
 		}
+		return false;
 	}
 	//Gathers resources from all settlements currently on the board for this player
 	/* @pre a is a valid int
@@ -246,5 +255,39 @@ public class PlayerInfo{
 		}
 	}
 	
+	public void buySettlement(PointNode a, PlayerInfo b){
+		if(b.getBrick() >= 1 && b.getWood() >= 1 && b.getSheep() >= 1 && b.getWheat() >= 1){
+			if(setSettlement(a,b)){
+				b.setBrick(b.getBrick()-1);
+				b.setWood(b.getWood()-1);
+				b.setSheep(b.getSheep()-1);
+				b.setWheat(b.getWheat()-1);
+			}
+		}
+		else{
+			System.out.println("Insuficiant funds.");
+		}
+	}
+	
+	public void buyCity(PointNode a, PlayerInfo b){
+		if(b.getWheat() >= 2 && b.getOre() >= 3){
+			if(setCity(a,b)){
+				b.setWheat(b.getWheat() - 2);
+				b.setOre(b.getOre() - 3);
+			}
+		}
+		else{
+			System.out.println("Insuficiant funds.");
+		}
+	}
+	
+	public void buyRoad(LineNode a, PlayerInfo b){
+		if(b.getWood() >= 1 && b.getBrick() >= 1){
+			if(setRoad(a,b)){
+				b.setWood(b.getWood() - 1);
+				b.setBrick(b.getBrick() - 1);
+			}
+		}
+	}
 	
 }	
