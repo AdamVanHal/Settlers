@@ -11,7 +11,6 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Polygon;
-import java.awt.geom.Ellipse2D;
 import java.awt.geom.GeneralPath;
 import java.awt.geom.Point2D;
 import java.awt.Stroke;
@@ -21,9 +20,10 @@ import javax.swing.JButton;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.Cursor;
-
 import javax.swing.JPanel;
-
+//eclipse is not detecting all my imported class uses,
+//so I added this to suppress some warnings.
+@SuppressWarnings("unused")
 public class BoardGraphics extends JPanel {
 
 	//auto generated id
