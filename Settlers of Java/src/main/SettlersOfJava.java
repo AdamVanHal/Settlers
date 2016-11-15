@@ -35,6 +35,8 @@ public class SettlersOfJava {
 		players[0].setRoad(game.getLine(6),players[0]);
 		players[0].setRoad(game.getLine(10),players[0]);
 		players[0].setRoad(game.getLine(18),players[0]);
+		game.getPiece(5).setRobber(true);
+		game.getPiece(2).setRobber(true);
 		for(int i = 0; i < 20; i++){
 			int a = d6.roll();
 			int b = d6.roll();

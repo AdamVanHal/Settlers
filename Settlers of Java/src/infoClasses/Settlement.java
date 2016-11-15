@@ -50,19 +50,22 @@ public class Settlement {
 		roll = a;
 		for(int i = 0; i < 3; i++){
 			if(pieceDieVal[i] == roll){
-				if(resource[i] == 1){
+				if(location.getAdjacentPiece()[i] != null && location.getAdjacentPiece()[i].getRobber()){
+					System.out.println("Robber prevents from gathering");
+				}
+				else if(resource[i] == 1){
 					player.setWheat((player.getWheat()+1));
 				}
-				if(resource[i] == 2){
+				else if(resource[i] == 2){
 					player.setWood((player.getWood()+1));
 				}
-				if(resource[i] == 3){
+				else if(resource[i] == 3){
 					player.setSheep((player.getSheep()+1));
 				}
-				if(resource[i] == 4){
+				else if(resource[i] == 4){
 					player.setOre((player.getOre()+1));
 				}
-				if(resource[i] == 5){
+				else if(resource[i] == 5){
 					player.setBrick((player.getBrick()+1));
 				}
 			}

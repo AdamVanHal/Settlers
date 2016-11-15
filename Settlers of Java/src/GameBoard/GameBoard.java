@@ -653,4 +653,8 @@ public class GameBoard {
 	public LineNode[] getLineArray(){
 		return boardLines;
 	}
+	
+	public PieceNode getPiece(int i){
+		return boardPieces[i];
+	}
 }

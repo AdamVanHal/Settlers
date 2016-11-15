@@ -10,7 +10,7 @@ import infoClasses.TileInfo;
 
 public class PieceNode {
 	TileInfo resource;
-	String robber;
+	Boolean robber;
 	int number;
 	/* @pre none
 	*  @post a node for a given piece of the board is created containing a TileInfo object as resource
@@ -18,6 +18,7 @@ public class PieceNode {
 	*/
 	public PieceNode(){
 		resource = new TileInfo();
+		robber = false;
 	}
 	/* @pre a is a valid int
 	*  @post a is set into resource
@@ -60,5 +61,13 @@ public class PieceNode {
 	*/
 	public int getNumber(){
 		return number;
+	}
+	
+	public void setRobber(boolean a){
+		robber = a;
+	}
+	
+	public boolean getRobber(){
+		return robber;
 	}
 }
