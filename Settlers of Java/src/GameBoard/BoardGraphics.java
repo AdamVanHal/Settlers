@@ -21,6 +21,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.Cursor;
 import javax.swing.JPanel;
+import gui.PlayWindow;
 //eclipse is not detecting all my imported class uses,
 //so I added this to suppress some warnings.
 @SuppressWarnings("unused")
@@ -191,23 +192,46 @@ public class BoardGraphics extends JPanel {
         g2d.setStroke(new BasicStroke(2.5f, BasicStroke.CAP_SQUARE, BasicStroke.JOIN_MITER));
 		//draw tiles
         for(int i=0; i<centerPoints.size();i++){
-        	//set the colour used by graphics and fill in a hexagon
-        	g2d.setPaint(new Color((float)Math.random(),(float)Math.random(),(float)Math.random(),(float)Math.random()));
+        	//set the color used by graphics and fill in a hexagon
+        	
+        	int ResourceType = PlayWindow.game.getPiece(i).getTileResource();
+        	
+        	//changing the color to draw with depending on the type of the resource tile, 0: Desert 1: grain 2: lumber 3: wool 4: ore  5: brick  
+        	if(ResourceType == 0){
+        		g2d.setPaint(new Color(242,241,234,255));
+        	}
+        	else if(ResourceType == 1){
+        		g2d.setPaint(new Color(249,237,9,255));
+        	}
+        	else if(ResourceType == 2){
+        		g2d.setPaint(new Color(19,119,8,255));
+        	}
+        	else if(ResourceType == 3){
+        		g2d.setPaint(new Color(136,214,19,255));
+        	}
+        	else if(ResourceType == 4){
+        		g2d.setPaint(new Color(114,107,97,255));
+        	}
+        	else if(ResourceType == 5){
+        		g2d.setPaint(new Color(209,79,50,255));
+        	}
+        	//g2d.setPaint(new Color((float)Math.random(),(float)Math.random(),(float)Math.random(),1));
         	g2d.fill(Hexagon(centerPoints.get(i).getX(),centerPoints.get(i).getY(),radius));
-        	//draw hex outline
-        	//g2d.draw(Hexagon(centerPoints.get(i).getX(),centerPoints.get(i).getY(),radius));
         }
         //draw labels for tiles, vertexes and edges
+        g2d.setPaint(new Color(0,0,0,255));
         for(int i=0; i<centerPoints.size();i++){
-        	g2d.drawString(Integer.toString(i+1), (float)centerPoints.get(i).getX(), (float)centerPoints.get(i).getY());
+        	
+        	g2d.drawString(Integer.toString(PlayWindow.game.getPiece(i).getTileID()), (float)centerPoints.get(i).getX(), (float)centerPoints.get(i).getY());
         }
+        /*
         for(int i=0;i<vertex.size();i++){
         	g2d.drawString(Integer.toString(i+1), (float)vertex.get(i).getX(), (float)vertex.get(i).getY());
         }
         
         for(int i=0;i<edge.size();i++){
         	g2d.drawString(Integer.toString(i+1), (float)edge.get(i).getX(), (float)edge.get(i).getY());
-        }
+        }*/
 	}
 	
 	/*

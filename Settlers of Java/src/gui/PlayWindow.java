@@ -9,14 +9,26 @@ package gui;
 import java.awt.EventQueue;
 import javax.swing.JFrame;
 import GameBoard.BoardGraphics;
+import GameBoard.GameBoard;
+import Utilities.Dice;
+import infoClasses.PlayerInfo;
+
 import javax.swing.JPanel;
 import javax.swing.JButton;
+import javax.swing.JLabel;
+import javax.swing.JTextField;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
 public class PlayWindow {
 
 	public JFrame frame;
+	
+	//LongestRoad lRoad = new LongestRoad();
+	public Dice d6 = new Dice(6);
+	public static GameBoard game = new GameBoard();
+	public PlayerInfo[] players =  new PlayerInfo[4];
+	
 
 	/*
 	 * @pre    None
@@ -52,7 +64,7 @@ public class PlayWindow {
 	 */
 	private void initialize() {
 		frame = new JFrame("Settlers of Java");
-		frame.setBounds(100, 100, 871, 694);
+		frame.setBounds(100, 100, 875, 700);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 		
@@ -61,8 +73,12 @@ public class PlayWindow {
 		Island.setBounds(160, 0, 685, 644);
 		frame.getContentPane().add(Island);
 		
+		for(int i = 0; i < 4; i ++){
+			players[i] = new PlayerInfo();
+		}
+		
 		JPanel Status = new JPanel();
-		Status.setBounds(0, 0, 150, 561);
+		Status.setBounds(0, 0, 150, 600);
 		frame.getContentPane().add(Status);
 		Status.setLayout(null);
 		
@@ -74,7 +90,30 @@ public class PlayWindow {
 				frame.dispose();
 			}
 		});
-		btnEndTurn.setBounds(61, 88, 89, 23);
+		btnEndTurn.setBounds(50, 575, 90, 25);
 		Status.add(btnEndTurn);
+		JLabel Player = new JLabel("");
+		JLabel Resources = new JLabel("Resources");
+		JLabel Brick = new JLabel("Brick");
+		JLabel Wool = new JLabel("Wool");
+		JLabel Ore = new JLabel("Ore");
+		JLabel Grain = new JLabel("Grain");
+		JLabel Lumber = new JLabel("Lumber");
+		
+		
+		Resources.setBounds(25, 25, 65, 25);
+		Brick.setBounds(25, 50, 65, 25);
+		Wool.setBounds(25, 75, 65, 25);
+		Ore.setBounds(25, 100, 65, 25);
+		Grain.setBounds(25, 125, 65, 25);
+		Lumber.setBounds(25, 150, 65, 25);
+		
+		
+		Status.add(Resources);
+		Status.add(Brick);
+		Status.add(Wool);
+		Status.add(Ore);
+		Status.add(Grain);
+		Status.add(Lumber);
 	}
 }
