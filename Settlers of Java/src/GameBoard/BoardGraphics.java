@@ -168,6 +168,10 @@ public class BoardGraphics extends JPanel {
     public void paintComponent(Graphics g) {
 		//cast to the more capable graphics type
         Graphics2D g2d = (Graphics2D) g;
+        //adds the blue water background
+        g2d.setBackground(new Color(61,179,219,128));
+        g2d.clearRect(0, 0, 685, 644);
+        //this.setBackground(new Color(61,179,219,128));
         //draw the hex grid
         drawGrid(g2d);
     }
