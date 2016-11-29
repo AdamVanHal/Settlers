@@ -17,6 +17,7 @@ import javax.swing.*;
 public class LaunchWindow {
 
 	public JFrame frame;
+	public static String username;
 
 	/**
 	 * Launch the application.
@@ -66,15 +67,22 @@ public class LaunchWindow {
 		frame.getContentPane().add(Status);
 		Status.setLayout(null);
 		
-		JButton btnStart = new JButton("Start");
-		btnStart.addMouseListener(new MouseAdapter() {
+		
+		
+		JTextField usernameField = new JTextField();
+		JLabel lblPlayer = new JLabel("Enter a username");
+		JLabel Title = new JLabel("Settlers of Java!");
+		
+		JButton btnHost = new JButton("Host");
+		btnHost.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseReleased(MouseEvent arg0) {
 				EventQueue.invokeLater(new Runnable() {
 					public void run() {
 						try {
+							username = usernameField.getText();
 							frame.dispose();
-							PlayWindow window = new PlayWindow();
+							HostWindow window = new HostWindow();
 							window.frame.setVisible(true);
 						} catch (Exception e) {
 							e.printStackTrace();
@@ -83,36 +91,37 @@ public class LaunchWindow {
 				});
 			}
 		});
-		JLabel lblPlayer = new JLabel("Number of Players");
-		JLabel Title = new JLabel("Settlers of Java!");
-		JRadioButton Three = new JRadioButton("3");
-		Three.setSelected(true);
-		JRadioButton Four = new JRadioButton("4");
-		JRadioButton Five = new JRadioButton("5");
-		JRadioButton Six = new JRadioButton("6");
 		
-		ButtonGroup NumPlay = new ButtonGroup();
-		NumPlay.add(Three);
-		NumPlay.add(Four);
-		NumPlay.add(Five);
-		NumPlay.add(Six);
+		JButton btnJoin = new JButton("Join");
+		btnJoin.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseReleased(MouseEvent arg0) {
+				EventQueue.invokeLater(new Runnable() {
+					public void run() {
+						try {
+							username = usernameField.getText();
+							frame.dispose();
+							JoinWindow window = new JoinWindow();
+							window.frame.setVisible(true);
+						} catch (Exception e) {
+							e.printStackTrace();
+						}
+					}
+				});
+			}
+		});
 		
-		
-		Status.add(btnStart);
+		Status.add(btnHost);
+		Status.add(btnJoin);
 		Status.add(lblPlayer);
-		Status.add(Three);
-		Status.add(Four);
-		Status.add(Five);
-		Status.add(Six);
 		Status.add(Title);
+		Status.add(usernameField);
 		
 		Title.setBounds(175,0,100,25);
-		btnStart.setBounds(175,200,100,25);
-		lblPlayer.setBounds(25,20,125,25);
-		Three.setBounds(30,40,40,25);
-		Four.setBounds(70,40,40,25);
-		Five.setBounds(110,40,40,25);
-		Six.setBounds(150,40,40,25);
+		btnHost.setBounds(75,200,100,25);
+		btnJoin.setBounds(275,200,100,25);
+		lblPlayer.setBounds(150,50,125,25);
+		usernameField.setBounds(150, 75, 150, 25);
 		
 	}
 
