@@ -6,10 +6,13 @@
 */
 package GameBoard;
 
+import Utilities.Randomizer;
+
 public class GameBoard {
 	LineNode[] boardLines;
-	public PointNode[] boardPoints;
+	PointNode[] boardPoints;
 	PieceNode[] boardPieces;
+	public Randomizer rand = new Randomizer();
 	
 	/* @pre none
 	*  @post creates a GameBoard object and initializes all arrays, and sets all array values
@@ -559,77 +562,18 @@ public class GameBoard {
 		for(int i = 0; i < 19; i++){
 			boardPieces[i].setNumber(i+1);
 		}
-		int[] resourcesArr = new int[19];
+		int[] resourcesArr = {0,1,1,1,1,2,2,2,2,3,3,3,3,4,4,4,5,5,5};
+		resourcesArr = rand.randomize(resourcesArr);
 		for(int i = 0; i < 19; i++){
-			if(i < 1){
-				resourcesArr[i] = 0;
-				boardPieces[i].setTileResource(resourcesArr[i]);
-			}
-			else if(i < 5 && i > 0){
-				resourcesArr[i] = 1;
-				boardPieces[i].setTileResource(resourcesArr[i]);
-			}
-			else if(i < 9 && i > 4){
-				resourcesArr[i] = 2;
-				boardPieces[i].setTileResource(resourcesArr[i]);
-			}
-			else if(i < 13 && i > 8){
-				resourcesArr[i] = 3;
-				boardPieces[i].setTileResource(resourcesArr[i]);
-			}
-			else if(i < 16 && i > 12){
-				resourcesArr[i] = 4;
-				boardPieces[i].setTileResource(resourcesArr[i]);
-			}
-			else{
-				resourcesArr[i] = 5;
-				boardPieces[i].setTileResource(resourcesArr[i]);
-			}
+			boardPieces[i].setTileResource(resourcesArr[i]);
 		}
-		int[] dieArr = new int[19];
+		int[] dieArr = {2,3,3,4,4,5,5,6,6,8,8,9,9,10,10,11,11,12};
+		dieArr = rand.randomize(dieArr);
+		int j = 0;
 		for(int i = 0; i < 19; i++){
-			if(i == 0){
-				dieArr[i] = 0;
-				boardPieces[i].setTileID(dieArr[i]);
-			}
-			else if(i == 1){
-				dieArr[i] = 2;
-				boardPieces[i].setTileID(dieArr[i]);
-			}
-			else if(i == 2 || i == 3){
-				dieArr[i] = 3;
-				boardPieces[i].setTileID(dieArr[i]);
-			}
-			else if(i == 4 || i == 5){
-				dieArr[i] = 4;
-				boardPieces[i].setTileID(dieArr[i]);
-			}
-			else if(i == 6 || i == 7){
-				dieArr[i] = 5;
-				boardPieces[i].setTileID(dieArr[i]);
-			}
-			else if(i == 8 || i == 9){
-				dieArr[i] = 6;
-				boardPieces[i].setTileID(dieArr[i]);
-			}else if(i == 10 || i == 11){
-				dieArr[i] = 8;
-				boardPieces[i].setTileID(dieArr[i]);
-			}
-			else if(i == 12 || i == 13){
-				dieArr[i] = 9;
-				boardPieces[i].setTileID(dieArr[i]);
-			}
-			else if(i == 14 || i == 15){
-				dieArr[i] = 10;
-				boardPieces[i].setTileID(dieArr[i]);
-			}
-			else if(i == 16 || i == 17){
-				dieArr[i] = 11;
-				boardPieces[i].setTileID(dieArr[i]);
-			}
-			else{
-				dieArr[i] = 12;
-				boardPieces[i].setTileID(dieArr[i]);
+			if(boardPieces[i].getTileResource() != 0){
+				boardPieces[i].setTileID(dieArr[j]);
+				j++;
 			}
 		}
 	}
