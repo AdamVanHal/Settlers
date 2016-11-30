@@ -18,7 +18,7 @@ public class ClientThread extends Thread {
 	// the date I connect
 	String date;
 
-	// Constructore
+	// Constructor
 	ClientThread(Socket socket) {
 		// a unique id
 		id = 7;//++uniqueId;

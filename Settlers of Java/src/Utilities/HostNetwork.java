@@ -24,21 +24,35 @@ public class HostNetwork {
 	}
 	
 	//adds users to your connection
-	public void addUsers(int numClients) throws IOException{
+	public void addClients(int numClients) throws IOException{
 		
-		for(int i=1; i>numClients; i++){
+		for(int i=1; i<=numClients; i++){
 			Socket socket = serverSocket.accept();
 			ClientThread t = new ClientThread(socket);
 			clients.add(t);
 			System.out.println(i + " client(s) connected");
 		}
 	}
+	
+	public void close() throws IOException{
+		for(int i=0;i<clients.size();i++){
+			ClientThread client = clients.get(i);
+			//Kill threads so they are not running anymore
+		}
+		serverSocket.close();
+	}
+	
+	//send message to all players
+	public void broadcast(String Action){
+		
+	}
 
 	public static void main(String[] args) throws IOException {
 		HostNetwork Host = new HostNetwork(3000,"Jeff","New Game");
 		Host.StartHost();
 		System.out.println("Server Online"); 
-		Host.addUsers(2);
+		Host.addClients(2);
+		System.out.println("Server Online");
 		// reading from keyboard (keyRead object)
 		//BufferedReader keyRead = new BufferedReader(new InputStreamReader(System.in));
 		// sending to client (pwrite object)
