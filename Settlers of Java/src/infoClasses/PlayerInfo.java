@@ -220,7 +220,7 @@ public class PlayerInfo{
 		for(int i = 0; i < 4; i++){
 			if(cities[i] == null){
 				cities[i] = new City(a,b);
-				if(a.hasSettlement()){
+				if(a.setCity(cities[i])){
 					System.out.println("success");
 					Cities--;
 					Set++;

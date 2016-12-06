@@ -23,6 +23,7 @@ public class SettlersOfJava {
 		players[1].setSettlement(game.getPoint(2),players[1]);
 		players[1].setSettlement(game.getPoint(9),players[1]);
 		players[1].setCity(game.getPoint(9),players[1]);
+		System.out.println(game.getPoint(9).hasCity());
 		players[1].setRoad(game.getLine(4),players[1]);
 		players[1].setRoad(game.getLine(8),players[1]);
 		players[1].setRoad(game.getLine(14),players[1]);
