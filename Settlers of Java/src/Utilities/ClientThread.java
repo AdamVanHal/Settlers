@@ -6,22 +6,17 @@ import java.util.*;
 
 public class ClientThread extends Thread {
 	// the socket where to listen/talk
-	Socket socket;
-	ObjectInputStream sInput;
-	ObjectOutputStream sOutput;
-	// my unique id (easier for deconnection)
-	int id;
+	private Socket socket;
+	private ObjectInputStream sInput;
+	private ObjectOutputStream sOutput;
+	private int playerID;
 	// the Username of the Client
-	String username;
-	// the only type of message a will receive
-	//ChatMessage cm;
-	// the date I connect
-	String date;
+	private String username;
 
 	// Constructor
-	ClientThread(Socket socket) {
+	ClientThread(Socket socket, int UniqueID) {
 		// a unique id
-		id = 7;//++uniqueId;
+		playerID = UniqueID;
 		this.socket = socket;
 		/* Creating both Data Stream */
 		System.out.println("Thread trying to create Object Input/Output Streams");
@@ -42,7 +37,6 @@ public class ClientThread extends Thread {
 		// but I read a String, I am sure it will work
 		catch (ClassNotFoundException e) {
 		}
-        date = new Date().toString() + "\n";
 	}
 
 	// what will run forever

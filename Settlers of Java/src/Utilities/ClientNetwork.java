@@ -4,8 +4,23 @@ import java.io.*;
 import java.net.*;
 
 public class ClientNetwork {
+	private int port;
+	private String hostIP;
+	private Socket ServerConnection;
+	
+	public ClientNetwork(String HostIP, int HostPort){
+		hostIP = HostIP;
+		port = HostPort;
+	}
+	
+	public void start() throws UnknownHostException, IOException{
+		ServerConnection = new Socket(hostIP,port);
+	}
 
 	public static void main(String[] args) throws Exception {
+		ClientNetwork Connection = new ClientNetwork("127.0.0.1", 3000);
+		Connection.start();
+		/*
 		Socket sock = new Socket("127.0.0.1", 3000);
 		// reading from keyboard (keyRead object)
 		BufferedReader keyRead = new BufferedReader(new InputStreamReader(System.in));
@@ -19,7 +34,8 @@ public class ClientNetwork {
 
 		System.out.println("Start the chitchat, type and press Enter key");
 
-		String receiveMessage, sendMessage;               
+		String receiveMessage, sendMessage;
+		*/               
 		/*while(true)
 		{
 			sendMessage = keyRead.readLine();  // keyboard reading

@@ -28,7 +28,7 @@ public class HostNetwork {
 		
 		for(int i=1; i<=numClients; i++){
 			Socket socket = serverSocket.accept();
-			ClientThread t = new ClientThread(socket);
+			ClientThread t = new ClientThread(socket, i);
 			clients.add(t);
 			System.out.println(i + " client(s) connected");
 		}
@@ -52,7 +52,7 @@ public class HostNetwork {
 		Host.StartHost();
 		System.out.println("Server Online"); 
 		Host.addClients(2);
-		System.out.println("Server Online");
+		System.out.println("Clients Added");
 		// reading from keyboard (keyRead object)
 		//BufferedReader keyRead = new BufferedReader(new InputStreamReader(System.in));
 		// sending to client (pwrite object)
