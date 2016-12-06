@@ -27,10 +27,10 @@ public class DevelopmentCards {
 		}
 		deck = rand.randomize(deck);
 		int[] tempArr = new int[26];
-		for(int i = 0; i < 26; i++){
+		for(int i = 0; i < 25; i++){
 			tempArr[i] = deck[i];
 		}
-		tempArr[26] = 0;
+		tempArr[25] = 0;
 		deck = tempArr;
 	}
 	
