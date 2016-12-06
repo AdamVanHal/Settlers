@@ -54,9 +54,7 @@ public class ListenThread extends Thread {
 			// create output first
 			sOutput = new ObjectOutputStream(socket.getOutputStream());
 			sInput  = new ObjectInputStream(socket.getInputStream());
-			// read the username
-			//username = (String) sInput.readObject();
-			//System.out.println(username + " just connected.");
+			
 		}
 		catch (IOException e) {
 			System.out.println("Exception creating new Input/output Streams: " + e);
@@ -102,9 +100,6 @@ public class ListenThread extends Thread {
 				break;
 			}
 		}//end while loop
-		// remove myself from the arrayList containing the list of the
-		// connected Clients
-		//remove(id);
 		close();
 	}
 	
