@@ -44,6 +44,12 @@ public class BoardGraphics extends JPanel {
 	private ArrayList<Point2D.Double> vertex = new ArrayList<Point2D.Double>(60);
 	//array of all centers of edge locations where roads could be
 	private ArrayList<Point2D.Double> edge = new ArrayList<Point2D.Double>(80);
+	
+	//arrays of edges correlating to their orientation
+	private int[] UpDiagonalEdges 	= {1,3,5,11,13,15,17,24,26,28,30,32,41,43,45,47,49,56,58,60,62,68,70,72};
+	private int[] DownDiagonalEdges = {2,4,6,12,14,16,18,25,27,29,31,33,40,42,44,46,48,55,57,59,61,67,69,71};
+	private int[] verticalEdges 	= {7,8,9,10,19,20,21,22,23,34,35,36,37,38,39,50,51,52,53,54,63,64,65,66};
+	
 	//store the state the program is in for hit checking on the map
 	//0=do no checks
 	//1=try to build settlement
@@ -228,14 +234,49 @@ public class BoardGraphics extends JPanel {
         	
         	g2d.drawString(Integer.toString(PlayWindow.game.getPiece(i).getTileID()), (float)centerPoints.get(i).getX(), (float)centerPoints.get(i).getY());
         }
-        /*
+        
+        //g2d.fill(Robber(centerPoints.get(5).getX(), centerPoints.get(5).getY(), 6));
+        
+        
+        //function that creates a settlement at every vertex
+        /*g2d.setPaint(new Color(49,92,119,255));
+        for(int i = 0; i<vertex.size();i++){
+        	//g2d.rotate(Math.toRadians(45),(float)vertex.get(i).getX(),(float)vertex.get(i).getY());
+        	g2d.fill(City((float)vertex.get(i).getX(), (float)vertex.get(i).getY(), 8));
+        	//g2d.rotate(Math.toRadians(-45),(float)vertex.get(i).getX(),(float)vertex.get(i).getY());
+        }*/
+        
+        //function that creates a rectangle on every edge
+        /*g2d.setPaint(new Color(49,92,119,255));
+        for(int i = 0; i<edge.size();i++){
+        	for(int j = 0; j < 24; j++){
+        		if(i == (UpDiagonalEdges[j]-1)){
+        			g2d.rotate(Math.toRadians(-30),(float)edge.get(i).getX(),(float)edge.get(i).getY());
+                	g2d.fill(Road((float)edge.get(i).getX(), (float)edge.get(i).getY(), 10));
+                	g2d.rotate(Math.toRadians(30),(float)edge.get(i).getX(),(float)edge.get(i).getY());
+        		}
+        		else if(i == (DownDiagonalEdges[j]-1)){
+        			g2d.rotate(Math.toRadians(30),(float)edge.get(i).getX(),(float)edge.get(i).getY());
+                	g2d.fill(Road((float)edge.get(i).getX(), (float)edge.get(i).getY(), 10));
+                	g2d.rotate(Math.toRadians(-30),(float)edge.get(i).getX(),(float)edge.get(i).getY());
+        		}
+        		else if(i == (verticalEdges[j]-1)){
+        			g2d.rotate(Math.toRadians(90),(float)edge.get(i).getX(),(float)edge.get(i).getY());
+                	g2d.fill(Road((float)edge.get(i).getX(), (float)edge.get(i).getY(), 10));
+                	g2d.rotate(Math.toRadians(-90),(float)edge.get(i).getX(),(float)edge.get(i).getY());
+        		}
+        	}
+        }*/
+        
+        
+        g2d.setPaint(new Color(0,0,0,255));
         for(int i=0;i<vertex.size();i++){
         	g2d.drawString(Integer.toString(i+1), (float)vertex.get(i).getX(), (float)vertex.get(i).getY());
         }
         
         for(int i=0;i<edge.size();i++){
         	g2d.drawString(Integer.toString(i+1), (float)edge.get(i).getX(), (float)edge.get(i).getY());
-        }*/
+        }
 	}
 	
 	/*
@@ -257,6 +298,86 @@ public class BoardGraphics extends JPanel {
 		//close the polygon off
 		hex.closePath();
 		return hex;
+	}
+	
+	/*
+	 * @pre    Center of the Road and the distance of a quarter of the length
+	 * @post   None 
+	 * @return GeneralPath object that describes the Road
+	 */
+	private GeneralPath Road(double Xcenter, double Ycenter, double radius ){
+		double Xpoints[] = {Xcenter+(2*radius),		Xcenter+(2*radius),		Xcenter-(2*radius),		Xcenter-(2*radius)};
+		double Ypoints[] = {Ycenter+(radius/2),	Ycenter-(radius/2), Ycenter-(radius/2),	Ycenter+(radius/2)};
+		GeneralPath road = new GeneralPath(GeneralPath.WIND_EVEN_ODD,Xpoints.length);
+		//add coordinates to the shape
+		road.moveTo(Xpoints[0], Ypoints[0]);
+		for (int index = 1; index < Xpoints.length; index++) {
+	        road.lineTo(Xpoints[index], Ypoints[index]);
+		};
+		//close the polygon off
+		road.closePath();
+		return road;
+	}
+	
+	/*
+	 * @pre    Center of the City and the distance of a portion of the size
+	 * @post   None 
+	 * @return GeneralPath object that describes the City
+	 */
+	private GeneralPath City(double Xcenter, double Ycenter, double radius ){
+		double Xpoints[] = {Xcenter-(radius/2),	Xcenter-(radius/2),	Xcenter+(radius/2),	Xcenter+(1.5*radius),	Xcenter+(1.5*radius),	Xcenter-(1.5*radius),	Xcenter-(1.5*radius)};
+		double Ypoints[] = {Ycenter-(radius/2),	Ycenter-(1.5*radius), Ycenter-(2.5*radius),	Ycenter-(1.5*radius), Ycenter+(1.5*radius), Ycenter+(1.5*radius), Ycenter-(radius/2)};
+		GeneralPath city = new GeneralPath(GeneralPath.WIND_EVEN_ODD,Xpoints.length);
+		//add coordinates to the shape
+		city.moveTo(Xpoints[0], Ypoints[0]);
+		for (int index = 1; index < Xpoints.length; index++) {
+	        city.lineTo(Xpoints[index], Ypoints[index]);
+		};
+		//close the polygon off
+		city.closePath();
+		return city;
+	}
+	
+	/*
+	 * @pre    Center of the City and the distance of a portion of the size
+	 * @post   None 
+	 * @return GeneralPath object that describes the City
+	 */
+	private GeneralPath Robber(double Xcenter, double Ycenter, double radius ){
+		double Xpoints[] = {Xcenter-(radius/2),		Xcenter+(radius/2),		Xcenter+(1.5*radius),	Xcenter+(1.5*radius),	
+							Xcenter+(radius/2),		Xcenter+(1.5*radius),	Xcenter+(1.5*radius),	Xcenter-(1.5*radius),
+							Xcenter-(1.5*radius),	Xcenter-(radius/2),		Xcenter-(1.5*radius),	Xcenter-(1.5*radius)};
+		double Ypoints[] = {Ycenter-(3*radius),		Ycenter-(3*radius),		Ycenter-(2*radius),		Ycenter, 
+							Ycenter+radius,			Ycenter+(2*radius),		Ycenter+(3*radius),		Ycenter+(3*radius),
+							Ycenter+(2*radius),		Ycenter+radius,			Ycenter,				Ycenter-(2*radius)};
+		GeneralPath city = new GeneralPath(GeneralPath.WIND_EVEN_ODD,Xpoints.length);
+		//add coordinates to the shape
+		city.moveTo(Xpoints[0], Ypoints[0]);
+		for (int index = 1; index < Xpoints.length; index++) {
+	        city.lineTo(Xpoints[index], Ypoints[index]);
+		};
+		//close the polygon off
+		city.closePath();
+		return city;
+	}
+	
+	/*
+	 * @pre    Center of the hexagon and the radius of the hexagon
+	 * @post   None 
+	 * @return GeneralPath object that describes the perimeter of a hexagon
+	 */
+	private GeneralPath Settlement(double Xcenter, double Ycenter, double radius ){
+		double Xpoints[] = {Xcenter,				Xcenter+(1.5*radius),	Xcenter+radius,	Xcenter+radius,			Xcenter-radius, 		Xcenter-radius,	Xcenter-(1.5*radius)};
+		double Ypoints[] = {Ycenter-(1.5 *radius),	Ycenter, 				Ycenter,		Ycenter+(1.5*radius),	Ycenter+(1.5*radius),	Ycenter,		Ycenter};
+		GeneralPath settle = new GeneralPath(GeneralPath.WIND_EVEN_ODD,Xpoints.length);
+		//add coordinates to the shape
+		settle.moveTo(Xpoints[0], Ypoints[0]);
+		for (int index = 1; index < Xpoints.length; index++) {
+	        settle.lineTo(Xpoints[index], Ypoints[index]);
+		};
+		//close the polygon off
+		settle.closePath();
+		return settle;
 	}
 	
 	/*

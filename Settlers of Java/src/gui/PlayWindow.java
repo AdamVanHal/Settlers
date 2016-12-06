@@ -16,7 +16,6 @@ import infoClasses.PlayerInfo;
 import javax.swing.JPanel;
 import javax.swing.JButton;
 import javax.swing.JLabel;
-import javax.swing.JTextField;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
@@ -74,7 +73,7 @@ public class PlayWindow {
 		frame.getContentPane().add(Island);
 		
 		for(int i = 0; i < 4; i ++){
-			players[i] = new PlayerInfo(i+1);
+			players[i] = new PlayerInfo();
 		}
 		
 		JPanel Status = new JPanel();
@@ -100,13 +99,25 @@ public class PlayWindow {
 		JLabel Grain = new JLabel("Grain");
 		JLabel Lumber = new JLabel("Lumber");
 		
+		JLabel BrickVal		= new JLabel("0");
+		JLabel WoolVal		= new JLabel("0");
+		JLabel OreVal		= new JLabel("0");
+		JLabel GrainVal		= new JLabel("0");
+		JLabel LumberVal	= new JLabel("0");
 		
-		Resources.setBounds(25, 25, 65, 25);
-		Brick.setBounds(25, 50, 65, 25);
-		Wool.setBounds(25, 75, 65, 25);
-		Ore.setBounds(25, 100, 65, 25);
-		Grain.setBounds(25, 125, 65, 25);
-		Lumber.setBounds(25, 150, 65, 25);
+		
+		Resources.setBounds(47, 25, 65, 25);
+		Brick.setBounds(60, 50, 65, 25);
+		Wool.setBounds(60, 75, 65, 25);
+		Ore.setBounds(60, 100, 65, 25);
+		Grain.setBounds(60, 125, 65, 25);
+		Lumber.setBounds(60, 150, 65, 25);
+		
+		BrickVal.setBounds(47, 50, 65, 25);
+		WoolVal.setBounds(47, 75, 65, 25);
+		OreVal.setBounds(47, 100, 65, 25);
+		GrainVal.setBounds(47, 125, 65, 25);
+		LumberVal.setBounds(47, 150, 65, 25);
 		
 		
 		Status.add(Resources);
@@ -115,5 +126,11 @@ public class PlayWindow {
 		Status.add(Ore);
 		Status.add(Grain);
 		Status.add(Lumber);
+		
+		Status.add(BrickVal);
+		Status.add(WoolVal);
+		Status.add(OreVal);
+		Status.add(GrainVal);
+		Status.add(LumberVal);
 	}
 }
