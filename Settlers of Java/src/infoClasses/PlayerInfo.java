@@ -219,9 +219,9 @@ public class PlayerInfo{
 				else{
 					cities[i] = null;
 				}
-			}
 			i = 4;
 			return false;
+			}
 		}
 		return false;
 	}
