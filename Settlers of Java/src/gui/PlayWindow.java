@@ -28,7 +28,7 @@ public class PlayWindow {
 	//LongestRoad lRoad = new LongestRoad();
 	public Dice d6 = new Dice(6);
 	public static GameBoard game = new GameBoard();
-	public PlayerInfo[] players =  new PlayerInfo[4];
+	public static PlayerInfo[] players =  new PlayerInfo[4];
 	private boolean isHost;
 	
 
@@ -56,7 +56,7 @@ public class PlayWindow {
 	 * @return None
 	 */
 	public PlayWindow(ArrayList<NetworkThread> Threads, boolean IsHost) {
-		Threads.get(0).gameReference(this);
+		//Threads.get(0).gameReference(this);
 		this.isHost = IsHost;
 		initialize();
 	}
@@ -96,6 +96,7 @@ public class PlayWindow {
 		});
 		btnEndTurn.setBounds(50, 575, 90, 25);
 		Status.add(btnEndTurn);
+		
 		JLabel Player = new JLabel("");
 		JLabel Resources = new JLabel("Resources");
 		JLabel Brick = new JLabel("Brick");
@@ -123,6 +124,25 @@ public class PlayWindow {
 		OreVal.setBounds(47, 100, 65, 25);
 		GrainVal.setBounds(47, 125, 65, 25);
 		LumberVal.setBounds(47, 150, 65, 25);
+		
+		//Generic button that currently does nothing
+		JButton btnRoll = new JButton("Roll");
+		btnRoll.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseReleased(MouseEvent arg0) {
+				int a = d6.roll();
+				int b = d6.roll();
+				System.out.println(a+b);
+				players[1].gatherResources(a+b);
+				BrickVal.setText(Integer.toString(players[1].getBrick()));
+				WoolVal.setText(Integer.toString(players[1].getSheep()));
+				OreVal.setText(Integer.toString(players[1].getOre()));
+				GrainVal.setText(Integer.toString(players[1].getWheat()));
+				LumberVal.setText(Integer.toString(players[1].getWood()));
+			}
+		});
+		btnRoll.setBounds(50, 550, 90, 25);
+		Status.add(btnRoll);
 		
 		
 		Status.add(Resources);

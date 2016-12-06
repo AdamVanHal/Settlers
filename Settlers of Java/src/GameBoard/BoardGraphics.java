@@ -1,6 +1,6 @@
 /*
 *	@file BoardGaphics.java
-*	@author Adam Van Hal
+*	@author Adam Van Hal and Stuart Wreath
 *	@date 10-17-16
 *	@Extends JPanel to create a custom graphic element for the GUI screen with the hexagon board
 */
@@ -87,7 +87,10 @@ public class BoardGraphics extends JPanel {
 						//this removes any ambiguity of what the user is clicking on
 						if(vertex.get(i).distance(pos)<(radius/3)){
 							//place code to build settlement here
-							System.out.println("Build Settlement @ "+(i+1));
+							if(PlayWindow.players[1].setSettlement(PlayWindow.game.getPoint(i), PlayWindow.players[1])){
+								bg.repaint();
+								System.out.println("Build Settlement @ "+(i+1));
+							}
 							break;
 						}
 					}
@@ -101,7 +104,10 @@ public class BoardGraphics extends JPanel {
 						//this removes any ambiguity of what the user is clicking on
 						if(edge.get(i).distance(pos)<(radius/3)){
 							//place code here to build road
-							System.out.println("Build Road @ "+(i+1));
+							if(PlayWindow.players[1].setRoad(PlayWindow.game.getLine(i), PlayWindow.players[1])){
+								bg.repaint();
+								System.out.println("Build Road @ "+(i+1));
+							}
 							break;
 						}
 					}
@@ -115,7 +121,10 @@ public class BoardGraphics extends JPanel {
 						//this removes any ambiguity of what the user is clicking on
 						if(vertex.get(i).distance(pos)<(radius/3)){
 							//place code here to build city
-							System.out.println("Build City @ "+(i+1));
+							if(PlayWindow.players[1].setCity(PlayWindow.game.getPoint(i), PlayWindow.players[1])){
+								bg.repaint();
+								System.out.println("Build City @ "+(i+1));
+							}
 							break;
 						}
 					}
@@ -172,6 +181,7 @@ public class BoardGraphics extends JPanel {
 	 */
 	@Override
     public void paintComponent(Graphics g) {
+		super.paintComponent(g);
 		//cast to the more capable graphics type
         Graphics2D g2d = (Graphics2D) g;
         //adds the blue water background
@@ -231,18 +241,23 @@ public class BoardGraphics extends JPanel {
         	g2d.draw(Hexagon(centerPoints.get(i).getX(),centerPoints.get(i).getY(),radius));
         }
         //draw labels for tiles, vertexes and edges
-        g2d.setPaint(new Color(0,0,0,255));
         for(int i=0; i<centerPoints.size();i++){
-        	
-        	g2d.drawString(Integer.toString(PlayWindow.game.getPiece(i).getTileID()), (float)centerPoints.get(i).getX(), (float)centerPoints.get(i).getY());
+        	int ResourceType = PlayWindow.game.getPiece(i).getTileResource();
+        	if(ResourceType != 0){
+        		g2d.setPaint(new Color(255,255,255,255));
+        		g2d.fill(Octa(centerPoints.get(i).getX(), centerPoints.get(i).getY(), 8));
+        		g2d.setPaint(new Color(0,0,0,255));
+        		g2d.drawString(Integer.toString(PlayWindow.game.getPiece(i).getTileID()), (float)centerPoints.get(i).getX()-5, (float)centerPoints.get(i).getY()+5);
+        	}
         }
         
         //g2d.fill(Robber(centerPoints.get(5).getX(), centerPoints.get(5).getY(), 6));
         
         
         //loop updates the board for existing settlements
+        System.out.println("redraw");
         for(int i = 0; i < 54; i++){
-        	if(PlayWindow.game.getPoint(i).hasSettlement()){
+        	if(PlayWindow.game.getPoint(i).hasSettlement() && !(PlayWindow.game.getPoint(i).hasCity())){
         		if(PlayWindow.game.getPoint(i).getPlayerNumber() == 1){
         			g2d.setPaint(new Color(255,0,0,255));
         		}
@@ -424,6 +439,28 @@ public class BoardGraphics extends JPanel {
 		//close the polygon off
 		settle.closePath();
 		return settle;
+	}
+	
+	
+	/*
+	 * @pre    Center of the octagon and the radius of the octagon
+	 * @post   None 
+	 * @return GeneralPath object that describes the octagon
+	 */
+	private GeneralPath Octa(double Xcenter, double Ycenter, double radius ){
+		double Xpoints[] = {Xcenter+(0.5*radius),	Xcenter+(1.5*radius),	Xcenter+(1.5*radius),	Xcenter+(0.5*radius),			
+							Xcenter-(0.5*radius),	Xcenter-(1.5*radius),	Xcenter-(1.5*radius),	Xcenter-(0.5*radius)};
+		double Ypoints[] = {Ycenter+(1.5*radius),	Ycenter+(0.5*radius), 	Ycenter-(0.5*radius),	Ycenter-(1.5*radius),
+							Ycenter-(1.5*radius),	Ycenter-(0.5*radius),	Ycenter+(0.5*radius),	Ycenter+(1.5*radius)};
+		GeneralPath octa = new GeneralPath(GeneralPath.WIND_EVEN_ODD,Xpoints.length);
+		//add coordinates to the shape
+		octa.moveTo(Xpoints[0], Ypoints[0]);
+		for (int index = 1; index < Xpoints.length; index++) {
+	        octa.lineTo(Xpoints[index], Ypoints[index]);
+		};
+		//close the polygon off
+		octa.closePath();
+		return octa;
 	}
 	
 	/*
