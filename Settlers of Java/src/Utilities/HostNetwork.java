@@ -9,7 +9,7 @@ public class HostNetwork {
 	public String hostName;
 	public String gameName;
 	private ServerSocket serverSocket;
-	public ArrayList<ClientThread> clients = new ArrayList<ClientThread>();
+	public ArrayList<ListenThread> clients = new ArrayList<ListenThread>();
 	
 
 	public HostNetwork(int portNumber, String hostName, String gameName) {
@@ -28,7 +28,7 @@ public class HostNetwork {
 		
 		for(int i=1; i<=numClients; i++){
 			Socket socket = serverSocket.accept();
-			ClientThread t = new ClientThread(socket, i);
+			ListenThread t = new ListenThread(socket, i);
 			clients.add(t);
 			System.out.println(i + " client(s) connected");
 		}
@@ -36,9 +36,12 @@ public class HostNetwork {
 	
 	public void close() throws IOException{
 		for(int i=0;i<clients.size();i++){
-			ClientThread client = clients.get(i);
+			ListenThread client = clients.get(i);
 			//Kill threads so they are not running anymore
+			client.close();
 		}
+		//empty the client list
+		clients.clear();
 		serverSocket.close();
 	}
 	

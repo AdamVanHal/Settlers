@@ -4,7 +4,7 @@ import java.io.*;
 import java.net.*;
 import java.util.*;
 
-public class ClientThread extends Thread {
+public class ListenThread extends Thread {
 	// the socket where to listen/talk
 	private Socket socket;
 	private ObjectInputStream sInput;
@@ -14,7 +14,7 @@ public class ClientThread extends Thread {
 	private String username;
 
 	// Constructor
-	ClientThread(Socket socket, int UniqueID) {
+	ListenThread(Socket socket, int UniqueID) {
 		// a unique id
 		playerID = UniqueID;
 		this.socket = socket;
@@ -86,7 +86,7 @@ public class ClientThread extends Thread {
 	}
 	
 	// try to close everything
-	private void close() {
+	public void close() {
 		// try to close the connection
 		try {
 			if(sOutput != null) sOutput.close();
