@@ -41,12 +41,13 @@ public class PlayerInfo{
 	boolean orePort = false;
 	boolean sheepPort = false;
 	boolean miscPort = false;
+	int playerNumber;
 
 	/* @pre none
 	*  @post creates a PlayerInfo object with variables initialed to appropriate values
 	*  @return none
 	*/
-	public PlayerInfo(){
+	public PlayerInfo(int a){
 		settlements = new Settlement[9];
 		cities = new City[4];
 		roads = new Road[15];
@@ -55,6 +56,15 @@ public class PlayerInfo{
 		Roads = 15;
 		dCards = new DevelopmentCards();
 		myScan = new Scanner(System.in);
+		playerNumber = a;
+	}
+	
+	public void setPlayerNumber(int a){
+		playerNumber = a;
+	}
+	
+	public int getPlayerNubmer(){
+		return playerNumber;
 	}
 	
 	//*****
@@ -187,6 +197,7 @@ public class PlayerInfo{
 					else if(a.getOccupancy().equals("12") || a.getOccupancy().equals("17")){
 						orePort = true;
 					}
+					a.setPlayerNumber(playerNumber);
 					System.out.println("success");
 					Set--;
 					VP++;

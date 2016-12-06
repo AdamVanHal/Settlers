@@ -18,7 +18,7 @@ public class SettlersOfJava {
 		GameBoard game = new GameBoard();
 		PlayerInfo[] players = new PlayerInfo[4];
 		for(int i = 0; i < 4; i++){
-			players[i] = new PlayerInfo();
+			players[i] = new PlayerInfo(i+1);
 		}
 		players[1].setSettlement(game.getPoint(2),players[1]);
 		players[1].setSettlement(game.getPoint(9),players[1]);

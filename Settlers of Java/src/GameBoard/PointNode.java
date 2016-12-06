@@ -10,6 +10,7 @@ import infoClasses.Settlement;
 import infoClasses.City;
 
 public class PointNode {
+	int playerNumber;
 	LineNode[] adjacentLine;
 	PieceNode[] adjacentPiece;
 	PointNode[] adjacentPoint;
@@ -25,6 +26,7 @@ public class PointNode {
 		adjacentPiece = new PieceNode[3];
 		adjacentPoint = new PointNode[3];
 		occupancy = "";
+		playerNumber = 0;
 	}
 	/* @pre a is a valid String
 	*  @post occupancy is equal to a
@@ -143,5 +145,13 @@ public class PointNode {
 		else{
 			return false;
 		}
+	}
+	
+	public void setPlayerNumber(int a){
+		playerNumber = a;
+	}
+	
+	public int getPlayerNumber(){
+		return playerNumber;
 	}
 }
