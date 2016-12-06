@@ -370,6 +370,10 @@ public class PlayerInfo{
 		yearOfPlenty--;
 	}
 	
+	public void useKnight(){
+		knightCard--;
+	}
+	
 	public void tradeOffer(PlayerInfo a,PlayerInfo b){
 		int[] offer = new int[5];
 		int[] request = new int[5];
