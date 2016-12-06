@@ -35,6 +35,12 @@ public class PlayerInfo{
 	int yearOfPlenty;
 	int knightCard;
 	DevelopmentCards dCards;
+	boolean wheatPort = false;
+	boolean woodPort = false;
+	boolean brickPort = false;
+	boolean orePort = false;
+	boolean sheepPort = false;
+	boolean miscPort = false;
 
 	/* @pre none
 	*  @post creates a PlayerInfo object with variables initialed to appropriate values
@@ -154,6 +160,33 @@ public class PlayerInfo{
 			if(settlements[i] == null){
 				settlements[i] = new Settlement(a,b);
 				if(a.setSettlement(settlements[i])){
+					if(a.getOccupancy().equals("1") || a.getOccupancy().equals("4")){
+						miscPort = true;
+					}
+					else if(a.getOccupancy().equals("2") || a.getOccupancy().equals("6")){
+						sheepPort = true;
+					}
+					else if(a.getOccupancy().equals("11") || a.getOccupancy().equals("16")){
+						miscPort = true;
+					}
+					else if(a.getOccupancy().equals("27") || a.getOccupancy().equals("33")){
+						miscPort = true;
+					}
+					else if(a.getOccupancy().equals("43") || a.getOccupancy().equals("47")){
+						brickPort = true;
+					}
+					else if(a.getOccupancy().equals("50") || a.getOccupancy().equals("53")){
+						woodPort = true;
+					}
+					else if(a.getOccupancy().equals("52") || a.getOccupancy().equals("48")){
+						miscPort = true;
+					}
+					else if(a.getOccupancy().equals("39") || a.getOccupancy().equals("34")){
+						wheatPort = true;
+					}
+					else if(a.getOccupancy().equals("12") || a.getOccupancy().equals("17")){
+						orePort = true;
+					}
 					System.out.println("success");
 					Set--;
 					VP++;

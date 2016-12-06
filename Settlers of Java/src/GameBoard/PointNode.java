@@ -16,7 +16,6 @@ public class PointNode {
 	Settlement settlement;
 	City city;
 	String occupancy;
-	Port port;
 	/* @pre none
 	*  @post a node at a point of the board is created
 	*  @return none
