@@ -29,6 +29,7 @@ public class PlayWindow {
 	public Dice d6 = new Dice(6);
 	public static GameBoard game = new GameBoard();
 	public PlayerInfo[] players =  new PlayerInfo[4];
+	private boolean isHost;
 	
 
 	/*
@@ -55,6 +56,8 @@ public class PlayWindow {
 	 * @return None
 	 */
 	public PlayWindow(ArrayList<NetworkThread> Threads, boolean IsHost) {
+		Threads.get(0).gameReference(this);
+		this.isHost = IsHost;
 		initialize();
 	}
 

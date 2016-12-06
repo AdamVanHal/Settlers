@@ -2,6 +2,8 @@ package Utilities;
 
 import java.io.*;
 import java.net.*;
+//give Thread access to play window so that thread can update game state as needed
+import gui.PlayWindow;
 
 
 public class NetworkThread extends Thread {
@@ -15,7 +17,8 @@ public class NetworkThread extends Thread {
 	//connection back to the host object so that the Listener can relay all messages in the network
 	private HostNetwork Host;
 	//Type identifies this as a listener on the host or on the client so it knows if it needs to relay messages after acting on them
-	String Type;
+	private String Type;
+	private PlayWindow GameState;
 
 	// Constructor for host side
 	NetworkThread(HostNetwork Host, Socket socket, int UniqueID) {
@@ -60,6 +63,10 @@ public class NetworkThread extends Thread {
 			System.out.println("Exception creating new Input/output Streams: " + e);
 			return;
 		}
+	}
+	
+	public void gameReference(PlayWindow Game){
+		this.GameState = Game;
 	}
 	
 	// This loop will run forever listening for messages
