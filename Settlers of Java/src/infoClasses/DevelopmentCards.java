@@ -25,17 +25,19 @@ public class DevelopmentCards {
 				deck[i] = 5;
 			}
 		}
-		for(int i = 0; i < 25; i++){
-			System.out.print(deck[i] + " ");
-		}
-		System.out.println();
 		deck = rand.randomize(deck);
-		for(int i = 0; i < 25; i++){
-			System.out.print(deck[i] + " ");
+		int[] tempArr = new int[26];
+		for(int i = 0; i < 26; i++){
+			tempArr[i] = deck[i];
 		}
+		tempArr[26] = 0;
+		deck = tempArr;
 	}
 	
 	public int[] getDeck(){
 		return deck;
+	}
+	public void setDeck(int[] newDeck){
+		deck = newDeck;
 	}
 }

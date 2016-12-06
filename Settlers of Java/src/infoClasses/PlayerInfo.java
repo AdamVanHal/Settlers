@@ -7,7 +7,6 @@
 package infoClasses;
 
 import java.util.Scanner;
-import java.io.*;
 
 import GameBoard.PointNode;
 import GameBoard.LineNode;
@@ -31,29 +30,12 @@ public class PlayerInfo{
 	Settlement[] settlements;
 	City[] cities;
 	Road[] roads;
+	int monopoly;
+	int roadBuilding;
+	int yearOfPlenty;
+	int knightCard;
+	DevelopmentCards dCards;
 
-	public static void main(String[] args){
-		Scanner kb = new Scanner(System.in);
-		String str = "";
-		int choice = 1000;
-		int date = 0;
-		while(choice != 0){
-			System.out.println("-------------------------");
-			System.out.println("1.getVP 		2.calcVP\n"			+
-								"3.getPvp		4.calcPvp\n"		+
-								"5.getRoad		6.setRoad\n"		+
-								"7.getWheat		8.setWheat\n"		+
-								"9.getSheep		10.setSheep\n"		+
-								"11.getOre		12.setOre\n"		+
-								"13.getBrick		14.setBrick\n"	+
-								"15.getWood		16.setWood\n"		+
-								"17.getSet		18.setSet\n"		+
-								"19.getCities		20.setCities\n"	+
-								"21.getKnights		22.setKnights\n"+
-								"23.getDev		24.setDev\n");
-			choice = kb.nextInt();
-		}
-	}
 	/* @pre none
 	*  @post creates a PlayerInfo object with variables initialed to appropriate values
 	*  @return none
@@ -65,6 +47,7 @@ public class PlayerInfo{
 		Set = 5;
 		Cities = 4;
 		Roads = 15;
+		dCards = new DevelopmentCards();
 		myScan = new Scanner(System.in);
 	}
 	
@@ -290,6 +273,101 @@ public class PlayerInfo{
 				b.setBrick(b.getBrick() - 1);
 			}
 		}
+	}
+	
+	public void buyDCard(PlayerInfo a){
+		if(dCards.getDeck()[0] == 0){
+			if(a.getSheep() >= 1 && a.getOre() >= 1 && a.getWheat() >= 1){
+				if(dCards.getDeck()[0] == 1){
+					knightCard++;
+					a.setSheep(a.getSheep()-1);
+					a.setOre(a.getOre()-1);
+					a.setWheat(a.getWheat()-1);
+				}
+				else if(dCards.getDeck()[0] == 2){
+					yearOfPlenty++;
+					a.setSheep(a.getSheep()-1);
+					a.setOre(a.getOre()-1);
+					a.setWheat(a.getWheat()-1);
+				}
+				else if(dCards.getDeck()[0] == 3){
+					roadBuilding++;
+					a.setSheep(a.getSheep()-1);
+					a.setOre(a.getOre()-1);
+					a.setWheat(a.getWheat()-1);
+				}
+				else if(dCards.getDeck()[0] == 4){
+					monopoly++;
+					a.setSheep(a.getSheep()-1);
+					a.setOre(a.getOre()-1);
+					a.setWheat(a.getWheat()-1);
+				}
+				else if(dCards.getDeck()[0] == 5){
+					VP++;
+					a.setSheep(a.getSheep()-1);
+					a.setOre(a.getOre()-1);
+					a.setWheat(a.getWheat()-1);
+				}
+				int[] tempArr = new int[dCards.getDeck().length-1];
+				for(int i = 1; i < dCards.getDeck().length; i++){
+					tempArr[i-1] = dCards.getDeck()[i];
+				}
+				dCards.setDeck(tempArr);
+			}
+		}
+	}
+	
+	public void useMonopoly(PlayerInfo a,PlayerInfo[] b,int resource){
+		for(int i = 0; i < b.length; i++){
+			if(b[i] != a){
+				if(resource == 1){
+					a.setWheat(a.getWheat()+b[i].getWheat());
+					b[i].setWheat(0);
+				}
+				else if(resource == 2){
+					a.setWood(a.getWood()+b[i].getWood());
+					b[i].setWood(0);
+				}
+				else if(resource == 3){
+					a.setBrick(a.getBrick()+b[i].getBrick());
+					b[i].setBrick(0);
+				}
+				else if(resource == 4){
+					a.setOre(a.getOre()+b[i].getOre());
+					b[i].setOre(0);
+				}
+				else if(resource == 5){
+					a.setSheep(a.getSheep()+b[i].getSheep());
+					b[i].setSheep(0);
+				}
+			}
+		}
+		monopoly--;
+	}
+	
+	public void useRoadBuilding(PlayerInfo a,LineNode b,LineNode c){
+		setRoad(b,a);
+		setRoad(c,a);
+		roadBuilding--;
+	}
+	
+	public void useYearOfPlenty(PlayerInfo a,int resource){
+		if(resource == 1){
+			a.setWheat(a.getWheat()+2);
+		}
+		else if(resource == 2){
+			a.setWood(a.getWood()+2);
+		}
+		else if(resource == 3){
+			a.setBrick(a.getBrick()+2);
+		}
+		else if(resource == 4){
+			a.setOre(a.getOre()+2);
+		}
+		else if(resource == 5){
+			a.setSheep(a.getSheep()+2);
+		}
+		yearOfPlenty--;
 	}
 	
 	public void tradeOffer(PlayerInfo a,PlayerInfo b){
