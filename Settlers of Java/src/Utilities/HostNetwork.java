@@ -28,8 +28,11 @@ public class HostNetwork {
 		
 		for(int i=1; i<=numClients; i++){
 			Socket socket = serverSocket.accept();
-			ListenThread t = new ListenThread(socket, i);
+			ListenThread t = new ListenThread(this, socket, i);
+			//add this new client to the array of references to these threads
 			clients.add(t);
+			//start this new thread
+			t.start();
 			System.out.println(i + " client(s) connected");
 		}
 	}
@@ -46,8 +49,11 @@ public class HostNetwork {
 	}
 	
 	//send message to all players
-	public void broadcast(String Action){
-		
+	public void broadcast(Message msg){
+		for(int i=0;i<clients.size();i++){
+			ListenThread client = clients.get(i);
+			client.writeMsg(msg);
+		}
 	}
 
 	public static void main(String[] args) throws IOException {
@@ -56,6 +62,7 @@ public class HostNetwork {
 		System.out.println("Server Online"); 
 		Host.addClients(2);
 		System.out.println("Clients Added");
+		Host.broadcast(new Message("Text", "Testing"));
 		// reading from keyboard (keyRead object)
 		//BufferedReader keyRead = new BufferedReader(new InputStreamReader(System.in));
 		// sending to client (pwrite object)

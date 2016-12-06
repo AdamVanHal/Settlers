@@ -9,12 +9,41 @@ public class ListenThread extends Thread {
 	private Socket socket;
 	private ObjectInputStream sInput;
 	private ObjectOutputStream sOutput;
-	private int playerID;
+	public int playerID;
 	// the Username of the Client
 	private String username;
+	//connection back to the host object so that the Listener can relay all messages in the network
+	private HostNetwork Host;
+	//Type identifies this as a listener on the host or on the client so it knows if it needs to relay messages after acting on them
+	String Type;
 
-	// Constructor
+	// Constructor for host side
+	ListenThread(HostNetwork Host, Socket socket, int UniqueID) {
+		this.Host = Host;
+		Type = "Host";
+		// a unique id
+		playerID = UniqueID;
+		this.socket = socket;
+		/* Creating both Data Stream */
+		System.out.println("Thread trying to create Object Input/Output Streams");
+		try
+		{
+			// create output first
+			sOutput = new ObjectOutputStream(socket.getOutputStream());
+			sInput  = new ObjectInputStream(socket.getInputStream());
+			//tell player what his id is
+			this.writeMsg(new Message("Set ID", playerID));
+			//System.out.println(username + " just connected.");
+		}
+		catch (IOException e) {
+			System.out.println("Exception creating new Input/output Streams: " + e);
+			return;
+		}
+	}
+
+	// Constructor for Client side
 	ListenThread(Socket socket, int UniqueID) {
+		Type = "Client";
 		// a unique id
 		playerID = UniqueID;
 		this.socket = socket;
@@ -26,28 +55,23 @@ public class ListenThread extends Thread {
 			sOutput = new ObjectOutputStream(socket.getOutputStream());
 			sInput  = new ObjectInputStream(socket.getInputStream());
 			// read the username
-			username = (String) sInput.readObject();
-			System.out.println(username + " just connected.");
+			//username = (String) sInput.readObject();
+			//System.out.println(username + " just connected.");
 		}
 		catch (IOException e) {
 			System.out.println("Exception creating new Input/output Streams: " + e);
 			return;
 		}
-		// have to catch ClassNotFoundException
-		// but I read a String, I am sure it will work
-		catch (ClassNotFoundException e) {
-		}
 	}
-
-	// what will run forever
+	
+	// This loop will run forever listening for messages
 	public void run() {
 		// to loop until LOGOUT
 		boolean keepGoing = true;
 		while(keepGoing) {
-			// read a String (which is an object)
+			Message msg;
 			try {
-				//cm = (ChatMessage) sInput.readObject();
-				String test = (String) sInput.readObject();
+				msg = (Message) sInput.readObject();
 			}
 			catch (IOException e) {
 				System.out.println(username + " Exception reading Streams: " + e);
@@ -56,29 +80,28 @@ public class ListenThread extends Thread {
 			catch(ClassNotFoundException e2) {
 				break;
 			}
-			// the message part of the ChatMessage
-			/*String message = cm.getMessage();
+			//if this is the server side listener, copy this message to all other clients
+			if(this.Type == "Host"){
+				this.Host.broadcast(msg);
+			}
+			//Switch on the type of message received
+			switch(msg.Type) {
 
-			// Switch on the type of message receive
-			switch(cm.getType()) {
-
-			case ChatMessage.MESSAGE:
-				broadcast(username + ": " + message);
+			case "Text":
+				//if this is a text message, print the first arg from the objects list
+				System.out.println((String) msg.Objects[0]);
 				break;
-			case ChatMessage.LOGOUT:
-				display(username + " disconnected with a LOGOUT message.");
-				keepGoing = false;
+			case "Set ID":
+				this.playerID = (int) msg.Objects[0];
 				break;
-			case ChatMessage.WHOISIN:
-				writeMsg("List of the users connected at " + sdf.format(new Date()) + "\n");
-				// scan al the users connected
-				for(int i = 0; i < al.size(); ++i) {
-					ClientThread ct = al.get(i);
-					writeMsg((i+1) + ") " + ct.username + " since " + ct.date);
-				}
+			case "Drop Client":
+				//client is leaving the game
 				break;
-			}*/
-		}
+			case "Set User Name":
+				//Set the user name
+				break;
+			}
+		}//end while loop
 		// remove myself from the arrayList containing the list of the
 		// connected Clients
 		//remove(id);
@@ -103,14 +126,15 @@ public class ListenThread extends Thread {
 	}
 
 	/*
-	 * Write a String to the Client output stream
+	 * Write a String to the output stream
 	 */
-	private boolean writeMsg(String msg) {
+	public boolean writeMsg(Message msg) {
 		// if Client is still connected send the message to it
 		if(!socket.isConnected()) {
 			close();
 			return false;
 		}
+		
 		// write the message to the stream
 		try {
 			sOutput.writeObject(msg);
