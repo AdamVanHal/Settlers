@@ -4,7 +4,7 @@ import java.io.*;
 import java.net.*;
 
 
-public class NetworkThread extends Thread {
+public class ListenThread extends Thread {
 	// the socket where to listen/talk
 	private Socket socket;
 	private ObjectInputStream sInput;
@@ -18,7 +18,7 @@ public class NetworkThread extends Thread {
 	String Type;
 
 	// Constructor for host side
-	NetworkThread(HostNetwork Host, Socket socket, int UniqueID) {
+	ListenThread(HostNetwork Host, Socket socket, int UniqueID) {
 		this.Host = Host;
 		Type = "Host";
 		// a unique id
@@ -42,7 +42,7 @@ public class NetworkThread extends Thread {
 	}
 
 	// Constructor for Client side
-	NetworkThread(Socket socket, int UniqueID) {
+	ListenThread(Socket socket, int UniqueID) {
 		Type = "Client";
 		// a unique id
 		playerID = UniqueID;

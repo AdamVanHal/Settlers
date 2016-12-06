@@ -147,6 +147,15 @@ public class PointNode {
 		}
 	}
 	
+	public boolean hasCity(){
+		if(city == null){
+			return false;
+		}
+		else{
+			return true;
+		}
+	}
+	
 	public void setPlayerNumber(int a){
 		playerNumber = a;
 	}

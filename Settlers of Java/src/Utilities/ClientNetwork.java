@@ -7,21 +7,16 @@ public class ClientNetwork {
 	private int port;
 	private String hostIP;
 	private Socket ServerConnection;
-	private NetworkThread Listener;
+	private ListenThread Listener;
 	
 	public ClientNetwork(String HostIP, int HostPort){
 		hostIP = HostIP;
 		port = HostPort;
 	}
 	
-	public void Change(String HostIP, int HostPort){
-		hostIP = HostIP;
-		port = HostPort;
-	}
-	
 	public void start() throws UnknownHostException, IOException{
 		ServerConnection = new Socket(hostIP,port);
-		Listener = new NetworkThread(ServerConnection,0);
+		Listener = new ListenThread(ServerConnection,0);
 		Listener.start();
 	}
 

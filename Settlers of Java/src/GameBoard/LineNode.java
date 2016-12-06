@@ -9,6 +9,7 @@ package GameBoard;
 import infoClasses.Road;
 
 public class LineNode {
+	int playerNumber;
 	LineNode[] adjacentLine;
 	PointNode[] adjacentPoint;
 	PieceNode[] adjacentPiece;
@@ -119,5 +120,13 @@ public class LineNode {
 	*/
 	public Road getRoad(){
 		return road;
+	}
+	
+	public void setPlayerNumber(int a){
+		playerNumber = a;
+	}
+	
+	public int getPlayerNumber(){
+		return playerNumber;
 	}
 }

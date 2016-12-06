@@ -246,6 +246,7 @@ public class PlayerInfo{
 			if(roads[i] == null){
 				roads[i] = new Road(a,b);
 				if(a.setRoad(roads[i],roads)){
+					a.setPlayerNumber(playerNumber);
 					System.out.println("success");
 					Roads--;
 					return true;
