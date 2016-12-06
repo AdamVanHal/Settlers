@@ -208,7 +208,7 @@ public class BoardGraphics extends JPanel {
         	
         	//changing the color to draw with depending on the type of the resource tile, 0: Desert 1: grain 2: lumber 3: wool 4: ore  5: brick  
         	if(ResourceType == 0){
-        		g2d.setPaint(new Color(242,241,234,255));
+        		g2d.setPaint(new Color(248,252,123,255));
         	}
         	else if(ResourceType == 1){
         		g2d.setPaint(new Color(249,237,9,255));
@@ -238,30 +238,43 @@ public class BoardGraphics extends JPanel {
         //g2d.fill(Robber(centerPoints.get(5).getX(), centerPoints.get(5).getY(), 6));
         
         
-        //function that creates a settlement at every vertex
-        /*g2d.setPaint(new Color(49,92,119,255));
-        for(int i = 0; i<vertex.size();i++){
-        	//g2d.rotate(Math.toRadians(45),(float)vertex.get(i).getX(),(float)vertex.get(i).getY());
-        	g2d.fill(City((float)vertex.get(i).getX(), (float)vertex.get(i).getY(), 8));
-        	//g2d.rotate(Math.toRadians(-45),(float)vertex.get(i).getX(),(float)vertex.get(i).getY());
-        }*/
+        //loop updates the board for existing settlements
         for(int i = 0; i < 54; i++){
         	if(PlayWindow.game.getPoint(i).hasSettlement()){
         		if(PlayWindow.game.getPoint(i).getPlayerNumber() == 1){
-        			g2d.setPaint(new Color(49,92,119,255));
+        			g2d.setPaint(new Color(255,0,0,255));
         		}
         		else if(PlayWindow.game.getPoint(i).getPlayerNumber() == 2){
-        			g2d.setPaint(new Color(49,92,119,255));
+        			g2d.setPaint(new Color(0,0,255,255));
         		}
         		else if(PlayWindow.game.getPoint(i).getPlayerNumber() == 3){
-        			g2d.setPaint(new Color(49,92,119,255));
+        			g2d.setPaint(new Color(255,157,0,255));
 				}
         		else if(PlayWindow.game.getPoint(i).getPlayerNumber() == 4){
-        			g2d.setPaint(new Color(49,92,119,255));
+        			g2d.setPaint(new Color(255,255,255,255));
 				}
         		g2d.fill(City((float)vertex.get(i).getX(), (float)vertex.get(i).getY(), 8));
         	}
         }
+        
+      //loop updates the board for existing cities
+        /*for(int i = 0; i < 54; i++){
+        	if(PlayWindow.game.getPoint(i)g2d.hasCities()){
+        		if(PlayWindow.game.getPoint(i).getPlayerNumber() == 1){
+        			g2d.setPaint(new Color(255,0,0,255));
+        		}
+        		else if(PlayWindow.game.getPoint(i).getPlayerNumber() == 2){
+        			g2d.setPaint(new Color(0,0,255,255));
+        		}
+        		else if(PlayWindow.game.getPoint(i).getPlayerNumber() == 3){
+        			g2d.setPaint(new Color(255,157,0,255));
+				}
+        		else if(PlayWindow.game.getPoint(i).getPlayerNumber() == 4){
+        			g2d.setPaint(new Color(255,255,255,255));
+				}
+        		g2d.fill(City((float)vertex.get(i).getX(), (float)vertex.get(i).getY(), 8));
+        	}
+        }*/
         
         //function that creates a rectangle on every edge
         /*g2d.setPaint(new Color(49,92,119,255));
