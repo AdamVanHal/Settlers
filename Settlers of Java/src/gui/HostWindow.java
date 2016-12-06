@@ -79,7 +79,7 @@ public class HostWindow {
 					public void run() {
 						try {
 							frame.dispose();
-							PlayWindow window = new PlayWindow();
+							PlayWindow window = new PlayWindow(Host.clients,true);
 							window.frame.setVisible(true);
 						} catch (Exception e) {
 							e.printStackTrace();

@@ -12,6 +12,8 @@ import GameBoard.BoardGraphics;
 import GameBoard.GameBoard;
 import Utilities.Dice;
 import infoClasses.PlayerInfo;
+import java.util.ArrayList;
+import Utilities.NetworkThread;
 
 import javax.swing.JPanel;
 import javax.swing.JButton;
@@ -38,7 +40,7 @@ public class PlayWindow {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					PlayWindow window = new PlayWindow();
+					PlayWindow window = new PlayWindow(new ArrayList<NetworkThread>(), true);
 					window.frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -52,7 +54,7 @@ public class PlayWindow {
 	 * @post   Calls private function to initialize the gui 
 	 * @return None
 	 */
-	public PlayWindow() {
+	public PlayWindow(ArrayList<NetworkThread> Threads, boolean IsHost) {
 		initialize();
 	}
 

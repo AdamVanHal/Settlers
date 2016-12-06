@@ -22,7 +22,7 @@ import Utilities.NetworkThread;
 public class JoinWindow {
 
 	public JFrame frame;
-
+	private ArrayList<NetworkThread> threadList = new ArrayList<NetworkThread>();
 	/**
 	 * Launch the application.
 	 */
@@ -92,9 +92,9 @@ public class JoinWindow {
 					e1.printStackTrace();
 				}
 				Client.Change(txtJoin.getText(), PortNumber);
-				ArrayList<NetworkThread> t0 = new ArrayList<NetworkThread>();
+				
 				try {
-					t0=Client.start();
+					threadList=Client.start();
 				} catch (IOException e1) {
 					//Network Failure
 					e1.printStackTrace();
@@ -103,7 +103,7 @@ public class JoinWindow {
 					public void run() {
 						try {
 							frame.dispose();
-							PlayWindow window = new PlayWindow();
+							PlayWindow window = new PlayWindow(threadList,false);
 							window.frame.setVisible(true);
 						} catch (Exception e) {
 							e.printStackTrace();
