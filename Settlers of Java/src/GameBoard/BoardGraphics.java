@@ -245,6 +245,23 @@ public class BoardGraphics extends JPanel {
         	g2d.fill(City((float)vertex.get(i).getX(), (float)vertex.get(i).getY(), 8));
         	//g2d.rotate(Math.toRadians(-45),(float)vertex.get(i).getX(),(float)vertex.get(i).getY());
         }*/
+        for(int i = 0; i < 54; i++){
+        	if(PlayWindow.game.getPoint(i).hasSettlement()){
+        		if(PlayWindow.game.getPoint(i).getPlayerNumber() == 1){
+        			g2d.setPaint(new Color(49,92,119,255));
+        		}
+        		else if(PlayWindow.game.getPoint(i).getPlayerNumber() == 2){
+        			g2d.setPaint(new Color(49,92,119,255));
+        		}
+        		else if(PlayWindow.game.getPoint(i).getPlayerNumber() == 3){
+        			g2d.setPaint(new Color(49,92,119,255));
+				}
+        		else if(PlayWindow.game.getPoint(i).getPlayerNumber() == 4){
+        			g2d.setPaint(new Color(49,92,119,255));
+				}
+        		g2d.fill(City((float)vertex.get(i).getX(), (float)vertex.get(i).getY(), 8));
+        	}
+        }
         
         //function that creates a rectangle on every edge
         /*g2d.setPaint(new Color(49,92,119,255));

@@ -73,7 +73,7 @@ public class PlayWindow {
 		frame.getContentPane().add(Island);
 		
 		for(int i = 0; i < 4; i ++){
-			players[i] = new PlayerInfo();
+			players[i] = new PlayerInfo(i+1);
 		}
 		
 		JPanel Status = new JPanel();
