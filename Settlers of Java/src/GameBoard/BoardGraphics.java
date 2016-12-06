@@ -17,6 +17,7 @@ import java.awt.Stroke;
 import java.awt.geom.Point2D;
 import java.util.ArrayList;
 import javax.swing.JButton;
+import javax.swing.JLabel;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.Cursor;
