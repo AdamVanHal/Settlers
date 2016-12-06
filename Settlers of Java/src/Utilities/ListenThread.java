@@ -2,7 +2,6 @@ package Utilities;
 
 import java.io.*;
 import java.net.*;
-import java.util.*;
 
 public class ListenThread extends Thread {
 	// the socket where to listen/talk
