@@ -227,6 +227,8 @@ public class BoardGraphics extends JPanel {
         	}
         	//g2d.setPaint(new Color((float)Math.random(),(float)Math.random(),(float)Math.random(),1));
         	g2d.fill(Hexagon(centerPoints.get(i).getX(),centerPoints.get(i).getY(),radius));
+        	g2d.setPaint(new Color(0,0,0,255));
+        	g2d.draw(Hexagon(centerPoints.get(i).getX(),centerPoints.get(i).getY(),radius));
         }
         //draw labels for tiles, vertexes and edges
         g2d.setPaint(new Color(0,0,0,255));
@@ -253,13 +255,13 @@ public class BoardGraphics extends JPanel {
         		else if(PlayWindow.game.getPoint(i).getPlayerNumber() == 4){
         			g2d.setPaint(new Color(255,255,255,255));
 				}
-        		g2d.fill(City((float)vertex.get(i).getX(), (float)vertex.get(i).getY(), 8));
+        		g2d.fill(Settlement((float)vertex.get(i).getX(), (float)vertex.get(i).getY(), 8));
         	}
         }
         
       //loop updates the board for existing cities
-        /*for(int i = 0; i < 54; i++){
-        	if(PlayWindow.game.getPoint(i)g2d.hasCities()){
+        for(int i = 0; i < 54; i++){
+        	if(PlayWindow.game.getPoint(i).hasCity()){
         		if(PlayWindow.game.getPoint(i).getPlayerNumber() == 1){
         			g2d.setPaint(new Color(255,0,0,255));
         		}
@@ -274,39 +276,53 @@ public class BoardGraphics extends JPanel {
 				}
         		g2d.fill(City((float)vertex.get(i).getX(), (float)vertex.get(i).getY(), 8));
         	}
-        }*/
+        }
         
-        //function that creates a rectangle on every edge
-        /*g2d.setPaint(new Color(49,92,119,255));
+        //loop updates the board for existing roads
         for(int i = 0; i<edge.size();i++){
-        	for(int j = 0; j < 24; j++){
-        		if(i == (UpDiagonalEdges[j]-1)){
-        			g2d.rotate(Math.toRadians(-30),(float)edge.get(i).getX(),(float)edge.get(i).getY());
-                	g2d.fill(Road((float)edge.get(i).getX(), (float)edge.get(i).getY(), 10));
-                	g2d.rotate(Math.toRadians(30),(float)edge.get(i).getX(),(float)edge.get(i).getY());
+        	if(PlayWindow.game.getLine(i).getRoad() == null){}
+        	else{
+        		if(PlayWindow.game.getLine(i).getPlayerNumber() == 1){
+        			g2d.setPaint(new Color(255,0,0,255));
         		}
-        		else if(i == (DownDiagonalEdges[j]-1)){
-        			g2d.rotate(Math.toRadians(30),(float)edge.get(i).getX(),(float)edge.get(i).getY());
-                	g2d.fill(Road((float)edge.get(i).getX(), (float)edge.get(i).getY(), 10));
-                	g2d.rotate(Math.toRadians(-30),(float)edge.get(i).getX(),(float)edge.get(i).getY());
+        		else if(PlayWindow.game.getLine(i).getPlayerNumber() == 2){
+        			g2d.setPaint(new Color(0,0,255,255));
         		}
-        		else if(i == (verticalEdges[j]-1)){
-        			g2d.rotate(Math.toRadians(90),(float)edge.get(i).getX(),(float)edge.get(i).getY());
-                	g2d.fill(Road((float)edge.get(i).getX(), (float)edge.get(i).getY(), 10));
-                	g2d.rotate(Math.toRadians(-90),(float)edge.get(i).getX(),(float)edge.get(i).getY());
+        		else if(PlayWindow.game.getLine(i).getPlayerNumber() == 3){
+        			g2d.setPaint(new Color(255,157,0,255));
+				}
+        		else if(PlayWindow.game.getLine(i).getPlayerNumber() == 4){
+        			g2d.setPaint(new Color(255,255,255,255));
+				}
+        		for(int j = 0; j < 24; j++){
+        			if(i == (UpDiagonalEdges[j]-1)){
+        				g2d.rotate(Math.toRadians(-30),(float)edge.get(i).getX(),(float)edge.get(i).getY());
+                		g2d.fill(Road((float)edge.get(i).getX(), (float)edge.get(i).getY(), 10));
+                		g2d.rotate(Math.toRadians(30),(float)edge.get(i).getX(),(float)edge.get(i).getY());
+        			}
+        			else if(i == (DownDiagonalEdges[j]-1)){
+        				g2d.rotate(Math.toRadians(30),(float)edge.get(i).getX(),(float)edge.get(i).getY());
+                		g2d.fill(Road((float)edge.get(i).getX(), (float)edge.get(i).getY(), 10));
+                		g2d.rotate(Math.toRadians(-30),(float)edge.get(i).getX(),(float)edge.get(i).getY());
+        			}
+        			else if(i == (verticalEdges[j]-1)){
+        				g2d.rotate(Math.toRadians(90),(float)edge.get(i).getX(),(float)edge.get(i).getY());
+        				g2d.fill(Road((float)edge.get(i).getX(), (float)edge.get(i).getY(), 10));
+                		g2d.rotate(Math.toRadians(-90),(float)edge.get(i).getX(),(float)edge.get(i).getY());
+        			}
         		}
         	}
-        }*/
+        }
         
         
-        g2d.setPaint(new Color(0,0,0,255));
+        /*g2d.setPaint(new Color(0,0,0,255));
         for(int i=0;i<vertex.size();i++){
         	g2d.drawString(Integer.toString(i+1), (float)vertex.get(i).getX(), (float)vertex.get(i).getY());
         }
         
         for(int i=0;i<edge.size();i++){
         	g2d.drawString(Integer.toString(i+1), (float)edge.get(i).getX(), (float)edge.get(i).getY());
-        }
+        }*/
 	}
 	
 	/*
