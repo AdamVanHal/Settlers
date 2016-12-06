@@ -19,6 +19,10 @@ public class HostNetwork {
 		
 	}
 	
+	public void Port(int portNumber){
+		this.port = portNumber;
+	}
+	
 	public void StartHost() throws IOException{
 		serverSocket=new ServerSocket(port);
 	}

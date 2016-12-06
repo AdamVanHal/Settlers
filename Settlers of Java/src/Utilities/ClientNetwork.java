@@ -21,7 +21,7 @@ public class ClientNetwork {
 	}
 
 	public static void main(String[] args) throws Exception {
-		ClientNetwork Connection = new ClientNetwork("127.0.0.1", 3000);
+		ClientNetwork Connection = new ClientNetwork("127.0.0.1", 5000);
 		Connection.start();
 		
 	}
