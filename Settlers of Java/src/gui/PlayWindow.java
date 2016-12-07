@@ -113,11 +113,11 @@ public class PlayWindow {
 		
 		
 		Resources.setBounds(47, 125, 65, 25);
-		Brick.setBounds(60, 150, 65, 25);
-		Wool.setBounds(60, 175, 65, 25);
-		Ore.setBounds(60, 200, 65, 25);
-		Grain.setBounds(60, 225, 65, 25);
-		Lumber.setBounds(60, 250, 65, 25);
+		Brick.setBounds(65, 150, 65, 25);
+		Wool.setBounds(65, 175, 65, 25);
+		Ore.setBounds(65, 200, 65, 25);
+		Grain.setBounds(65, 225, 65, 25);
+		Lumber.setBounds(65, 250, 65, 25);
 		
 		BrickVal.setBounds(47, 150, 65, 25);
 		WoolVal.setBounds(47, 175, 65, 25);

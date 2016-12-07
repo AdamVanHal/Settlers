@@ -248,53 +248,22 @@ public class BoardGraphics extends JPanel {
         		g2d.setPaint(new Color(255,255,255,255));
         		g2d.fill(Octa(centerPoints.get(i).getX(), centerPoints.get(i).getY(), 8));
         		g2d.setPaint(new Color(0,0,0,255));
-        		g2d.drawString(Integer.toString(PlayWindow.game.getPiece(i).getTileID()), (float)centerPoints.get(i).getX()-5, (float)centerPoints.get(i).getY()+5);
+	        	g2d.draw(Octa(centerPoints.get(i).getX(), centerPoints.get(i).getY(), 8));
+        		if(PlayWindow.game.getPiece(i).getTileID() >= 10){
+        			g2d.setPaint(new Color(0,0,0,255));
+        			g2d.drawString(Integer.toString(PlayWindow.game.getPiece(i).getTileID()), (float)centerPoints.get(i).getX()-7, (float)centerPoints.get(i).getY()+5);
+        		}
+        		else{
+        			g2d.setPaint(new Color(0,0,0,255));
+        			g2d.drawString(Integer.toString(PlayWindow.game.getPiece(i).getTileID()), (float)centerPoints.get(i).getX()-5, (float)centerPoints.get(i).getY()+5);
+        		}
         	}
         }
         
         //g2d.fill(Robber(centerPoints.get(5).getX(), centerPoints.get(5).getY(), 6));
         
         
-        //loop updates the board for existing settlements
-        System.out.println("redraw");
-        for(int i = 0; i < 54; i++){
-        	if(PlayWindow.game.getPoint(i).hasSettlement() && !(PlayWindow.game.getPoint(i).hasCity())){
-        		if(PlayWindow.game.getPoint(i).getPlayerNumber() == 1){
-        			g2d.setPaint(new Color(255,0,0,255));
-        		}
-        		else if(PlayWindow.game.getPoint(i).getPlayerNumber() == 2){
-        			g2d.setPaint(new Color(0,0,255,255));
-        		}
-        		else if(PlayWindow.game.getPoint(i).getPlayerNumber() == 3){
-        			g2d.setPaint(new Color(255,157,0,255));
-				}
-        		else if(PlayWindow.game.getPoint(i).getPlayerNumber() == 4){
-        			g2d.setPaint(new Color(255,255,255,255));
-				}
-        		g2d.fill(Settlement((float)vertex.get(i).getX(), (float)vertex.get(i).getY(), 8));
-        	}
-        }
-        
-      //loop updates the board for existing cities
-        for(int i = 0; i < 54; i++){
-        	if(PlayWindow.game.getPoint(i).hasCity()){
-        		if(PlayWindow.game.getPoint(i).getPlayerNumber() == 1){
-        			g2d.setPaint(new Color(255,0,0,255));
-        		}
-        		else if(PlayWindow.game.getPoint(i).getPlayerNumber() == 2){
-        			g2d.setPaint(new Color(0,0,255,255));
-        		}
-        		else if(PlayWindow.game.getPoint(i).getPlayerNumber() == 3){
-        			g2d.setPaint(new Color(255,157,0,255));
-				}
-        		else if(PlayWindow.game.getPoint(i).getPlayerNumber() == 4){
-        			g2d.setPaint(new Color(255,255,255,255));
-				}
-        		g2d.fill(City((float)vertex.get(i).getX(), (float)vertex.get(i).getY(), 8));
-        	}
-        }
-        
-        //loop updates the board for existing roads
+      //loop updates the board for existing roads
         for(int i = 0; i<edge.size();i++){
         	if(PlayWindow.game.getLine(i).getRoad() == null){}
         	else{
@@ -314,21 +283,72 @@ public class BoardGraphics extends JPanel {
         			if(i == (UpDiagonalEdges[j]-1)){
         				g2d.rotate(Math.toRadians(-30),(float)edge.get(i).getX(),(float)edge.get(i).getY());
                 		g2d.fill(Road((float)edge.get(i).getX(), (float)edge.get(i).getY(), 10));
+                		g2d.setPaint(new Color(0,0,0,255));
+                    	g2d.draw(Road((float)edge.get(i).getX(), (float)edge.get(i).getY(), 10));
                 		g2d.rotate(Math.toRadians(30),(float)edge.get(i).getX(),(float)edge.get(i).getY());
         			}
         			else if(i == (DownDiagonalEdges[j]-1)){
         				g2d.rotate(Math.toRadians(30),(float)edge.get(i).getX(),(float)edge.get(i).getY());
                 		g2d.fill(Road((float)edge.get(i).getX(), (float)edge.get(i).getY(), 10));
+                		g2d.setPaint(new Color(0,0,0,255));
+                    	g2d.draw(Road((float)edge.get(i).getX(), (float)edge.get(i).getY(), 10));
                 		g2d.rotate(Math.toRadians(-30),(float)edge.get(i).getX(),(float)edge.get(i).getY());
         			}
         			else if(i == (verticalEdges[j]-1)){
         				g2d.rotate(Math.toRadians(90),(float)edge.get(i).getX(),(float)edge.get(i).getY());
         				g2d.fill(Road((float)edge.get(i).getX(), (float)edge.get(i).getY(), 10));
+        				g2d.setPaint(new Color(0,0,0,255));
+        	        	g2d.draw(Road((float)edge.get(i).getX(), (float)edge.get(i).getY(), 10));
                 		g2d.rotate(Math.toRadians(-90),(float)edge.get(i).getX(),(float)edge.get(i).getY());
         			}
         		}
         	}
         }
+        
+        //loop updates the board for existing settlements
+        System.out.println("redraw");
+        for(int i = 0; i < 54; i++){
+        	if(PlayWindow.game.getPoint(i).hasSettlement() && !(PlayWindow.game.getPoint(i).hasCity())){
+        		if(PlayWindow.game.getPoint(i).getPlayerNumber() == 1){
+        			g2d.setPaint(new Color(255,0,0,255));
+        		}
+        		else if(PlayWindow.game.getPoint(i).getPlayerNumber() == 2){
+        			g2d.setPaint(new Color(0,0,255,255));
+        		}
+        		else if(PlayWindow.game.getPoint(i).getPlayerNumber() == 3){
+        			g2d.setPaint(new Color(255,157,0,255));
+				}
+        		else if(PlayWindow.game.getPoint(i).getPlayerNumber() == 4){
+        			g2d.setPaint(new Color(255,255,255,255));
+				}
+        		g2d.fill(Settlement((float)vertex.get(i).getX(), (float)vertex.get(i).getY(), 8));
+        		g2d.setPaint(new Color(0,0,0,255));
+            	g2d.draw(Settlement((float)vertex.get(i).getX(), (float)vertex.get(i).getY(), 8));
+        	}
+        }
+        
+      //loop updates the board for existing cities
+        for(int i = 0; i < 54; i++){
+        	if(PlayWindow.game.getPoint(i).hasCity()){
+        		if(PlayWindow.game.getPoint(i).getPlayerNumber() == 1){
+        			g2d.setPaint(new Color(255,0,0,255));
+        		}
+        		else if(PlayWindow.game.getPoint(i).getPlayerNumber() == 2){
+        			g2d.setPaint(new Color(0,0,255,255));
+        		}
+        		else if(PlayWindow.game.getPoint(i).getPlayerNumber() == 3){
+        			g2d.setPaint(new Color(255,157,0,255));
+				}
+        		else if(PlayWindow.game.getPoint(i).getPlayerNumber() == 4){
+        			g2d.setPaint(new Color(255,255,255,255));
+				}
+        		g2d.fill(City((float)vertex.get(i).getX(), (float)vertex.get(i).getY(), 8));
+        		g2d.setPaint(new Color(0,0,0,255));
+            	g2d.draw(City((float)vertex.get(i).getX(), (float)vertex.get(i).getY(), 8));
+        	}
+        }
+        
+        
         
         
         /*g2d.setPaint(new Color(0,0,0,255));
