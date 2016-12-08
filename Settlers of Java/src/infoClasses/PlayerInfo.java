@@ -6,12 +6,13 @@
 */
 package infoClasses;
 
+import java.io.Serializable;
 import java.util.Scanner;
 
 import GameBoard.PointNode;
 import GameBoard.LineNode;
 
-public class PlayerInfo{
+public class PlayerInfo implements Serializable{
 	Scanner myScan;
 	int VP = 0;
 	int Pvp = 0;

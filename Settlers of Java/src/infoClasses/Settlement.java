@@ -6,9 +6,11 @@
 */
 package infoClasses;
 
+import java.io.Serializable;
+
 import GameBoard.PointNode;
 
-public class Settlement {
+public class Settlement implements Serializable{
 	PlayerInfo player;
 	PointNode location;
 	int roll;

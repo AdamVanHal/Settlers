@@ -1,8 +1,9 @@
 package Utilities;
 
+import java.io.Serializable;
 import java.util.Random;
 
-public class Randomizer {
+public class Randomizer implements Serializable{
 	public Randomizer(){
 		
 	}

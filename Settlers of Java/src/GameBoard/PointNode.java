@@ -7,9 +7,12 @@
 package GameBoard;
 
 import infoClasses.Settlement;
+
+import java.io.Serializable;
+
 import infoClasses.City;
 
-public class PointNode {
+public class PointNode implements Serializable{
 	int playerNumber;
 	LineNode[] adjacentLine;
 	PieceNode[] adjacentPiece;

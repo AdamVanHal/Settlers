@@ -1,8 +1,10 @@
 package infoClasses;
 
+import java.io.Serializable;
+
 import GameBoard.LineNode;
 
-public class LongestRoad {
+public class LongestRoad implements Serializable{
 	int longest;
 	int current;
 	PlayerInfo[] players;

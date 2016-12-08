@@ -6,9 +6,11 @@
 */
 package infoClasses;
 
+import java.io.Serializable;
+
 import GameBoard.LineNode;
 
-public class Road {
+public class Road implements Serializable{
 	PlayerInfo player;
 	LineNode location;
 	

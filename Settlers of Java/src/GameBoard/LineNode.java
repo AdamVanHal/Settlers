@@ -6,9 +6,11 @@
 */
 package GameBoard;
 
+import java.io.Serializable;
+
 import infoClasses.Road;
 
-public class LineNode {
+public class LineNode implements Serializable{
 	int playerNumber;
 	LineNode[] adjacentLine;
 	PointNode[] adjacentPoint;

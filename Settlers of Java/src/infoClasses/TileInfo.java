@@ -6,8 +6,9 @@
 */
 package infoClasses;
 
+import java.io.Serializable;
 
-public class TileInfo{
+public class TileInfo implements Serializable{
 	int dieVal = 0;
 	int id = 0;
 	int resourceType = 0;

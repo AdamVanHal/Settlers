@@ -1,8 +1,10 @@
 package infoClasses;
 
+import java.io.Serializable;
+
 import Utilities.Randomizer;
 
-public class DevelopmentCards {
+public class DevelopmentCards implements Serializable{
 	int[] deck;
 	Randomizer rand;
 	public DevelopmentCards(){

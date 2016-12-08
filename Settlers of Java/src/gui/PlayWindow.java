@@ -28,7 +28,7 @@ public class PlayWindow {
 	
 	//LongestRoad lRoad = new LongestRoad();
 	public Dice d6 = new Dice(6);
-	public static GameBoard game = new GameBoard();
+	public static GameBoard game;
 	public static PlayerInfo[] players =  new PlayerInfo[4];
 	private boolean isHost;
 	private NetworkThread networkConnection;
@@ -75,14 +75,14 @@ public class PlayWindow {
 	 */
 	private void hostInitialize() {
 		//add the main game area to the center
-		BoardGraphics Island = new BoardGraphics();
-				
-		networkConnection.writeMsg(new Message("initialize", Island));
-		initialize(Island);
+		game = new GameBoard();
+		networkConnection.writeMsg(new Message("initialize", game));
+		initialize(game);
 	}
 	
-	public void initialize(BoardGraphics Island){
-		
+	public void initialize(GameBoard game2){
+		this.game = game2;
+		BoardGraphics Island = new BoardGraphics();
 		Island.setBounds(160, 0, 685, 644);
 		frame.getContentPane().add(Island);
 		

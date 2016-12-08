@@ -6,9 +6,11 @@
 */
 package GameBoard;
 
+import java.io.Serializable;
+
 import Utilities.Randomizer;
 
-public class GameBoard {
+public class GameBoard implements Serializable{
 	LineNode[] boardLines;
 	PointNode[] boardPoints;
 	PieceNode[] boardPieces;

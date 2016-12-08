@@ -4,7 +4,7 @@ import java.io.*;
 import java.net.*;
 //give Thread access to play window so that thread can update game state as needed
 import gui.PlayWindow;
-import GameBoard.BoardGraphics;
+import GameBoard.GameBoard;
 
 
 public class NetworkThread extends Thread {
@@ -107,7 +107,8 @@ public class NetworkThread extends Thread {
 				//Set the user name
 				break;
 			case "initialize":
-				GameState.initialize((BoardGraphics)msg.Objects[0]);
+				GameState.initialize((GameBoard)msg.Objects[0]);
+				System.out.println("initialize");
 				break;
 			}
 		}//end while loop

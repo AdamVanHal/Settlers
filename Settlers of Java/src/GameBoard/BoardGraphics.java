@@ -13,6 +13,7 @@ import java.awt.Graphics2D;
 import java.awt.Polygon;
 import java.awt.geom.GeneralPath;
 import java.awt.geom.Point2D;
+import java.io.Serializable;
 import java.awt.Stroke;
 import java.awt.geom.Point2D;
 import java.util.ArrayList;
@@ -26,7 +27,7 @@ import gui.PlayWindow;
 //eclipse is not detecting all my imported class uses,
 //so I added this to suppress some warnings.
 @SuppressWarnings("unused")
-public class BoardGraphics extends JPanel {
+public class BoardGraphics extends JPanel implements Serializable{
 
 	//auto generated id
 	private static final long serialVersionUID = -6080271973075824997L;
@@ -38,7 +39,7 @@ public class BoardGraphics extends JPanel {
     //this helps with the math to place them
 	private double shortR = radius * Math.sqrt(3)/2;
 	//center of the topmost left hexagon
-	private Point2D.Double start = new Point2D.Double(3*shortR+30, radius+65);
+	private Point2D.Double start = new Point2D.Double(4*shortR+30, radius+65);
 	//array with the center points of all hexagon
 	private ArrayList<Point2D.Double> centerPoints = new ArrayList<Point2D.Double>(25);
 	//array of all the vertex locations that can have settlements.

@@ -6,9 +6,11 @@
 */
 package GameBoard;
 
+import java.io.Serializable;
+
 import infoClasses.TileInfo;
 
-public class PieceNode {
+public class PieceNode implements Serializable{
 	TileInfo resource;
 	Boolean robber;
 	int number;
