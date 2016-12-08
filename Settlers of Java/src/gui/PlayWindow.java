@@ -14,6 +14,7 @@ import Utilities.Dice;
 import infoClasses.PlayerInfo;
 import java.util.ArrayList;
 import Utilities.NetworkThread;
+import Utilities.Message;
 
 import javax.swing.JPanel;
 import javax.swing.JButton;
@@ -30,6 +31,7 @@ public class PlayWindow {
 	public static GameBoard game = new GameBoard();
 	public static PlayerInfo[] players =  new PlayerInfo[4];
 	private boolean isHost;
+	private NetworkThread networkConnection;
 	
 
 	/*
@@ -56,9 +58,10 @@ public class PlayWindow {
 	 * @return None
 	 */
 	public PlayWindow(ArrayList<NetworkThread> Threads, boolean IsHost) {
-		//Threads.get(0).gameReference(this);
+		Threads.get(0).gameReference(this);
+		networkConnection = Threads.get(0);
 		this.isHost = IsHost;
-		initialize();
+		if(isHost){hostInitialize();}
 	}
 
 	/*
@@ -66,14 +69,20 @@ public class PlayWindow {
 	 * @post   Initializes all GUI components and their listeners, including the board element 
 	 * @return None
 	 */
-	private void initialize() {
+	private void hostInitialize() {
+		//add the main game area to the center
+		BoardGraphics Island = new BoardGraphics();
+				
+		networkConnection.writeMsg(new Message("initialization", Island));
+		initialize(Island);
+	}
+	
+	public void initialize(BoardGraphics Island){
 		frame = new JFrame("Settlers of Java");
 		frame.setBounds(100, 100, 875, 700);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 		
-		//add the main game area to the center
-		BoardGraphics Island = new BoardGraphics();
 		Island.setBounds(160, 0, 685, 644);
 		frame.getContentPane().add(Island);
 		
