@@ -419,6 +419,42 @@ public class PlayerInfo{
 		knightCard--;
 	}
 	
+	public void tradeInput(int numTrading,int type,PlayerInfo a){
+		if(type == 1){
+			a.setWheat(a.getWheat()-numTrading);
+		}
+		else if(type == 2){
+			a.setWood(a.getWood()-numTrading);
+		}
+		else if(type == 3){
+			a.setBrick(a.getBrick()-numTrading);
+		}
+		else if(type == 4){
+			a.setOre(a.getOre()-numTrading);
+		}
+		else if(type == 5){
+			a.setSheep(a.getSheep()-numTrading);
+		}
+	}
+	
+	public void tradeOutPut(int numTrading,int type,PlayerInfo a){
+		if(type == 1){
+			a.setWheat(a.getWheat()+numTrading);
+		}
+		else if(type == 2){
+			a.setWood(a.getWood()+numTrading);
+		}
+		else if(type == 3){
+			a.setBrick(a.getBrick()+numTrading);
+		}
+		else if(type == 4){
+			a.setOre(a.getOre()+numTrading);
+		}
+		else if(type == 5){
+			a.setSheep(a.getSheep()+numTrading);
+		}
+	}
+	
 	public void tradeOffer(PlayerInfo a,PlayerInfo b){
 		int[] offer = new int[5];
 		int[] request = new int[5];
