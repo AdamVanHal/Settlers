@@ -58,6 +58,10 @@ public class PlayWindow {
 	 * @return None
 	 */
 	public PlayWindow(ArrayList<NetworkThread> Threads, boolean IsHost) {
+		frame = new JFrame("Settlers of Java");
+		frame.setBounds(100, 100, 875, 700);
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.getContentPane().setLayout(null);
 		Threads.get(0).gameReference(this);
 		networkConnection = Threads.get(0);
 		this.isHost = IsHost;
@@ -78,10 +82,6 @@ public class PlayWindow {
 	}
 	
 	public void initialize(BoardGraphics Island){
-		frame = new JFrame("Settlers of Java");
-		frame.setBounds(100, 100, 875, 700);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.getContentPane().setLayout(null);
 		
 		Island.setBounds(160, 0, 685, 644);
 		frame.getContentPane().add(Island);

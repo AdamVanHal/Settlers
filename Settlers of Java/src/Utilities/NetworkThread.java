@@ -156,4 +156,23 @@ public class NetworkThread extends Thread {
 		}
 		return true;
 	}
+	
+	public boolean Broadcast(Message msg) {
+		// if Client is still connected send the message to it
+		if(!socket.isConnected()) {
+			close();
+			return false;
+		}
+		
+		// write the message to the stream
+		try {
+			sOutput.writeObject(msg);
+		}
+		// if an error occurs, do not abort just inform the user
+		catch(IOException e) {
+			System.out.println("Error sending message to " + username);
+			System.out.println(e.toString());
+		}
+		return true;
+	}
 }

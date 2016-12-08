@@ -54,7 +54,7 @@ public class HostNetwork {
 	public void broadcast(Message msg){
 		for(int i=0;i<clients.size();i++){
 			NetworkThread client = clients.get(i);
-			client.writeMsg(msg);
+			client.Broadcast(msg);
 		}
 	}
 
