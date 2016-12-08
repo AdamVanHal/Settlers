@@ -77,7 +77,7 @@ public class PlayWindow {
 		//add the main game area to the center
 		BoardGraphics Island = new BoardGraphics();
 				
-		networkConnection.writeMsg(new Message("initialization", Island));
+		networkConnection.writeMsg(new Message("initialize", Island));
 		initialize(Island);
 	}
 	
