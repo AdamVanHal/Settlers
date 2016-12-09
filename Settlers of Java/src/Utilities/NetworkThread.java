@@ -111,6 +111,8 @@ public class NetworkThread extends Thread {
 				GameState.initialize((GameBoard)msg.Objects[0]);
 				break;
 			case "updatePlayerArray":
+				PlayerInfo[] temp =(PlayerInfo[]) msg.Objects[0];
+				System.out.println(temp[1].getSet());
 				GameState.receivePlayerArray((PlayerInfo[])msg.Objects[0]);
 				break;
 			}

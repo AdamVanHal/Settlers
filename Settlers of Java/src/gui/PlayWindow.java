@@ -185,11 +185,13 @@ public class PlayWindow {
 	 * @return
 	 */
 	public void updatePlayerArray(){
-		networkConnection.writeMsg(new Message("updatePlayerArray", players));
+		Object[] temp = new Object[1];
+		temp[0]=players;
+		networkConnection.writeMsg(new Message("updatePlayerArray", temp));
 	}
 	
 	public void receivePlayerArray(PlayerInfo[] players2){
-		this.players = players2.clone();
+		this.players = players2;
 		Island.repaint();
 	}
 	
