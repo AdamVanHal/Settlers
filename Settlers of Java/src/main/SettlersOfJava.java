@@ -91,7 +91,7 @@ public class SettlersOfJava {
 		}
 		System.out.println("Player1's longest road status: "+players[1].getLongestRoad());
 		System.out.println("Player2's longest road status: "+players[0].getLongestRoad());
-		players[0].tradeOffer(players[0], players[1]);
+		//players[0].tradeOffer(players[0], players[1]);
 		System.out.println("Player1: ");
 		System.out.println("Wheat: " + players[1].getWheat());
 		System.out.println("Wood: " + players[1].getWood());

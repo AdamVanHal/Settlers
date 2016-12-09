@@ -7,13 +7,13 @@
 package infoClasses;
 
 import java.io.Serializable;
-import java.util.Scanner;
+//import java.util.Scanner;
 
 import GameBoard.PointNode;
 import GameBoard.LineNode;
 
 public class PlayerInfo implements Serializable{
-	Scanner myScan;
+	//Scanner myScan;
 	int VP = 0;
 	int Pvp = 0;
 	int Wheat = 0;
@@ -56,7 +56,7 @@ public class PlayerInfo implements Serializable{
 		Cities = 4;
 		Roads = 15;
 		dCards = new DevelopmentCards();
-		myScan = new Scanner(System.in);
+		//myScan = new Scanner(System.in);
 		playerNumber = a;
 	}
 	
@@ -456,7 +456,7 @@ public class PlayerInfo implements Serializable{
 		}
 	}
 	
-	public void tradeOffer(PlayerInfo a,PlayerInfo b){
+	/*public void tradeOffer(PlayerInfo a,PlayerInfo b){
 		int[] offer = new int[5];
 		int[] request = new int[5];
 		System.out.println("How much wheat do you offer?");
@@ -558,6 +558,6 @@ public class PlayerInfo implements Serializable{
 		else{ 
 			return false;
 		}
-	}
+	}*/
 	
 }	

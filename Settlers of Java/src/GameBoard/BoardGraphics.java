@@ -94,6 +94,7 @@ public class BoardGraphics extends JPanel implements Serializable{
 							//place code to build settlement here
 							if(Parent.players[1].setSettlement(Parent.game.getPoint(i), Parent.players[1])){
 								bg.repaint();
+								Parent.updatePlayerArray();
 								System.out.println("Build Settlement @ "+(i+1));
 							}
 							break;
@@ -111,7 +112,7 @@ public class BoardGraphics extends JPanel implements Serializable{
 							//place code here to build road
 							if(Parent.players[1].setRoad(Parent.game.getLine(i), Parent.players[1])){
 								bg.repaint();
-								
+								Parent.updatePlayerArray();
 								System.out.println("Build Road @ "+(i+1));
 							}
 							break;
@@ -129,6 +130,7 @@ public class BoardGraphics extends JPanel implements Serializable{
 							//place code here to build city
 							if(Parent.players[1].setCity(Parent.game.getPoint(i), Parent.players[1])){
 								bg.repaint();
+								Parent.updatePlayerArray();
 								System.out.println("Build City @ "+(i+1));
 							}
 							break;
