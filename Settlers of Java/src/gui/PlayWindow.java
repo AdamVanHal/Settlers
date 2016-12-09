@@ -28,10 +28,12 @@ public class PlayWindow {
 	
 	//LongestRoad lRoad = new LongestRoad();
 	public Dice d6 = new Dice(6);
-	public static GameBoard game;
-	public static PlayerInfo[] players =  new PlayerInfo[4];
+	public GameBoard game;
+	public PlayerInfo[] players =  new PlayerInfo[4];
 	private boolean isHost;
 	private NetworkThread networkConnection;
+	public int playerNumber = 0;
+	private BoardGraphics Island;
 	
 
 	/*
@@ -67,6 +69,8 @@ public class PlayWindow {
 		this.isHost = IsHost;
 		if(isHost){hostInitialize();}
 	}
+	
+	
 
 	/*
 	 * @pre    None
@@ -82,7 +86,7 @@ public class PlayWindow {
 	
 	public void initialize(GameBoard game2){
 		this.game = game2;
-		BoardGraphics Island = new BoardGraphics();
+		Island = new BoardGraphics(this);
 		Island.setBounds(160, 0, 685, 644);
 		frame.getContentPane().add(Island);
 		
@@ -171,5 +175,22 @@ public class PlayWindow {
 		Status.add(OreVal);
 		Status.add(GrainVal);
 		Status.add(LumberVal);
+		
+		frame.repaint();
 	}
+	
+	/*
+	 * @pre		
+	 * @post
+	 * @return
+	 */
+	public void updatePlayerArray(){
+		networkConnection.writeMsg(new Message("updatePlayerArray", players));
+	}
+	
+	public void receivePlayerArray(PlayerInfo[] players2){
+		this.players = players2.clone();
+		Island.repaint();
+	}
+	
 }

@@ -4,6 +4,7 @@ import java.io.*;
 import java.net.*;
 //give Thread access to play window so that thread can update game state as needed
 import gui.PlayWindow;
+import infoClasses.PlayerInfo;
 import GameBoard.GameBoard;
 
 
@@ -108,7 +109,9 @@ public class NetworkThread extends Thread {
 				break;
 			case "initialize":
 				GameState.initialize((GameBoard)msg.Objects[0]);
-				System.out.println("initialize");
+				break;
+			case "updatePlayerArray":
+				GameState.receivePlayerArray((PlayerInfo[])msg.Objects[0]);
 				break;
 			}
 		}//end while loop

@@ -35,6 +35,8 @@ public class BoardGraphics extends JPanel implements Serializable{
 	//set the length from the center to the far vertices of the hex. 
     //The radius of the circumscribed circle
 	private double radius = 62;
+	
+	private PlayWindow Parent;
 	//calculate the radius of the inscribed circle
     //this helps with the math to place them
 	private double shortR = radius * Math.sqrt(3)/2;
@@ -64,8 +66,9 @@ public class BoardGraphics extends JPanel implements Serializable{
 	 * @post   Constructor to setup public variables and create any swing components for this panel 
 	 * @return None
 	 */
-	public BoardGraphics(){
+	public BoardGraphics(PlayWindow Parent){
 		BoardGraphics bg = this;
+		this.Parent = Parent;
 		//store original Cursor in case we change it
 		Cursor old = bg.getCursor();
 		//calculate the important points on the grid, store in global array
@@ -89,7 +92,7 @@ public class BoardGraphics extends JPanel implements Serializable{
 						//this removes any ambiguity of what the user is clicking on
 						if(vertex.get(i).distance(pos)<(radius/3)){
 							//place code to build settlement here
-							if(PlayWindow.players[1].setSettlement(PlayWindow.game.getPoint(i), PlayWindow.players[1])){
+							if(Parent.players[1].setSettlement(Parent.game.getPoint(i), Parent.players[1])){
 								bg.repaint();
 								System.out.println("Build Settlement @ "+(i+1));
 							}
@@ -106,8 +109,9 @@ public class BoardGraphics extends JPanel implements Serializable{
 						//this removes any ambiguity of what the user is clicking on
 						if(edge.get(i).distance(pos)<(radius/3)){
 							//place code here to build road
-							if(PlayWindow.players[1].setRoad(PlayWindow.game.getLine(i), PlayWindow.players[1])){
+							if(Parent.players[1].setRoad(Parent.game.getLine(i), Parent.players[1])){
 								bg.repaint();
+								
 								System.out.println("Build Road @ "+(i+1));
 							}
 							break;
@@ -123,7 +127,7 @@ public class BoardGraphics extends JPanel implements Serializable{
 						//this removes any ambiguity of what the user is clicking on
 						if(vertex.get(i).distance(pos)<(radius/3)){
 							//place code here to build city
-							if(PlayWindow.players[1].setCity(PlayWindow.game.getPoint(i), PlayWindow.players[1])){
+							if(Parent.players[1].setCity(Parent.game.getPoint(i), Parent.players[1])){
 								bg.repaint();
 								System.out.println("Build City @ "+(i+1));
 							}
@@ -216,7 +220,7 @@ public class BoardGraphics extends JPanel implements Serializable{
         for(int i=0; i<centerPoints.size();i++){
         	//set the color used by graphics and fill in a hexagon
         	
-        	int ResourceType = PlayWindow.game.getPiece(i).getTileResource();
+        	int ResourceType = Parent.game.getPiece(i).getTileResource();
         	
         	//changing the color to draw with depending on the type of the resource tile, 0: Desert 1: grain 2: lumber 3: wool 4: ore  5: brick  
         	if(ResourceType == 0){
@@ -244,19 +248,19 @@ public class BoardGraphics extends JPanel implements Serializable{
         }
         //draw labels for tiles, vertexes and edges
         for(int i=0; i<centerPoints.size();i++){
-        	int ResourceType = PlayWindow.game.getPiece(i).getTileResource();
+        	int ResourceType = Parent.game.getPiece(i).getTileResource();
         	if(ResourceType != 0){
         		g2d.setPaint(new Color(255,255,255,255));
         		g2d.fill(Octa(centerPoints.get(i).getX(), centerPoints.get(i).getY(), 8));
         		g2d.setPaint(new Color(0,0,0,255));
 	        	g2d.draw(Octa(centerPoints.get(i).getX(), centerPoints.get(i).getY(), 8));
-        		if(PlayWindow.game.getPiece(i).getTileID() >= 10){
+        		if(Parent.game.getPiece(i).getTileID() >= 10){
         			g2d.setPaint(new Color(0,0,0,255));
-        			g2d.drawString(Integer.toString(PlayWindow.game.getPiece(i).getTileID()), (float)centerPoints.get(i).getX()-7, (float)centerPoints.get(i).getY()+5);
+        			g2d.drawString(Integer.toString(Parent.game.getPiece(i).getTileID()), (float)centerPoints.get(i).getX()-7, (float)centerPoints.get(i).getY()+5);
         		}
         		else{
         			g2d.setPaint(new Color(0,0,0,255));
-        			g2d.drawString(Integer.toString(PlayWindow.game.getPiece(i).getTileID()), (float)centerPoints.get(i).getX()-5, (float)centerPoints.get(i).getY()+5);
+        			g2d.drawString(Integer.toString(Parent.game.getPiece(i).getTileID()), (float)centerPoints.get(i).getX()-5, (float)centerPoints.get(i).getY()+5);
         		}
         	}
         }
@@ -266,18 +270,18 @@ public class BoardGraphics extends JPanel implements Serializable{
         
       //loop updates the board for existing roads
         for(int i = 0; i<edge.size();i++){
-        	if(PlayWindow.game.getLine(i).getRoad() == null){}
+        	if(Parent.game.getLine(i).getRoad() == null){}
         	else{
-        		if(PlayWindow.game.getLine(i).getPlayerNumber() == 1){
+        		if(Parent.game.getLine(i).getPlayerNumber() == 1){
         			g2d.setPaint(new Color(255,0,0,255));
         		}
-        		else if(PlayWindow.game.getLine(i).getPlayerNumber() == 2){
+        		else if(Parent.game.getLine(i).getPlayerNumber() == 2){
         			g2d.setPaint(new Color(0,0,255,255));
         		}
-        		else if(PlayWindow.game.getLine(i).getPlayerNumber() == 3){
+        		else if(Parent.game.getLine(i).getPlayerNumber() == 3){
         			g2d.setPaint(new Color(255,157,0,255));
 				}
-        		else if(PlayWindow.game.getLine(i).getPlayerNumber() == 4){
+        		else if(Parent.game.getLine(i).getPlayerNumber() == 4){
         			g2d.setPaint(new Color(255,255,255,255));
 				}
         		for(int j = 0; j < 24; j++){
@@ -309,17 +313,17 @@ public class BoardGraphics extends JPanel implements Serializable{
         //loop updates the board for existing settlements
         System.out.println("redraw");
         for(int i = 0; i < 54; i++){
-        	if(PlayWindow.game.getPoint(i).hasSettlement() && !(PlayWindow.game.getPoint(i).hasCity())){
-        		if(PlayWindow.game.getPoint(i).getPlayerNumber() == 1){
+        	if(Parent.game.getPoint(i).hasSettlement() && !(Parent.game.getPoint(i).hasCity())){
+        		if(Parent.game.getPoint(i).getPlayerNumber() == 1){
         			g2d.setPaint(new Color(255,0,0,255));
         		}
-        		else if(PlayWindow.game.getPoint(i).getPlayerNumber() == 2){
+        		else if(Parent.game.getPoint(i).getPlayerNumber() == 2){
         			g2d.setPaint(new Color(0,0,255,255));
         		}
-        		else if(PlayWindow.game.getPoint(i).getPlayerNumber() == 3){
+        		else if(Parent.game.getPoint(i).getPlayerNumber() == 3){
         			g2d.setPaint(new Color(255,157,0,255));
 				}
-        		else if(PlayWindow.game.getPoint(i).getPlayerNumber() == 4){
+        		else if(Parent.game.getPoint(i).getPlayerNumber() == 4){
         			g2d.setPaint(new Color(255,255,255,255));
 				}
         		g2d.fill(Settlement((float)vertex.get(i).getX(), (float)vertex.get(i).getY(), 8));
@@ -330,17 +334,17 @@ public class BoardGraphics extends JPanel implements Serializable{
         
       //loop updates the board for existing cities
         for(int i = 0; i < 54; i++){
-        	if(PlayWindow.game.getPoint(i).hasCity()){
-        		if(PlayWindow.game.getPoint(i).getPlayerNumber() == 1){
+        	if(Parent.game.getPoint(i).hasCity()){
+        		if(Parent.game.getPoint(i).getPlayerNumber() == 1){
         			g2d.setPaint(new Color(255,0,0,255));
         		}
-        		else if(PlayWindow.game.getPoint(i).getPlayerNumber() == 2){
+        		else if(Parent.game.getPoint(i).getPlayerNumber() == 2){
         			g2d.setPaint(new Color(0,0,255,255));
         		}
-        		else if(PlayWindow.game.getPoint(i).getPlayerNumber() == 3){
+        		else if(Parent.game.getPoint(i).getPlayerNumber() == 3){
         			g2d.setPaint(new Color(255,157,0,255));
 				}
-        		else if(PlayWindow.game.getPoint(i).getPlayerNumber() == 4){
+        		else if(Parent.game.getPoint(i).getPlayerNumber() == 4){
         			g2d.setPaint(new Color(255,255,255,255));
 				}
         		g2d.fill(City((float)vertex.get(i).getX(), (float)vertex.get(i).getY(), 8));
