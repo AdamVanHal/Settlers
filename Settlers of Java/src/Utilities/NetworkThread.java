@@ -143,8 +143,7 @@ public class NetworkThread extends Thread {
 	public boolean writeMsg(Message msg) {
 		// if Client is still connected send the message to it
 		if(this.Type == "Host"){
-			this.Host.broadcast(msg);
-			return true;
+			return this.Host.broadcast(msg);
 		}
 		if(!socket.isConnected()) {
 			close();

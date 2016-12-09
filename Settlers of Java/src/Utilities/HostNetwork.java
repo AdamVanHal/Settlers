@@ -51,11 +51,12 @@ public class HostNetwork {
 	}
 	
 	//send message to all players
-	public void broadcast(Message msg){
+	public boolean broadcast(Message msg){
 		for(int i=0;i<clients.size();i++){
 			NetworkThread client = clients.get(i);
 			client.Broadcast(msg);
 		}
+		return true;
 	}
 
 	public static void main(String[] args) throws IOException {
