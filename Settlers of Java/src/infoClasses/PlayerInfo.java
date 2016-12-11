@@ -13,6 +13,10 @@ import GameBoard.PointNode;
 import GameBoard.LineNode;
 
 public class PlayerInfo implements Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -2602545802985608963L;
 	//Scanner myScan;
 	int VP = 0;
 	int Pvp = 0;

@@ -11,6 +11,10 @@ import java.io.Serializable;
 import infoClasses.Road;
 
 public class LineNode implements Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 8142537287777601517L;
 	int playerNumber;
 	LineNode[] adjacentLine;
 	PointNode[] adjacentPoint;

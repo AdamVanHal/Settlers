@@ -11,6 +11,10 @@ import java.io.Serializable;
 import GameBoard.LineNode;
 
 public class Road implements Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -1882505715940678874L;
 	PlayerInfo player;
 	LineNode location;
 	

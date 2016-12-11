@@ -11,6 +11,10 @@ import java.io.Serializable;
 import Utilities.Randomizer;
 
 public class GameBoard implements Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -6019267172624738391L;
 	LineNode[] boardLines;
 	PointNode[] boardPoints;
 	PieceNode[] boardPieces;

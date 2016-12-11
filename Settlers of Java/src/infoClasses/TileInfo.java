@@ -9,6 +9,10 @@ package infoClasses;
 import java.io.Serializable;
 
 public class TileInfo implements Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 5294396986786611196L;
 	int dieVal = 0;
 	int id = 0;
 	int resourceType = 0;

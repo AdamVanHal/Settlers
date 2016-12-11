@@ -5,6 +5,10 @@ import java.io.Serializable;
 import GameBoard.LineNode;
 
 public class LongestRoad implements Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 7574906988594209749L;
 	int longest;
 	int current;
 	PlayerInfo[] players;

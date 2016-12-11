@@ -11,6 +11,10 @@ import java.io.Serializable;
 import infoClasses.TileInfo;
 
 public class PieceNode implements Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -4054754373645769804L;
 	TileInfo resource;
 	Boolean robber;
 	int number;

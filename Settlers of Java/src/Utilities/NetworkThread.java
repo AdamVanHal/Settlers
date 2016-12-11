@@ -111,9 +111,9 @@ public class NetworkThread extends Thread {
 				GameState.initialize((GameBoard)msg.Objects[0]);
 				break;
 			case "updatePlayerArray":
-				PlayerInfo[] temp =(PlayerInfo[]) msg.Objects[0];
-				System.out.println(temp[1].getSet());
-				GameState.receivePlayerArray((PlayerInfo[])msg.Objects[0],(GameBoard)msg.Objects[1]);
+				PlayerInfo temp =(PlayerInfo) msg.Objects[0];
+				System.out.println(temp.getSet());
+				GameState.receivePlayerArray((PlayerInfo)msg.Objects[0],(GameBoard)msg.Objects[1]);
 				break;
 			}
 		}//end while loop
@@ -142,9 +142,9 @@ public class NetworkThread extends Thread {
 	 */
 	public boolean writeMsg(Message msg) {
 		// if Client is still connected send the message to it
-		if(this.Type == "Host"){
+		/*if(this.Type == "Host"){
 			return this.Host.broadcast(msg);
-		}
+		}*/
 		if(!socket.isConnected()) {
 			close();
 			return false;
@@ -162,7 +162,7 @@ public class NetworkThread extends Thread {
 		return true;
 	}
 	
-	public boolean Broadcast(Message msg) {
+	/*public boolean Broadcast(Message msg) {
 		// if Client is still connected send the message to it
 		if(!socket.isConnected()) {
 			close();
@@ -179,5 +179,5 @@ public class NetworkThread extends Thread {
 			System.out.println(e.toString());
 		}
 		return true;
-	}
+	}*/
 }

@@ -11,6 +11,10 @@ import java.io.Serializable;
 import GameBoard.PointNode;
 
 public class Settlement implements Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 5577178612648773432L;
 	PlayerInfo player;
 	PointNode location;
 	int roll;

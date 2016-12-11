@@ -13,6 +13,10 @@ import java.io.Serializable;
 import infoClasses.City;
 
 public class PointNode implements Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -1658479708411733347L;
 	int playerNumber;
 	LineNode[] adjacentLine;
 	PieceNode[] adjacentPiece;

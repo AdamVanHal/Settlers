@@ -31,7 +31,7 @@ public class PlayWindow {
 	public GameBoard game;
 	public PlayerInfo[] players =  new PlayerInfo[4];
 	private boolean isHost;
-	private NetworkThread networkConnection;
+	private ArrayList<NetworkThread> networkConnection = new ArrayList<NetworkThread>();
 	public int playerNumber = 0;
 	private BoardGraphics Island;
 	
@@ -64,8 +64,10 @@ public class PlayWindow {
 		frame.setBounds(100, 100, 875, 700);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
-		Threads.get(0).gameReference(this);
-		networkConnection = Threads.get(0);
+		for(int i=0; i<Threads.size();i++){
+			Threads.get(i).gameReference(this);
+		}
+		networkConnection = Threads;
 		this.isHost = IsHost;
 		if(isHost){hostInitialize();}
 	}
@@ -80,7 +82,9 @@ public class PlayWindow {
 	private void hostInitialize() {
 		//add the main game area to the center
 		game = new GameBoard();
-		networkConnection.writeMsg(new Message("initialize", game));
+		for(int i=0; i<networkConnection.size();i++){
+			networkConnection.get(i).writeMsg(new Message("initialize", game));
+		}
 		initialize(game);
 	}
 	
@@ -186,13 +190,15 @@ public class PlayWindow {
 	 */
 	public void updatePlayerArray(){
 		Object[] temp = new Object[2];
-		temp[0]=players;
+		temp[0]=players[1];
 		temp[1] = game;
-		networkConnection.writeMsg(new Message("updatePlayerArray", temp));
+		for(int i=0; i<networkConnection.size();i++){
+			networkConnection.get(i).writeMsg(new Message("updatePlayerArray", players[1], game));
+		}
 	}
 	
-	public void receivePlayerArray(PlayerInfo[] players2, GameBoard game2){
-		this.players = players2;
+	public void receivePlayerArray(PlayerInfo players2, GameBoard game2){
+		this.players[1] = players2;
 		this.game = game2;
 		Island.repaint();
 	}

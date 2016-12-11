@@ -5,6 +5,10 @@ import java.io.Serializable;
 import Utilities.Randomizer;
 
 public class DevelopmentCards implements Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -846133694556798690L;
 	int[] deck;
 	Randomizer rand;
 	public DevelopmentCards(){
