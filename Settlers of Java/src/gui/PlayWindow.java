@@ -156,12 +156,16 @@ public class PlayWindow {
 				System.out.println(a+b);
 				int c = a + b;
 				rollShow.setText("A(n) " + c + " was rolled.");
-				players[1].gatherResources(a+b);
+				for(int i=0; i<players.length;i++){
+					players[i].gatherResources(a+b);
+				}
+				
 				BrickVal.setText(Integer.toString(players[1].getBrick()));
 				WoolVal.setText(Integer.toString(players[1].getSheep()));
 				OreVal.setText(Integer.toString(players[1].getOre()));
 				GrainVal.setText(Integer.toString(players[1].getWheat()));
 				LumberVal.setText(Integer.toString(players[1].getWood()));
+				updatePlayerArray();
 			}
 		});
 		btnRoll.setBounds(35, 525, 90, 25);
@@ -193,14 +197,18 @@ public class PlayWindow {
 		temp[0]=players[1];
 		temp[1] = game;
 		for(int i=0; i<networkConnection.size();i++){
-			networkConnection.get(i).writeMsg(new Message("updatePlayerArray", players[1], game));
+			networkConnection.get(i).writeMsg(new Message("updatePlayerArray", players, game));
+		}
+		
+		for(int i=0; i<networkConnection.size();i++){
+			networkConnection.get(i).writeMsg(new Message("Text", "Updating"));
 		}
 	}
 	
-	public void receivePlayerArray(PlayerInfo players2, GameBoard game2){
-		this.players[1] = players2;
+	public void receivePlayerArray(PlayerInfo[] players2, GameBoard game2){
+		this.players = players2;
 		this.game = game2;
-		Island.repaint();
+		frame.repaint();
 	}
 	
 }
