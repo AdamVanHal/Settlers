@@ -59,7 +59,7 @@ public class BoardGraphics extends JPanel implements Serializable{
 	//1=try to build settlement
 	//2=try to build road
 	//3=try to build city
-	private int cursorState = 0;
+	public int cursorState = 0;
 	
 	/*
 	 * @pre    None
@@ -84,7 +84,7 @@ public class BoardGraphics extends JPanel implements Serializable{
 			@Override
 			public void mouseReleased(MouseEvent arg0){
 				bg.setCursor(old);
-				//Check for build settlement state
+				//Check for buy settlement state
 				if(cursorState == 1){
 					Point2D pos = bg.getMousePosition();
 					for(int i=0;i<vertex.size();i++){
@@ -92,7 +92,7 @@ public class BoardGraphics extends JPanel implements Serializable{
 						//this removes any ambiguity of what the user is clicking on
 						if(vertex.get(i).distance(pos)<(radius/3)){
 							//place code to build settlement here
-							if(Parent.players[1].setSettlement(Parent.game.getPoint(i), Parent.players[1])){
+							if(Parent.players[Parent.playerNumber].buySettlement(Parent.game.getPoint(i), Parent.players[Parent.playerNumber])){
 								bg.repaint();
 								Parent.updatePlayerArray();
 								System.out.println("Build Settlement @ "+(i+1));
@@ -102,7 +102,7 @@ public class BoardGraphics extends JPanel implements Serializable{
 					}
 					cursorState = 0;
 				}
-				//check for build road state
+				//check for buy road state
 				if(cursorState == 2){
 					Point2D pos = bg.getMousePosition();
 					for(int i=0;i<edge.size();i++){
@@ -110,7 +110,7 @@ public class BoardGraphics extends JPanel implements Serializable{
 						//this removes any ambiguity of what the user is clicking on
 						if(edge.get(i).distance(pos)<(radius/3)){
 							//place code here to build road
-							if(Parent.players[1].setRoad(Parent.game.getLine(i), Parent.players[1])){
+							if(Parent.players[Parent.playerNumber].buyRoad(Parent.game.getLine(i), Parent.players[Parent.playerNumber])){
 								bg.repaint();
 								Parent.updatePlayerArray();
 								System.out.println("Build Road @ "+(i+1));
@@ -120,7 +120,8 @@ public class BoardGraphics extends JPanel implements Serializable{
 					}
 					cursorState = 0;
 				}
-				//check for build city state
+				
+				//check for buy city state
 				if(cursorState == 3){
 					Point2D pos = bg.getMousePosition();
 					for(int i=0;i<vertex.size();i++){
@@ -128,7 +129,7 @@ public class BoardGraphics extends JPanel implements Serializable{
 						//this removes any ambiguity of what the user is clicking on
 						if(vertex.get(i).distance(pos)<(radius/3)){
 							//place code here to build city
-							if(Parent.players[1].setCity(Parent.game.getPoint(i), Parent.players[1])){
+							if(Parent.players[Parent.playerNumber].buyCity(Parent.game.getPoint(i), Parent.players[Parent.playerNumber])){
 								bg.repaint();
 								Parent.updatePlayerArray();
 								System.out.println("Build City @ "+(i+1));
@@ -137,6 +138,44 @@ public class BoardGraphics extends JPanel implements Serializable{
 						}
 					}
 					cursorState = 0;
+				}
+				
+				//check for build settlement
+				if(cursorState == 4){
+					Point2D pos = bg.getMousePosition();
+					for(int i=0;i<vertex.size();i++){
+						//check if the position of the cursor on click is within 1/3 of a radius of a vertex
+						//this removes any ambiguity of what the user is clicking on
+						if(vertex.get(i).distance(pos)<(radius/3)){
+							//place code here to build city
+							if(Parent.players[Parent.playerNumber].setSettlement(Parent.game.getPoint(i), Parent.players[Parent.playerNumber])){
+								bg.repaint();
+								Parent.updatePlayerArray();
+								System.out.println("Build settlement @ "+(i+1));
+								cursorState = 5;
+							}
+							break;
+						}
+					}
+				}
+				
+				//check for build road
+				if(cursorState == 5){
+					Point2D pos = bg.getMousePosition();
+					for(int i=0;i<edge.size();i++){
+						//check if the position of the cursor on click is within 1/3 of a radius of a vertex
+						//this removes any ambiguity of what the user is clicking on
+						if(edge.get(i).distance(pos)<(radius/3)){
+							//place code here to build road
+							if(Parent.players[Parent.playerNumber].setRoad(Parent.game.getLine(i), Parent.players[Parent.playerNumber])){
+								bg.repaint();
+								Parent.updatePlayerArray();
+								System.out.println("Build Road @ "+(i+1));
+								cursorState = 0;
+							}
+							break;
+						}
+					}
 				}
 			}
 		});

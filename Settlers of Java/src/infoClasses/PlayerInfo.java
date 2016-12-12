@@ -295,39 +295,48 @@ public class PlayerInfo implements Serializable{
 		}
 	}
 	
-	public void buySettlement(PointNode a, PlayerInfo b){
+	public boolean buySettlement(PointNode a, PlayerInfo b){
 		if(b.getBrick() >= 1 && b.getWood() >= 1 && b.getSheep() >= 1 && b.getWheat() >= 1){
 			if(setSettlement(a,b)){
 				b.setBrick(b.getBrick()-1);
 				b.setWood(b.getWood()-1);
 				b.setSheep(b.getSheep()-1);
 				b.setWheat(b.getWheat()-1);
+				return true;
 			}
+			return false;
 		}
 		else{
 			System.out.println("Insuficiant funds.");
+			return false;
 		}
 	}
 	
-	public void buyCity(PointNode a, PlayerInfo b){
+	public boolean buyCity(PointNode a, PlayerInfo b){
 		if(b.getWheat() >= 2 && b.getOre() >= 3){
 			if(setCity(a,b)){
 				b.setWheat(b.getWheat() - 2);
 				b.setOre(b.getOre() - 3);
+				return true;
 			}
+			return false;
 		}
 		else{
 			System.out.println("Insuficiant funds.");
+			return false;
 		}
 	}
 	
-	public void buyRoad(LineNode a, PlayerInfo b){
+	public boolean buyRoad(LineNode a, PlayerInfo b){
 		if(b.getWood() >= 1 && b.getBrick() >= 1){
 			if(setRoad(a,b)){
 				b.setWood(b.getWood() - 1);
 				b.setBrick(b.getBrick() - 1);
+				return true;
 			}
+			return false;
 		}
+		return false;
 	}
 	
 	public void buyDCard(PlayerInfo a){

@@ -15,6 +15,7 @@ import infoClasses.PlayerInfo;
 import java.util.ArrayList;
 import Utilities.NetworkThread;
 import Utilities.Message;
+import gui.LaunchWindow;
 
 import javax.swing.JPanel;
 import javax.swing.JButton;
@@ -35,6 +36,9 @@ public class PlayWindow {
 	public int playerNumber = 0;
 	private BoardGraphics Island;
 	public boolean enabled = false;
+	public int numPlayers = 0;
+	public boolean ifSetup = true;
+	private int numTurns = 0;
 	
 	//global swing stuff
 	public JLabel BrickVal		= new JLabel("0");
@@ -79,7 +83,13 @@ public class PlayWindow {
 			networkConnection.get(i).gameReference(this);
 		}
 		this.isHost = IsHost;
-		if(isHost){hostInitialize();}
+		if(isHost){
+			hostInitialize();
+			frame.setTitle("Host: Settlers of Java");
+		}
+		else{
+			
+		}
 	}
 	
 	
@@ -92,23 +102,29 @@ public class PlayWindow {
 	private void hostInitialize() {
 		//add the main game area to the center
 		game = new GameBoard();
-		for(int i=0; i<networkConnection.size();i++){
-			networkConnection.get(i).writeMsg(new Message("initialize", game));
+		numPlayers = networkConnection.size()+1;
+		for(int i = 0; i < numPlayers; i ++){
+			players[i] = new PlayerInfo(i+1);
 		}
-		initialize(game);
+		for(int i=0; i<networkConnection.size();i++){
+			networkConnection.get(i).writeMsg(new Message("initialize", game, players));
+		}
+		initialize(game, players);
+		enabled = true;
+		Island.cursorState = 4;
 	}
 	
-	public void initialize(GameBoard game2){
+	public void initialize(GameBoard game2, PlayerInfo[] players2){
 		this.game = game2;
+		this.players = players2;
 		Island = new BoardGraphics(this);
 		Island.setBounds(160, 0, 685, 644);
 		frame.getContentPane().add(Island);
 		
+		numPlayers = players2.length;
 		
-		
-		
-		for(int i = 0; i < 4; i ++){
-			players[i] = new PlayerInfo(i+1);
+		if(!isHost){
+			playerNumber = networkConnection.get(0).playerID;
 		}
 		
 		JPanel Status = new JPanel();
@@ -122,8 +138,13 @@ public class PlayWindow {
 			@Override
 			public void mouseReleased(MouseEvent arg0) {
 				if(enabled){
-					if(playerNumber == 3){players[0].setTurn(true);}
-					else{players[playerNumber+1].setTurn(false);}
+					if(playerNumber == (numPlayers-1)){players[0].setTurn(true);}
+					else{players[playerNumber+1].setTurn(true);}
+					players[playerNumber].setTurn(false);
+					numTurns ++;
+					if(numTurns == 2){
+						ifSetup = false;
+					}
 				}
 			}
 		});
@@ -131,7 +152,8 @@ public class PlayWindow {
 		Status.add(btnEndTurn);
 		btnEndTurn.setEnabled(enabled);
 		
-		JLabel Player = new JLabel("");
+		JLabel Player = new JLabel("Player " + playerNumber + ":");
+		JLabel user = new JLabel(LaunchWindow.username);
 		JLabel Resources = new JLabel("Resources");
 		JLabel Brick = new JLabel("Brick");
 		JLabel Wool = new JLabel("Wool");
@@ -139,7 +161,7 @@ public class PlayWindow {
 		JLabel Grain = new JLabel("Grain");
 		JLabel Lumber = new JLabel("Lumber");
 		
-		
+		Player.setBounds(50, 25, 60, 25);
 		Resources.setBounds(47, 125, 65, 25);
 		Brick.setBounds(65, 150, 65, 25);
 		Wool.setBounds(65, 175, 65, 25);
@@ -172,11 +194,11 @@ public class PlayWindow {
 						players[i].gatherResources(a+b);
 					}
 				
-					BrickVal.setText(Integer.toString(players[1].getBrick()));
-					WoolVal.setText(Integer.toString(players[1].getSheep()));
-					OreVal.setText(Integer.toString(players[1].getOre()));
-					GrainVal.setText(Integer.toString(players[1].getWheat()));
-					LumberVal.setText(Integer.toString(players[1].getWood()));
+					BrickVal.setText(Integer.toString(players[playerNumber].getBrick()));
+					WoolVal.setText(Integer.toString(players[playerNumber].getSheep()));
+					OreVal.setText(Integer.toString(players[playerNumber].getOre()));
+					GrainVal.setText(Integer.toString(players[playerNumber].getWheat()));
+					LumberVal.setText(Integer.toString(players[playerNumber].getWood()));
 					updatePlayerArray();
 				}
 			}
@@ -185,6 +207,7 @@ public class PlayWindow {
 		Status.add(btnRoll);
 		btnRoll.setEnabled(enabled);
 		
+		Status.add(Player);
 		Status.add(Resources);
 		Status.add(Brick);
 		Status.add(Wool);
@@ -225,14 +248,17 @@ public class PlayWindow {
 		this.game = game2;
 		btnRoll.setEnabled(enabled);
 		btnEndTurn.setEnabled(enabled);
-		BrickVal.setText(Integer.toString(players[1].getBrick()));
-		WoolVal.setText(Integer.toString(players[1].getSheep()));
-		OreVal.setText(Integer.toString(players[1].getOre()));
-		GrainVal.setText(Integer.toString(players[1].getWheat()));
-		LumberVal.setText(Integer.toString(players[1].getWood()));
-		//enabled = players[playerNumber].getTurn();
+		BrickVal.setText(Integer.toString(players[playerNumber].getBrick()));
+		WoolVal.setText(Integer.toString(players[playerNumber].getSheep()));
+		OreVal.setText(Integer.toString(players[playerNumber].getOre()));
+		GrainVal.setText(Integer.toString(players[playerNumber].getWheat()));
+		LumberVal.setText(Integer.toString(players[playerNumber].getWood()));
+		enabled = players[playerNumber].getTurn();
 		
 		frame.repaint();
+		if(ifSetup){
+			Island.cursorState = 4;
+		}
 	}
 	
 }

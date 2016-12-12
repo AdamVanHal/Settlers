@@ -110,7 +110,7 @@ public class NetworkThread extends Thread {
 				//Set the user name
 				break;
 			case "initialize":
-				GameState.initialize((GameBoard)msg.Objects[0]);
+				GameState.initialize((GameBoard)msg.Objects[0],(PlayerInfo[])msg.Objects[1]);
 				break;
 			case "updatePlayerArray":
 				PlayerInfo[] temp =(PlayerInfo[]) msg.Objects[1];
