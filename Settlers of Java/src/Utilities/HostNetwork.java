@@ -36,6 +36,7 @@ public class HostNetwork {
 			//start this new thread
 			t.start();
 			System.out.println(i + " client(s) connected");
+			t.writeMsg(new Message("Set ID", Integer.valueOf(i)));
 		}
 	}
 	

@@ -100,7 +100,8 @@ public class NetworkThread extends Thread {
 				System.out.println((String) msg.Objects[0]);
 				break;
 			case "Set ID":
-				this.playerID = (int) msg.Objects[0];
+				Integer ID =  (Integer) msg.Objects[0];
+				this.playerID = ID.intValue();
 				break;
 			case "Drop Client":
 				//client is leaving the game
