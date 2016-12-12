@@ -193,13 +193,14 @@ public class PlayWindow {
 	 * @return
 	 */
 	public void updatePlayerArray(){
-		Object[] temp = new Object[2];
+		/*Object[] temp = new Object[2];
 		temp[0]=players[1];
-		temp[1] = game;
+		temp[1] = game;*/
+		System.out.println(players[1].getSet());
 		for(int i=0; i<networkConnection.size();i++){
 			networkConnection.get(i).writeMsg(new Message("updatePlayerArray", players, game));
 		}
-		
+		//To show that messages do make it across network
 		for(int i=0; i<networkConnection.size();i++){
 			networkConnection.get(i).writeMsg(new Message("Text", "Updating"));
 		}
