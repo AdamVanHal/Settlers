@@ -85,6 +85,7 @@ public class NetworkThread extends Thread {
 				break;				
 			}
 			catch(ClassNotFoundException e2) {
+				System.out.println(username + " Class Not Found Exception reading Streams: " + e2);
 				break;
 			}
 			//if this is the server side listener, copy this message to all other clients
@@ -111,9 +112,9 @@ public class NetworkThread extends Thread {
 				GameState.initialize((GameBoard)msg.Objects[0]);
 				break;
 			case "updatePlayerArray":
-				PlayerInfo[] temp =(PlayerInfo[]) msg.Objects[0];
+				PlayerInfo[] temp =(PlayerInfo[]) msg.Objects[1];
 				System.out.println(temp[1].getSet());
-				GameState.receivePlayerArray((PlayerInfo[])msg.Objects[0],(GameBoard)msg.Objects[1]);
+				GameState.receivePlayerArray((PlayerInfo[])msg.Objects[1],(GameBoard)msg.Objects[0]);
 				break;
 			}
 		}//end while loop
@@ -141,18 +142,25 @@ public class NetworkThread extends Thread {
 	 * Write a String to the output stream
 	 */
 	public boolean writeMsg(Message msg) {
-		// if Client is still connected send the message to it
 		/*if(this.Type == "Host"){
 			return this.Host.broadcast(msg);
 		}*/
+		// if Client is still connected send the message to it
 		if(!socket.isConnected()) {
 			close();
 			return false;
 		}
-		
+		//debug code to confirm what we are sending on the network
+		System.out.println("sending" + msg.Type);
+		if(msg.Type == "updatePlayerArray"){
+			PlayerInfo[] play =(PlayerInfo[]) msg.Objects[1];
+			System.out.println(play[1].getSet());
+		}
 		// write the message to the stream
 		try {
 			sOutput.writeObject(msg);
+			sOutput.flush();
+			sOutput.reset();
 		}
 		// if an error occurs, do not abort just inform the user
 		catch(IOException e) {

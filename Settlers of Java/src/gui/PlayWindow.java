@@ -28,8 +28,8 @@ public class PlayWindow {
 	
 	//LongestRoad lRoad = new LongestRoad();
 	public Dice d6 = new Dice(6);
-	public GameBoard game;
-	public PlayerInfo[] players =  new PlayerInfo[4];
+	public volatile GameBoard game;
+	public volatile PlayerInfo[] players =  new PlayerInfo[4];
 	private boolean isHost;
 	private ArrayList<NetworkThread> networkConnection = new ArrayList<NetworkThread>();
 	public int playerNumber = 0;
@@ -64,10 +64,10 @@ public class PlayWindow {
 		frame.setBounds(100, 100, 875, 700);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
-		for(int i=0; i<Threads.size();i++){
-			Threads.get(i).gameReference(this);
-		}
 		networkConnection = Threads;
+		for(int i=0; i<networkConnection.size();i++){
+			networkConnection.get(i).gameReference(this);
+		}
 		this.isHost = IsHost;
 		if(isHost){hostInitialize();}
 	}
@@ -198,7 +198,7 @@ public class PlayWindow {
 		temp[1] = game;*/
 		System.out.println(players[1].getSet());
 		for(int i=0; i<networkConnection.size();i++){
-			networkConnection.get(i).writeMsg(new Message("updatePlayerArray", players, game));
+			networkConnection.get(i).writeMsg(new Message("updatePlayerArray", game, players));
 		}
 		//To show that messages do make it across network
 		for(int i=0; i<networkConnection.size();i++){
