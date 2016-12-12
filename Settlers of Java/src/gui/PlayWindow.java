@@ -34,11 +34,21 @@ public class PlayWindow {
 	private ArrayList<NetworkThread> networkConnection = new ArrayList<NetworkThread>();
 	public int playerNumber = 0;
 	private BoardGraphics Island;
+	public boolean enabled = false;
 	
+	//global swing stuff
+	public JLabel BrickVal		= new JLabel("0");
+	public JLabel WoolVal		= new JLabel("0");
+	public JLabel OreVal		= new JLabel("0");
+	public JLabel GrainVal		= new JLabel("0");
+	public JLabel LumberVal		= new JLabel("0");
+	public JButton btnRoll 		= new JButton("Roll");
+	public JButton btnEndTurn 	= new JButton("End Turn");
+		
 
 	/*
 	 * @pre    None
-	 * @post   Launches the play window, primarily used in standalone testing. 
+	 * @post   Launches the play window, primarily used in stand-alone testing. 
 	 * @return None
 	 */
 	public static void main(String[] args) {
@@ -94,6 +104,9 @@ public class PlayWindow {
 		Island.setBounds(160, 0, 685, 644);
 		frame.getContentPane().add(Island);
 		
+		
+		
+		
 		for(int i = 0; i < 4; i ++){
 			players[i] = new PlayerInfo(i+1);
 		}
@@ -104,15 +117,19 @@ public class PlayWindow {
 		Status.setLayout(null);
 		
 		//Generic button that currently does nothing
-		JButton btnEndTurn = new JButton("End Turn");
+		
 		btnEndTurn.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseReleased(MouseEvent arg0) {
-				frame.dispose();
+				if(enabled){
+					if(playerNumber == 3){players[0].setTurn(true);}
+					else{players[playerNumber+1].setTurn(false);}
+				}
 			}
 		});
 		btnEndTurn.setBounds(35, 575, 90, 25);
 		Status.add(btnEndTurn);
+		btnEndTurn.setEnabled(enabled);
 		
 		JLabel Player = new JLabel("");
 		JLabel Resources = new JLabel("Resources");
@@ -121,12 +138,6 @@ public class PlayWindow {
 		JLabel Ore = new JLabel("Ore");
 		JLabel Grain = new JLabel("Grain");
 		JLabel Lumber = new JLabel("Lumber");
-		
-		JLabel BrickVal		= new JLabel("0");
-		JLabel WoolVal		= new JLabel("0");
-		JLabel OreVal		= new JLabel("0");
-		JLabel GrainVal		= new JLabel("0");
-		JLabel LumberVal	= new JLabel("0");
 		
 		
 		Resources.setBounds(47, 125, 65, 25);
@@ -147,29 +158,32 @@ public class PlayWindow {
 		Status.add(rollShow);
 		
 		//Generic button that currently does nothing
-		JButton btnRoll = new JButton("Roll");
+		
 		btnRoll.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseReleased(MouseEvent arg0) {
-				int a = d6.roll();
-				int b = d6.roll();
-				System.out.println(a+b);
-				int c = a + b;
-				rollShow.setText("A(n) " + c + " was rolled.");
-				for(int i=0; i<players.length;i++){
-					players[i].gatherResources(a+b);
-				}
+				if(enabled){
+					int a = d6.roll();
+					int b = d6.roll();
+					System.out.println(a+b);
+					int c = a + b;
+					rollShow.setText("A(n) " + c + " was rolled.");
+					for(int i=0; i<players.length;i++){
+						players[i].gatherResources(a+b);
+					}
 				
-				BrickVal.setText(Integer.toString(players[1].getBrick()));
-				WoolVal.setText(Integer.toString(players[1].getSheep()));
-				OreVal.setText(Integer.toString(players[1].getOre()));
-				GrainVal.setText(Integer.toString(players[1].getWheat()));
-				LumberVal.setText(Integer.toString(players[1].getWood()));
-				updatePlayerArray();
+					BrickVal.setText(Integer.toString(players[1].getBrick()));
+					WoolVal.setText(Integer.toString(players[1].getSheep()));
+					OreVal.setText(Integer.toString(players[1].getOre()));
+					GrainVal.setText(Integer.toString(players[1].getWheat()));
+					LumberVal.setText(Integer.toString(players[1].getWood()));
+					updatePlayerArray();
+				}
 			}
 		});
 		btnRoll.setBounds(35, 525, 90, 25);
 		Status.add(btnRoll);
+		btnRoll.setEnabled(enabled);
 		
 		Status.add(Resources);
 		Status.add(Brick);
@@ -209,6 +223,15 @@ public class PlayWindow {
 	public void receivePlayerArray(PlayerInfo[] players2, GameBoard game2){
 		this.players = players2;
 		this.game = game2;
+		btnRoll.setEnabled(enabled);
+		btnEndTurn.setEnabled(enabled);
+		BrickVal.setText(Integer.toString(players[1].getBrick()));
+		WoolVal.setText(Integer.toString(players[1].getSheep()));
+		OreVal.setText(Integer.toString(players[1].getOre()));
+		GrainVal.setText(Integer.toString(players[1].getWheat()));
+		LumberVal.setText(Integer.toString(players[1].getWood()));
+		//enabled = players[playerNumber].getTurn();
+		
 		frame.repaint();
 	}
 	

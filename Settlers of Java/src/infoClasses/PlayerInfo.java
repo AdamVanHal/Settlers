@@ -46,6 +46,7 @@ public class PlayerInfo implements Serializable{
 	boolean orePort = false;
 	boolean sheepPort = false;
 	boolean miscPort = false;
+	boolean myTurn = false;
 	int playerNumber;
 
 	/* @pre none
@@ -63,6 +64,10 @@ public class PlayerInfo implements Serializable{
 		//myScan = new Scanner(System.in);
 		playerNumber = a;
 	}
+	
+	//get and set functions for whether it is this players turn currently
+	public void setTurn(boolean a){myTurn = a;}
+	public boolean getTurn(){return myTurn;}
 	
 	public void setPlayerNumber(int a){
 		playerNumber = a;
