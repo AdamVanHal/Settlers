@@ -238,11 +238,13 @@ public class PlayWindow {
 							count += players[i].getOre();
 							count += players[i].getWheat();
 							count += players[i].getWood();
-							while(count>7){
+							int target = count/2;
+							while(count>target){
 								int Resource =(int) Math.floor(Math.random()*5);
 								if(Resource == 0){
 									if(players[i].getBrick()>0){
 										players[i].setBrick(players[i].getBrick()-1);
+										count-=1;
 									}else{
 										Resource+=1;
 									}
@@ -250,6 +252,7 @@ public class PlayWindow {
 								if(Resource == 1){
 									if(players[i].getSheep()>0){
 										players[i].setSheep(players[i].getSheep()-1);
+										count-=1;
 									}else{
 										Resource+=1;
 									}
@@ -257,6 +260,7 @@ public class PlayWindow {
 								if(Resource == 2){
 									if(players[i].getOre()>0){
 										players[i].setOre(players[i].getOre()-1);
+										count-=1;
 									}else{
 										Resource+=1;
 									}
@@ -264,6 +268,7 @@ public class PlayWindow {
 								if(Resource == 3){
 									if(players[i].getWheat()>0){
 										players[i].setWheat(players[i].getWheat()-1);
+										count-=1;
 									}else{
 										Resource+=1;
 									}
@@ -271,6 +276,7 @@ public class PlayWindow {
 								if(Resource == 0){
 									if(players[i].getWood()>0){
 										players[i].setWood(players[i].getWood()-1);
+										count-=1;
 									}
 								}
 							}
