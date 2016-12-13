@@ -581,6 +581,9 @@ public class GameBoard implements Serializable{
 				boardPieces[i].setTileID(dieArr[j]);
 				j++;
 			}
+			else{
+				boardPieces[i].setRobber(true);
+			}
 		}
 	}
 	
@@ -600,10 +603,18 @@ public class GameBoard implements Serializable{
 		return boardLines[i];
 	}
 	
+	/* @pre i is valid int
+	*  @post none
+	*  @return boardLines array
+	*/
 	public LineNode[] getLineArray(){
 		return boardLines;
 	}
 	
+	/* @pre i is valid int
+	*  @post none
+	*  @return boardPieces array of element i
+	*/
 	public PieceNode getPiece(int i){
 		return boardPieces[i];
 	}

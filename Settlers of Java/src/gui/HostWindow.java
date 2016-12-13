@@ -94,7 +94,7 @@ public class HostWindow {
 		btnStart.setEnabled(false);
 		
 		JLabel lblPlayerCount = new JLabel("# Players");
-		JTextField txtPlayerCount = new JTextField("3");
+		JTextField txtPlayerCount = new JTextField("2");
 		JLabel lblPort = new JLabel("Port #");
 		JTextField txtPort = new JTextField("5000");
 		JButton btnOpen = new JButton("Open Server");

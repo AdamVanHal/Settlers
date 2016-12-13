@@ -79,8 +79,8 @@ public class JoinWindow {
 		JLabel lblPort = new JLabel("Enter the Port of the Host");
 		JLabel lblName = new JLabel("username");
 		JLabel Title = new JLabel("Settlers of Java!");
-		JTextField txtJoin = new JTextField("IP Address");
-		JTextField txtPort = new JTextField("Port");
+		JTextField txtJoin = new JTextField("127.0.0.1");
+		JTextField txtPort = new JTextField("5000");
 		
 		JButton btnStart = new JButton("Start");
 		btnStart.addMouseListener(new MouseAdapter() {
