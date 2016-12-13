@@ -33,12 +33,15 @@ public class PlayWindow {
 	public volatile PlayerInfo[] players;
 	private boolean isHost;
 	private ArrayList<NetworkThread> networkConnection = new ArrayList<NetworkThread>();
-	public int playerNumber = 0;
 	private BoardGraphics Island;
-	public boolean enabled = false;
-	public int numPlayers = 0;
-	public boolean ifSetup = true;
-	private int numTurns = 0;
+	
+	private int numTurns     = 0;
+	public  int numPlayers   = 0;
+	public  int playerNumber = 0;
+	
+	public boolean ifSetup   = true;
+	public boolean myTurn   = false;
+	public boolean hasRolled = false;
 	
 	//global swing stuff
 	public JLabel BrickVal		= new JLabel("0");
@@ -111,7 +114,7 @@ public class PlayWindow {
 			networkConnection.get(i).writeMsg(new Message("initialize", game, players));
 		}
 		initialize(game, players);
-		enabled = true;
+		myTurn = true;
 		Island.cursorState = 4;
 	}
 	
@@ -138,7 +141,7 @@ public class PlayWindow {
 		btnEndTurn.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseReleased(MouseEvent arg0) {
-				if(enabled){
+				if((myTurn && hasRolled) || (myTurn && ifSetup)){
 					if(playerNumber == (numPlayers-1)){
 						players[0].setTurn(true);
 					}
@@ -150,17 +153,18 @@ public class PlayWindow {
 					if(numTurns > 1){
 						ifSetup = false;
 					}
-					enabled = false;
+					myTurn = false;
 					updatePlayerArray();
-					btnEndTurn.setEnabled(enabled);
-					btnRoll.setEnabled(enabled);
+					btnEndTurn.setEnabled(false);
+					btnRoll.setEnabled(false);
+					hasRolled = false;
 				}
 				
 			}
 		});
 		btnEndTurn.setBounds(35, 575, 90, 25);
 		Status.add(btnEndTurn);
-		btnEndTurn.setEnabled(enabled);
+		btnEndTurn.setEnabled(myTurn);
 		
 		JLabel Player = new JLabel("Player " + playerNumber + ":");
 		JLabel user = new JLabel(LaunchWindow.username);
@@ -186,7 +190,7 @@ public class PlayWindow {
 		LumberVal.setBounds(47, 250, 65, 25);
 		
 		JLabel rollShow = new JLabel("");
-		rollShow.setBounds(30,25,100,25);
+		rollShow.setBounds(30,50,100,25);
 		Status.add(rollShow);
 		
 		//Generic button that currently does nothing
@@ -194,7 +198,7 @@ public class PlayWindow {
 		btnRoll.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseReleased(MouseEvent arg0) {
-				if(enabled && !ifSetup){
+				if(!ifSetup && !hasRolled){
 					int a = d6.roll();
 					int b = d6.roll();
 					System.out.println(a+b);
@@ -209,13 +213,16 @@ public class PlayWindow {
 					OreVal.setText(Integer.toString(players[playerNumber].getOre()));
 					GrainVal.setText(Integer.toString(players[playerNumber].getWheat()));
 					LumberVal.setText(Integer.toString(players[playerNumber].getWood()));
+					hasRolled = true;
+					btnRoll.setEnabled(false);
 					updatePlayerArray();
+					btnEndTurn.setEnabled(true);
 				}
 			}
 		});
 		btnRoll.setBounds(35, 525, 90, 25);
 		Status.add(btnRoll);
-		btnRoll.setEnabled(enabled && !ifSetup);
+		btnRoll.setEnabled(false);
 		
 		Status.add(Player);
 		Status.add(Resources);
@@ -230,6 +237,8 @@ public class PlayWindow {
 		Status.add(OreVal);
 		Status.add(GrainVal);
 		Status.add(LumberVal);
+		
+		if(isHost){btnEndTurn.setEnabled(true);}
 		
 		frame.repaint();
 	}
@@ -256,14 +265,22 @@ public class PlayWindow {
 	public void receivePlayerArray(PlayerInfo[] players2, GameBoard game2){
 		this.players = players2;
 		this.game = game2;
-		btnRoll.setEnabled(enabled);
-		btnEndTurn.setEnabled(enabled);
+		
 		BrickVal.setText(Integer.toString(players[playerNumber].getBrick()));
 		WoolVal.setText(Integer.toString(players[playerNumber].getSheep()));
 		OreVal.setText(Integer.toString(players[playerNumber].getOre()));
 		GrainVal.setText(Integer.toString(players[playerNumber].getWheat()));
 		LumberVal.setText(Integer.toString(players[playerNumber].getWood()));
-		enabled = players[playerNumber].getTurn();
+		if(players[playerNumber].getTurn()){
+			myTurn = true;
+			btnRoll.setEnabled(!ifSetup && !hasRolled);
+			if(ifSetup){
+				btnEndTurn.setEnabled(true);
+			}
+			else{
+				btnEndTurn.setEnabled(hasRolled);
+			}
+		}
 		
 		frame.repaint();
 		if(ifSetup){

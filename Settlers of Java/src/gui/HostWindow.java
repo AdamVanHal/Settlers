@@ -20,7 +20,7 @@ import Utilities.HostNetwork;
 public class HostWindow {
 
 	public JFrame frame;
-
+	public boolean opened = false;
 	/**
 	 * Launch the application.
 	 */
@@ -75,19 +75,22 @@ public class HostWindow {
 		btnStart.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseReleased(MouseEvent arg0) {
-				EventQueue.invokeLater(new Runnable() {
-					public void run() {
-						try {
-							frame.dispose();
-							PlayWindow window = new PlayWindow(Host.clients,true);
-							window.frame.setVisible(true);
-						} catch (Exception e) {
-							e.printStackTrace();
+				if(opened){
+					EventQueue.invokeLater(new Runnable() {
+						public void run() {
+							try {
+								frame.dispose();
+								PlayWindow window = new PlayWindow(Host.clients,true);
+								window.frame.setVisible(true);
+							} catch (Exception e) {
+								e.printStackTrace();
+							}
 						}
-					}
-				});
+					});
+				}
 			}
 		});
+		btnStart.setEnabled(false);
 		
 		JLabel lblPlayerCount = new JLabel("# Players");
 		JTextField txtPlayerCount = new JTextField("3");
@@ -122,66 +125,13 @@ public class HostWindow {
 					//Connection Failed
 					e.printStackTrace();
 				}
-			}
-		});
-		
-		//btnKick1 wouldnt be used, temporarily commented
-		/*
-		JButton btnKick1 = new JButton("Kick");
-		btnKick1.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseReleased(MouseEvent arg0) {
-				EventQueue.invokeLater(new Runnable() {
-					public void run() {
-						try {}
-						catch (Exception e){ e.printStackTrace(); }
-					}
-				});
-			}
-		});*/
-		JButton btnKick2 = new JButton("Kick");
-		btnKick2.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseReleased(MouseEvent arg0) {
-				EventQueue.invokeLater(new Runnable() {
-					public void run() {
-						try {}
-						catch (Exception e){ e.printStackTrace(); }
-					}
-				});
-			}
-		});
-		JButton btnKick3 = new JButton("Kick");
-		btnKick3.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseReleased(MouseEvent arg0) {
-				EventQueue.invokeLater(new Runnable() {
-					public void run() {
-						try {}
-						catch (Exception e){ e.printStackTrace(); }
-					}
-				});
-			}
-		});
-		JButton btnKick4 = new JButton("Kick");
-		btnKick4.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseReleased(MouseEvent arg0) {
-				EventQueue.invokeLater(new Runnable() {
-					public void run() {
-						try {}
-						catch (Exception e){ e.printStackTrace(); }
-					}
-				});
+				btnStart.setEnabled(true);
+				opened = true;
 			}
 		});
 		
 		JLabel Title = new JLabel("Settlers of Java!");
 		JLabel lblName = new JLabel("username");
-		JTextField Player1 = new JTextField("Host: " + LaunchWindow.username);
-		JTextField Player2 = new JTextField("Player 2: ");
-		JTextField Player3 = new JTextField("Player 3: ");
-		JTextField Player4 = new JTextField("Player 4: ");
 		
 		Title.setBounds(125,0,200,25);
 		btnStart.setBounds(175,200,100,25);
@@ -191,19 +141,6 @@ public class HostWindow {
 		lblPort.setBounds(170, 50, 50, 25);
 		txtPort.setBounds(220, 50, 50, 25);
 		btnOpen.setBounds(315,50,110,25);
-		
-		//btnKick1.setBounds(315,75,60,25);
-		btnKick2.setBounds(315,100,60,25);
-		btnKick3.setBounds(315,125,60,25);
-		btnKick4.setBounds(315,150,60,25);
-		Player1.setBounds(75,75,240,25);
-		Player1.setEditable(false);
-		Player2.setBounds(75,100,240,25);
-		Player2.setEditable(false);
-		Player3.setBounds(75,125,240,25);
-		Player3.setEditable(false);
-		Player4.setBounds(75,150,240,25);
-		Player4.setEditable(false);
 		
 		lblName.setBounds(0,20,450,25);
 		
@@ -224,15 +161,6 @@ public class HostWindow {
 		Status.add(lblPort);
 		Status.add(txtPort);
 		Status.add(btnOpen);
-		
-		//Status.add(btnKick1);
-		Status.add(btnKick2);
-		Status.add(btnKick3);
-		Status.add(btnKick4);
-		Status.add(Player1);
-		Status.add(Player2);
-		Status.add(Player3);
-		Status.add(Player4);
 	}
 }
 

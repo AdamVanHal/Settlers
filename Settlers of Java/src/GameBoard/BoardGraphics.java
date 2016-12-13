@@ -24,6 +24,7 @@ import java.awt.event.MouseEvent;
 import java.awt.Cursor;
 import javax.swing.JPanel;
 import gui.PlayWindow;
+import infoClasses.PlayerInfo;
 //eclipse is not detecting all my imported class uses,
 //so I added this to suppress some warnings.
 @SuppressWarnings("unused")
@@ -96,6 +97,11 @@ public class BoardGraphics extends JPanel implements Serializable{
 								bg.repaint();
 								Parent.updatePlayerArray();
 								System.out.println("Build Settlement @ "+(i+1));
+								Parent.BrickVal.setText(Integer.toString(Parent.players[Parent.playerNumber].getBrick()));
+								Parent.WoolVal.setText(Integer.toString(Parent.players[Parent.playerNumber].getSheep()));
+								Parent.OreVal.setText(Integer.toString(Parent.players[Parent.playerNumber].getOre()));
+								Parent.GrainVal.setText(Integer.toString(Parent.players[Parent.playerNumber].getWheat()));
+								Parent.LumberVal.setText(Integer.toString(Parent.players[Parent.playerNumber].getWood()));
 							}
 							break;
 						}
@@ -114,6 +120,11 @@ public class BoardGraphics extends JPanel implements Serializable{
 								bg.repaint();
 								Parent.updatePlayerArray();
 								System.out.println("Build Road @ "+(i+1));
+								Parent.BrickVal.setText(Integer.toString(Parent.players[Parent.playerNumber].getBrick()));
+								Parent.WoolVal.setText(Integer.toString(Parent.players[Parent.playerNumber].getSheep()));
+								Parent.OreVal.setText(Integer.toString(Parent.players[Parent.playerNumber].getOre()));
+								Parent.GrainVal.setText(Integer.toString(Parent.players[Parent.playerNumber].getWheat()));
+								Parent.LumberVal.setText(Integer.toString(Parent.players[Parent.playerNumber].getWood()));
 							}
 							break;
 						}
@@ -133,6 +144,11 @@ public class BoardGraphics extends JPanel implements Serializable{
 								bg.repaint();
 								Parent.updatePlayerArray();
 								System.out.println("Build City @ "+(i+1));
+								Parent.BrickVal.setText(Integer.toString(Parent.players[Parent.playerNumber].getBrick()));
+								Parent.WoolVal.setText(Integer.toString(Parent.players[Parent.playerNumber].getSheep()));
+								Parent.OreVal.setText(Integer.toString(Parent.players[Parent.playerNumber].getOre()));
+								Parent.GrainVal.setText(Integer.toString(Parent.players[Parent.playerNumber].getWheat()));
+								Parent.LumberVal.setText(Integer.toString(Parent.players[Parent.playerNumber].getWood()));
 							}
 							break;
 						}
