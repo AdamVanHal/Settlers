@@ -225,6 +225,57 @@ public class PlayWindow {
 					btnRoll.setEnabled(false);
 					updatePlayerArray();
 					btnEndTurn.setEnabled(true);
+					
+					if(c==7){
+						for(int i=0;i<19;i++){
+							game.getPiece(i).setRobber(false);
+						}
+						game.getPiece((int)Math.floor(Math.random()*19)).setRobber(true);
+						for(int i=0; i<players.length;i++){
+							int count = 0;
+							count += players[i].getBrick();
+							count += players[i].getSheep();
+							count += players[i].getOre();
+							count += players[i].getWheat();
+							count += players[i].getWood();
+							while(count>7){
+								int Resource =(int) Math.floor(Math.random()*5);
+								if(Resource == 0){
+									if(players[i].getBrick()>0){
+										players[i].setBrick(players[i].getBrick()-1);
+									}else{
+										Resource+=1;
+									}
+								}
+								if(Resource == 1){
+									if(players[i].getSheep()>0){
+										players[i].setSheep(players[i].getSheep()-1);
+									}else{
+										Resource+=1;
+									}
+								}
+								if(Resource == 2){
+									if(players[i].getOre()>0){
+										players[i].setOre(players[i].getOre()-1);
+									}else{
+										Resource+=1;
+									}
+								}
+								if(Resource == 3){
+									if(players[i].getWheat()>0){
+										players[i].setWheat(players[i].getWheat()-1);
+									}else{
+										Resource+=1;
+									}
+								}
+								if(Resource == 0){
+									if(players[i].getWood()>0){
+										players[i].setWood(players[i].getWood()-1);
+									}
+								}
+							}
+						}
+					}
 				}
 			}
 		});
