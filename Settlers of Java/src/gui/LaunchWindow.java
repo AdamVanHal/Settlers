@@ -122,7 +122,6 @@ public class LaunchWindow {
 		btnJoin.setBounds(275,200,100,25);
 		lblPlayer.setBounds(150,50,125,25);
 		usernameField.setBounds(150, 75, 150, 25);
-		
 	}
 
 }

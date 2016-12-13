@@ -23,6 +23,7 @@ public class JoinWindow {
 
 	public JFrame frame;
 	private ArrayList<NetworkThread> threadList = new ArrayList<NetworkThread>();
+	public static String username;
 	/**
 	 * Launch the application.
 	 */
@@ -125,6 +126,7 @@ public class JoinWindow {
 		lblName.setHorizontalAlignment(SwingConstants.CENTER);
 		lblName.setVerticalAlignment(SwingConstants.TOP);
 		lblName.setText("Username: " + LaunchWindow.username);
+		username = LaunchWindow.username;
 		
 		lblError.setForeground(Color.red);
 		lblError.setHorizontalAlignment(SwingConstants.CENTER);

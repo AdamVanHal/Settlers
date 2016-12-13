@@ -188,6 +188,7 @@ public class BoardGraphics extends JPanel implements Serializable{
 								Parent.updatePlayerArray();
 								System.out.println("Build Road @ "+(i+1));
 								cursorState = 0;
+								Parent.initDone = true;
 							}
 							break;
 						}
@@ -320,7 +321,12 @@ public class BoardGraphics extends JPanel implements Serializable{
         			g2d.drawString(Integer.toString(Parent.game.getPiece(i).getTileID()), (float)centerPoints.get(i).getX()-5, (float)centerPoints.get(i).getY()+5);
         		}
         	}
+        	else{
+        		//g2d.setPaint(new Color(0,0,0,255));
+        		//g2d.fill(Octa(centerPoints.get(i).getX(), centerPoints.get(i).getY(), 8));
+        	}
         }
+        
         
         //g2d.fill(Robber(centerPoints.get(5).getX(), centerPoints.get(5).getY(), 6));
         

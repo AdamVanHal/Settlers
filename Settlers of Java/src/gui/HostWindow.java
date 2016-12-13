@@ -21,6 +21,7 @@ public class HostWindow {
 
 	public JFrame frame;
 	public boolean opened = false;
+	public static String username = "";
 	/**
 	 * Launch the application.
 	 */
@@ -147,6 +148,7 @@ public class HostWindow {
 		lblName.setHorizontalAlignment(SwingConstants.CENTER);
 		lblName.setVerticalAlignment(SwingConstants.TOP);
 		lblName.setText("Username: " + LaunchWindow.username);
+		username = LaunchWindow.username;
 		
 		Title.setFont (Title.getFont ().deriveFont (20.0f));
 		Title.setHorizontalAlignment(SwingConstants.CENTER);

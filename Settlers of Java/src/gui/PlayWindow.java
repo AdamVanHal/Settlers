@@ -42,6 +42,9 @@ public class PlayWindow {
 	public boolean ifSetup   = true;
 	public boolean myTurn   = false;
 	public boolean hasRolled = false;
+	public boolean initDone = false;
+	
+	public static String username;
 	
 	//global swing stuff
 	public JLabel BrickVal		= new JLabel("0");
@@ -129,6 +132,10 @@ public class PlayWindow {
 		
 		if(!isHost){
 			playerNumber = networkConnection.get(0).playerID;
+			username = HostWindow.username;
+		}
+		else{
+			username = JoinWindow.username;
 		}
 		
 		JPanel Status = new JPanel();
@@ -158,6 +165,7 @@ public class PlayWindow {
 					btnEndTurn.setEnabled(false);
 					btnRoll.setEnabled(false);
 					hasRolled = false;
+					initDone = false;
 				}
 				
 			}
@@ -190,7 +198,7 @@ public class PlayWindow {
 		LumberVal.setBounds(47, 250, 65, 25);
 		
 		JLabel rollShow = new JLabel("");
-		rollShow.setBounds(30,50,100,25);
+		rollShow.setBounds(30,50,125,25);
 		Status.add(rollShow);
 		
 		//Generic button that currently does nothing
@@ -284,7 +292,7 @@ public class PlayWindow {
 		
 		frame.repaint();
 		if(ifSetup){
-			if(players[playerNumber].getTurn() && Island.cursorState != 5){
+			if(players[playerNumber].getTurn() && Island.cursorState == 0 && initDone == false){
 				Island.cursorState = 4;
 			}
 		}
