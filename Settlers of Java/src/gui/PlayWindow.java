@@ -30,7 +30,7 @@ public class PlayWindow {
 	//LongestRoad lRoad = new LongestRoad();
 	public Dice d6 = new Dice(6);
 	public volatile GameBoard game;
-	public volatile PlayerInfo[] players =  new PlayerInfo[4];
+	public volatile PlayerInfo[] players;
 	private boolean isHost;
 	private ArrayList<NetworkThread> networkConnection = new ArrayList<NetworkThread>();
 	public int playerNumber = 0;
@@ -103,6 +103,7 @@ public class PlayWindow {
 		//add the main game area to the center
 		game = new GameBoard();
 		numPlayers = networkConnection.size()+1;
+		players = new PlayerInfo[numPlayers];
 		for(int i = 0; i < numPlayers; i ++){
 			players[i] = new PlayerInfo(i+1);
 		}
@@ -138,14 +139,23 @@ public class PlayWindow {
 			@Override
 			public void mouseReleased(MouseEvent arg0) {
 				if(enabled){
-					if(playerNumber == (numPlayers-1)){players[0].setTurn(true);}
-					else{players[playerNumber+1].setTurn(true);}
+					if(playerNumber == (numPlayers-1)){
+						players[0].setTurn(true);
+					}
+					else{
+						players[playerNumber+1].setTurn(true);
+					}
 					players[playerNumber].setTurn(false);
 					numTurns ++;
-					if(numTurns == 2){
+					if(numTurns > 1){
 						ifSetup = false;
 					}
+					enabled = false;
+					updatePlayerArray();
+					btnEndTurn.setEnabled(enabled);
+					btnRoll.setEnabled(enabled);
 				}
+				
 			}
 		});
 		btnEndTurn.setBounds(35, 575, 90, 25);
@@ -184,7 +194,7 @@ public class PlayWindow {
 		btnRoll.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseReleased(MouseEvent arg0) {
-				if(enabled){
+				if(enabled && !ifSetup){
 					int a = d6.roll();
 					int b = d6.roll();
 					System.out.println(a+b);
@@ -205,7 +215,7 @@ public class PlayWindow {
 		});
 		btnRoll.setBounds(35, 525, 90, 25);
 		Status.add(btnRoll);
-		btnRoll.setEnabled(enabled);
+		btnRoll.setEnabled(enabled && !ifSetup);
 		
 		Status.add(Player);
 		Status.add(Resources);
@@ -257,7 +267,9 @@ public class PlayWindow {
 		
 		frame.repaint();
 		if(ifSetup){
-			Island.cursorState = 4;
+			if(players[playerNumber].getTurn() && Island.cursorState != 5){
+				Island.cursorState = 4;
+			}
 		}
 	}
 	
