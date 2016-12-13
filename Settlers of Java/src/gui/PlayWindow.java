@@ -223,8 +223,7 @@ public class PlayWindow {
 					LumberVal.setText(Integer.toString(players[playerNumber].getWood()));
 					hasRolled = true;
 					btnRoll.setEnabled(false);
-					updatePlayerArray();
-					btnEndTurn.setEnabled(true);
+					
 					
 					if(c==7){
 						for(int i=0;i<19;i++){
@@ -282,6 +281,9 @@ public class PlayWindow {
 							}
 						}
 					}
+					updatePlayerArray();
+					btnEndTurn.setEnabled(true);
+					frame.repaint();
 				}
 			}
 		});
