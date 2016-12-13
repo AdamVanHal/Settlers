@@ -304,7 +304,8 @@ public class BoardGraphics extends JPanel implements Serializable{
         	g2d.setPaint(new Color(0,0,0,255));
         	g2d.draw(Hexagon(centerPoints.get(i).getX(),centerPoints.get(i).getY(),radius));
         }
-        //draw labels for tiles, vertexes and edges
+        
+        //drawing the dots in the center of resource tiles that say the roll number
         for(int i=0; i<centerPoints.size();i++){
         	int ResourceType = Parent.game.getPiece(i).getTileResource();
         	if(ResourceType != 0){
@@ -321,14 +322,13 @@ public class BoardGraphics extends JPanel implements Serializable{
         			g2d.drawString(Integer.toString(Parent.game.getPiece(i).getTileID()), (float)centerPoints.get(i).getX()-5, (float)centerPoints.get(i).getY()+5);
         		}
         	}
-        	else{
-        		//g2d.setPaint(new Color(0,0,0,255));
-        		//g2d.fill(Octa(centerPoints.get(i).getX(), centerPoints.get(i).getY(), 8));
+        	//checking if the robber is on the tile and drawing it if it is there
+        	if(Parent.game.getPiece(i).getRobber()){
+        		g2d.setPaint(new Color(0,0,0,255));
+        		g2d.fill(Octa(centerPoints.get(i).getX(), centerPoints.get(i).getY(), 8));
         	}
         }
         
-        
-        //g2d.fill(Robber(centerPoints.get(5).getX(), centerPoints.get(5).getY(), 6));
         
         
       //loop updates the board for existing roads
