@@ -337,6 +337,7 @@ public class PlayerInfo implements Serializable{
 			}
 			return false;
 		}
+		System.out.println("Insuficiant funds.");
 		return false;
 	}
 	/*
