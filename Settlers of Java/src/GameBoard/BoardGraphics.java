@@ -102,6 +102,7 @@ public class BoardGraphics extends JPanel implements Serializable{
 								Parent.OreVal.setText(Integer.toString(Parent.players[Parent.playerNumber].getOre()));
 								Parent.GrainVal.setText(Integer.toString(Parent.players[Parent.playerNumber].getWheat()));
 								Parent.LumberVal.setText(Integer.toString(Parent.players[Parent.playerNumber].getWood()));
+								Parent.vpVal.setText(Integer.toString(Parent.players[Parent.playerNumber].getVP()));
 							}
 							break;
 						}
@@ -125,6 +126,7 @@ public class BoardGraphics extends JPanel implements Serializable{
 								Parent.OreVal.setText(Integer.toString(Parent.players[Parent.playerNumber].getOre()));
 								Parent.GrainVal.setText(Integer.toString(Parent.players[Parent.playerNumber].getWheat()));
 								Parent.LumberVal.setText(Integer.toString(Parent.players[Parent.playerNumber].getWood()));
+								Parent.vpVal.setText(Integer.toString(Parent.players[Parent.playerNumber].getVP()));
 							}
 							break;
 						}
@@ -149,6 +151,7 @@ public class BoardGraphics extends JPanel implements Serializable{
 								Parent.OreVal.setText(Integer.toString(Parent.players[Parent.playerNumber].getOre()));
 								Parent.GrainVal.setText(Integer.toString(Parent.players[Parent.playerNumber].getWheat()));
 								Parent.LumberVal.setText(Integer.toString(Parent.players[Parent.playerNumber].getWood()));
+								Parent.vpVal.setText(Integer.toString(Parent.players[Parent.playerNumber].getVP()));
 							}
 							break;
 						}
@@ -168,6 +171,7 @@ public class BoardGraphics extends JPanel implements Serializable{
 								bg.repaint();
 								Parent.updatePlayerArray();
 								System.out.println("Build settlement @ "+(i+1));
+								Parent.vpVal.setText(Integer.toString(Parent.players[Parent.playerNumber].getVP()));
 								cursorState = 5;
 							}
 							break;
@@ -187,6 +191,7 @@ public class BoardGraphics extends JPanel implements Serializable{
 								bg.repaint();
 								Parent.updatePlayerArray();
 								System.out.println("Build Road @ "+(i+1));
+								Parent.vpVal.setText(Integer.toString(Parent.players[Parent.playerNumber].getVP()));
 								cursorState = 0;
 								Parent.initDone = true;
 							}

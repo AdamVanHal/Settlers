@@ -6,6 +6,7 @@
 */
 package gui;
 
+import java.awt.Color;
 import java.awt.EventQueue;
 import javax.swing.JFrame;
 import GameBoard.BoardGraphics;
@@ -54,6 +55,8 @@ public class PlayWindow {
 	public JLabel LumberVal		= new JLabel("0");
 	public JButton btnRoll 		= new JButton("Roll");
 	public JButton btnEndTurn 	= new JButton("End Turn");
+	
+	public JLabel vpVal = new JLabel("0");
 		
 
 	/*
@@ -144,7 +147,7 @@ public class PlayWindow {
 		}
 		
 		JPanel Status = new JPanel();
-		Status.setBounds(0, 0, 150, 600);
+		Status.setBounds(0, 0, 150, 700);
 		frame.getContentPane().add(Status);
 		Status.setLayout(null);
 		
@@ -175,26 +178,43 @@ public class PlayWindow {
 				
 			}
 		});
-		btnEndTurn.setBounds(35, 575, 90, 25);
+		btnEndTurn.setBounds(35, 594, 90, 25);
 		Status.add(btnEndTurn);
 		btnEndTurn.setEnabled(myTurn);
 		
 		JLabel Player = new JLabel("Player " + playerNumber + ":");
 		JLabel user = new JLabel(LaunchWindow.username);
-		JLabel Resources = new JLabel("Resources");
+		JLabel Resources = new JLabel("<HTML><u>Resources</U></HTML>");
 		JLabel Brick = new JLabel("Brick");
+		JLabel brickAbbr = new JLabel("(B)");
 		JLabel Wool = new JLabel("Wool");
+		JLabel woolAbbr = new JLabel("(W)");
 		JLabel Ore = new JLabel("Ore");
+		JLabel oreAbbr = new JLabel("(O)");
 		JLabel Grain = new JLabel("Grain");
+		JLabel grainAbbr = new JLabel("(G)");
 		JLabel Lumber = new JLabel("Lumber");
+		JLabel lumberAbbr = new JLabel("(L)");
 		
 		Player.setBounds(50, 25, 60, 25);
+		user.setBounds(50,50,60,25);
 		Resources.setBounds(47, 125, 65, 25);
 		Brick.setBounds(65, 150, 65, 25);
 		Wool.setBounds(65, 175, 65, 25);
 		Ore.setBounds(65, 200, 65, 25);
 		Grain.setBounds(65, 225, 65, 25);
 		Lumber.setBounds(65, 250, 65, 25);
+		
+		brickAbbr.setBounds(20,150,65,25);
+		brickAbbr.setForeground(new Color(209,79,50,255));
+		woolAbbr.setBounds(20,175,65,25);
+		woolAbbr.setForeground(new Color(136,214,19,255));
+		oreAbbr.setBounds(20,200,65,25);
+		oreAbbr.setForeground(new Color(114,107,97,255));
+		grainAbbr.setBounds(20,225,65,25);
+		grainAbbr.setForeground(new Color(249,237,9,255));
+		lumberAbbr.setBounds(20,250,65,25);
+		lumberAbbr.setForeground(new Color(19,119,8,255));
 		
 		BrickVal.setBounds(47, 150, 65, 25);
 		WoolVal.setBounds(47, 175, 65, 25);
@@ -203,7 +223,7 @@ public class PlayWindow {
 		LumberVal.setBounds(47, 250, 65, 25);
 		
 		JLabel rollShow = new JLabel("");
-		rollShow.setBounds(30,50,125,25);
+		rollShow.setBounds(30,75,125,25);
 		Status.add(rollShow);
 		
 		//Generic button that currently does nothing
@@ -291,23 +311,61 @@ public class PlayWindow {
 				}
 			}
 		});
-		btnRoll.setBounds(35, 525, 90, 25);
+		btnRoll.setBounds(35, 544, 90, 25);
 		Status.add(btnRoll);
 		btnRoll.setEnabled(false);
 		
 		Status.add(Player);
+		Status.add(user);
 		Status.add(Resources);
 		Status.add(Brick);
+		Status.add(brickAbbr);
 		Status.add(Wool);
+		Status.add(woolAbbr);
 		Status.add(Ore);
+		Status.add(oreAbbr);
 		Status.add(Grain);
+		Status.add(grainAbbr);
 		Status.add(Lumber);
+		Status.add(lumberAbbr);
 		
 		Status.add(BrickVal);
 		Status.add(WoolVal);
 		Status.add(OreVal);
 		Status.add(GrainVal);
 		Status.add(LumberVal);
+		
+		JLabel victoryPoints = new JLabel("Victory Points: ");
+		victoryPoints.setBounds(30, 500, 100, 25);
+		vpVal.setBounds(120, 500, 100, 25);
+		Status.add(victoryPoints);
+		Status.add(vpVal);
+		
+		
+		JLabel buildCosts = new JLabel("<HTML><U>Build Costs:</U></HTML>");
+		//BWOGL
+		JLabel subSettlement = new JLabel("Settlement:");
+		JLabel settlementCost = new JLabel("1B, 1W, 1G, 1L");
+		JLabel subRoad = new JLabel("Road: ");
+		JLabel roadCost = new JLabel("1B, 1L");
+		JLabel subCity = new JLabel("City: ");
+		JLabel cityCost = new JLabel("3O, 2G");
+		
+		buildCosts.setBounds(47,300,100,25);
+		subSettlement.setBounds(47,325,100,25);
+		settlementCost.setBounds(47,350,100,25);
+		subRoad.setBounds(47,375,100,25);
+		roadCost.setBounds(47,400,100,25);
+		subCity.setBounds(47,425,100,25);
+		cityCost.setBounds(47,450,100,25);
+		
+		Status.add(buildCosts);
+		Status.add(subSettlement);
+		Status.add(settlementCost);
+		Status.add(subRoad);
+		Status.add(roadCost);
+		Status.add(subCity);
+		Status.add(cityCost);
 		
 		if(isHost){btnEndTurn.setEnabled(true);}
 		
@@ -347,6 +405,8 @@ public class PlayWindow {
 		OreVal.setText(Integer.toString(players[playerNumber].getOre()));
 		GrainVal.setText(Integer.toString(players[playerNumber].getWheat()));
 		LumberVal.setText(Integer.toString(players[playerNumber].getWood()));
+		
+		vpVal.setText(Integer.toString(players[playerNumber].getVP()));
 		if(players[playerNumber].getTurn()){
 			myTurn = true;
 			btnRoll.setEnabled(!ifSetup && !hasRolled);
