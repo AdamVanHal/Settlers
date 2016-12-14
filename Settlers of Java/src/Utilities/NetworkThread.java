@@ -151,13 +151,13 @@ public class NetworkThread extends Thread {
 			close();
 			return false;
 		}
-		//debug code to confirm what we are sending on the network
+		/*//debug code to confirm what we are sending on the network
 		System.out.println("sending" + msg.Type);
 		if(msg.Type == "updatePlayerArray"){
 			PlayerInfo[] play =(PlayerInfo[]) msg.Objects[1];
 			System.out.println(play[1].getSet());
-		}
-		// write the message to the stream
+		}*/
+		// write the message to the stream and then remove all assumptions from stream
 		try {
 			sOutput.writeObject(msg);
 			sOutput.flush();

@@ -252,52 +252,52 @@ public class PlayWindow {
 						game.getPiece((int)Math.floor(Math.random()*19)).setRobber(true);
 						for(int i=0; i<players.length;i++){
 							int count = 0;
-							count += players[i].getBrick();
-							count += players[i].getSheep();
-							count += players[i].getOre();
-							count += players[i].getWheat();
-							count += players[i].getWood();
+							ArrayList<String> resourceList = new ArrayList<String>();
+							for(int j=0;j<players[i].getBrick();j++){
+								resourceList.add("Brick");
+								count++;
+							}
+							for(int j=0;j<players[i].getSheep();j++){
+								resourceList.add("Sheep");
+								count++;
+							}
+							for(int j=0;j<players[i].getOre();j++){
+								resourceList.add("Ore");
+								count++;
+							}
+							for(int j=0;j<players[i].getWheat();j++){
+								resourceList.add("Wheat");
+								count++;
+							}
+							for(int j=0;j<players[i].getWood();j++){
+								resourceList.add("Wood");
+								count++;
+							}
+							
 							int target = count/2;
 							if(count>7){
 								while(count>target){
-									int Resource =(int) Math.floor(Math.random()*5);
-									if(Resource == 0){
-										if(players[i].getBrick()>0){
-											players[i].setBrick(players[i].getBrick()-1);
-											count-=1;
-										}else{
-											Resource+=1;
-										}
+									int Steal =(int) Math.floor(Math.random()*count);
+									String stolen = resourceList.remove(Steal);
+									if(stolen.equals("Brick")){
+										players[i].setBrick(players[i].getBrick()-1);
+										count-=1;
 									}
-									if(Resource == 1){
-										if(players[i].getSheep()>0){
-											players[i].setSheep(players[i].getSheep()-1);
-											count-=1;
-										}else{
-											Resource+=1;
-										}
+									if(stolen.equals("Sheep")){
+										players[i].setSheep(players[i].getSheep()-1);
+										count-=1;
 									}
-									if(Resource == 2){
-										if(players[i].getOre()>0){
-											players[i].setOre(players[i].getOre()-1);
-											count-=1;
-										}else{
-											Resource+=1;
-										}
+									if(stolen.equals("Ore")){
+										players[i].setOre(players[i].getOre()-1);
+										count-=1;
 									}
-									if(Resource == 3){
-										if(players[i].getWheat()>0){
-											players[i].setWheat(players[i].getWheat()-1);
-											count-=1;
-										}else{
-											Resource+=1;
-										}
+									if(stolen.equals("Wheat")){
+										players[i].setWheat(players[i].getWheat()-1);
+										count-=1;
 									}
-									if(Resource == 4){
-										if(players[i].getWood()>0){
-											players[i].setWood(players[i].getWood()-1);
-											count-=1;
-										}
+									if(stolen.equals("Wood")){
+										players[i].setWood(players[i].getWood()-1);
+										count-=1;
 									}
 								}
 							}
@@ -390,10 +390,7 @@ public class PlayWindow {
 		for(int i=0; i<networkConnection.size();i++){
 			networkConnection.get(i).writeMsg(new Message("updatePlayerArray", game, players));
 		}
-		//To show that messages do make it across network
-		for(int i=0; i<networkConnection.size();i++){
-			networkConnection.get(i).writeMsg(new Message("Text", "Updating"));
-		}
+		
 	}
 	
 	/*
