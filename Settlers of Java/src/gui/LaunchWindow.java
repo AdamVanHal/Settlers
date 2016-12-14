@@ -8,7 +8,7 @@ import javax.swing.*;
 /**
  * @file LaunchWindow.java
  * @author Adam Van Hal and Stuart Wreath
- * @since 2016.12.13
+ * @since 2016.11.1
  * @details This class generates the GUI responsible for displaying the Launch Window for the game. The player
  * has the ability to choose the amount of players for the game, but this program does not do anything with the
  * information yet. The start button disposes of the launch window and opens the play window.
@@ -47,6 +47,10 @@ public class LaunchWindow {
 	public LaunchWindow() {
 		initialize();
 	}
+
+	/**
+	 * Initialize the contents of the frame.
+	 */
 	 
 	 /*
 	 * @pre    None

@@ -1,7 +1,7 @@
 /*
 *	@file PlayWindow.java
 *	@author Adam Van Hal
-*	@date 12-13-16
+*	@date 10-17-16
 *	@Creates a place to draw the game boar and interact with players
 */
 package gui;
@@ -105,7 +105,7 @@ public class PlayWindow {
 
 	/*
 	 * @pre    None
-	 * @post   Initializes everything the host needs but not the clients
+	 * @post   Initializes all GUI components and their listeners, including the board element 
 	 * @return None
 	 */
 	private void hostInitialize() {
@@ -124,11 +124,6 @@ public class PlayWindow {
 		Island.cursorState = 4;
 	}
 	
-	/*
-	 * @pre    None
-	 * @post   Initializes all GUI components and their listeners, including the board element 
-	 * @return None
-	 */
 	public void initialize(GameBoard game2, PlayerInfo[] players2){
 		this.game = game2;
 		this.players = players2;
@@ -240,6 +235,16 @@ public class PlayWindow {
 					for(int i=0; i<players.length;i++){
 						players[i].gatherResources(a+b);
 					}
+				
+					BrickVal.setText(Integer.toString(players[playerNumber].getBrick()));
+					WoolVal.setText(Integer.toString(players[playerNumber].getSheep()));
+					OreVal.setText(Integer.toString(players[playerNumber].getOre()));
+					GrainVal.setText(Integer.toString(players[playerNumber].getWheat()));
+					LumberVal.setText(Integer.toString(players[playerNumber].getWood()));
+					hasRolled = true;
+					btnRoll.setEnabled(false);
+					
+					
 					if(c==7){
 						for(int i=0;i<19;i++){
 							game.getPiece(i).setRobber(false);
@@ -298,13 +303,6 @@ public class PlayWindow {
 							}
 						}
 					}
-					BrickVal.setText(Integer.toString(players[playerNumber].getBrick()));
-					WoolVal.setText(Integer.toString(players[playerNumber].getSheep()));
-					OreVal.setText(Integer.toString(players[playerNumber].getOre()));
-					GrainVal.setText(Integer.toString(players[playerNumber].getWheat()));
-					LumberVal.setText(Integer.toString(players[playerNumber].getWood()));
-					hasRolled = true;
-					btnRoll.setEnabled(false);
 					updatePlayerArray();
 					btnEndTurn.setEnabled(true);
 					frame.repaint();
@@ -373,9 +371,9 @@ public class PlayWindow {
 	}
 	
 	/*
-	 * @pre	Players array exists, networkConnection exists	
-	 * @post Message was sent to the network
-	 * @return None
+	 * @pre		
+	 * @post
+	 * @return
 	 */
 	public void updatePlayerArray(){
 		/*Object[] temp = new Object[2];
@@ -391,11 +389,6 @@ public class PlayWindow {
 		}
 	}
 	
-	/*
-	 * @pre    Players array exists, GameBoard game exists, frame is created
-	 * @post   Updates game information and redraws the window
-	 * @return None
-	 */
 	public void receivePlayerArray(PlayerInfo[] players2, GameBoard game2){
 		this.players = players2;
 		this.game = game2;

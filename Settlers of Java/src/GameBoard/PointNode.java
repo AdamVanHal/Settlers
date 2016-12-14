@@ -150,6 +150,7 @@ public class PointNode implements Serializable{
 			return true;
 		}
 		else{
+			System.out.println("fail");
 			return false;
 		}
 	}

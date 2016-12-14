@@ -10,8 +10,8 @@ import Utilities.HostNetwork;
 
 /**
  * @file LaunchWindow.java
- * @author Stuart Wreath and Adam Van Hal
- * @since 2016.12.13
+ * @author Stuart Wreath
+ * @since 2016.11.8
  * @details This class generates the GUI for the window that allows the player who is going to host the game
  * to choose what the settings are for the game, such as number of players and other details that will be decided
  * later.
@@ -50,6 +50,10 @@ public class HostWindow {
 	public HostWindow() {
 		initialize();
 	}
+
+	/**
+	 * Initialize the contents of the frame.
+	 */
 	 
 	 /*
 	 * @pre    None

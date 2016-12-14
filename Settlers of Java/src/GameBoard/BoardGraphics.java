@@ -1,7 +1,7 @@
 /*
 *	@file BoardGaphics.java
 *	@author Adam Van Hal and Stuart Wreath
-*	@date 12-13-16
+*	@date 10-17-16
 *	@Extends JPanel to create a custom graphic element for the GUI screen with the hexagon board
 */
 package GameBoard;
