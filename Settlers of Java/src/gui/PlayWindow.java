@@ -215,16 +215,6 @@ public class PlayWindow {
 					for(int i=0; i<players.length;i++){
 						players[i].gatherResources(a+b);
 					}
-				
-					BrickVal.setText(Integer.toString(players[playerNumber].getBrick()));
-					WoolVal.setText(Integer.toString(players[playerNumber].getSheep()));
-					OreVal.setText(Integer.toString(players[playerNumber].getOre()));
-					GrainVal.setText(Integer.toString(players[playerNumber].getWheat()));
-					LumberVal.setText(Integer.toString(players[playerNumber].getWood()));
-					hasRolled = true;
-					btnRoll.setEnabled(false);
-					
-					
 					if(c==7){
 						for(int i=0;i<19;i++){
 							game.getPiece(i).setRobber(false);
@@ -283,6 +273,13 @@ public class PlayWindow {
 							}
 						}
 					}
+					BrickVal.setText(Integer.toString(players[playerNumber].getBrick()));
+					WoolVal.setText(Integer.toString(players[playerNumber].getSheep()));
+					OreVal.setText(Integer.toString(players[playerNumber].getOre()));
+					GrainVal.setText(Integer.toString(players[playerNumber].getWheat()));
+					LumberVal.setText(Integer.toString(players[playerNumber].getWood()));
+					hasRolled = true;
+					btnRoll.setEnabled(false);
 					updatePlayerArray();
 					btnEndTurn.setEnabled(true);
 					frame.repaint();
