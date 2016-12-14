@@ -39,17 +39,17 @@ public class PlayerInfo implements Serializable{
 	int roadBuilding;
 	int yearOfPlenty;
 	int knightCard;
-	/*DevelopmentCards dCards;
+	DevelopmentCards dCards;
 	boolean wheatPort = false;
 	boolean woodPort = false;
 	boolean brickPort = false;
 	boolean orePort = false;
 	boolean sheepPort = false;
 	boolean miscPort = false;
-	*/
 	boolean myTurn = false;
 	int playerNumber;
-
+	int rollVal;
+	
 	/* @pre none
 	*  @post creates a PlayerInfo object with variables initialed to appropriate values
 	*  @return none
@@ -61,22 +61,28 @@ public class PlayerInfo implements Serializable{
 		Set = 5;
 		Cities = 4;
 		Roads = 15;
-		//dCards = new DevelopmentCards();
+		dCards = new DevelopmentCards();
 		//myScan = new Scanner(System.in);
 		playerNumber = a;
 	}
 	
-	//get and set functions for whether it is this players turn currently
+	//*****
+	//public current player's turn methods
+	//*****
 	public void setTurn(boolean a){myTurn = a;}
 	public boolean getTurn(){return myTurn;}
 	
-	public void setPlayerNumber(int a){
-		playerNumber = a;
-	}
+	//*****
+	//public recent roll value methods
+	//*****
+	public void setRollNum(int rollVal){this.rollVal = rollVal;}
+	public int getRollNum(){return rollVal;}
 	
-	public int getPlayerNubmer(){
-		return playerNumber;
-	}
+	//*****
+	//public player number methods
+	//*****
+	public void setPlayerNumber(int a){playerNumber = a;}
+	public int getPlayerNubmer(){return playerNumber;}
 	
 	//*****
 	//actual victory points methods
@@ -170,7 +176,7 @@ public class PlayerInfo implements Serializable{
 	//Only sets a settlement if space is empty, and the player has settlements left
 	/* @pre a is a valid PointNode, b is a valid PlayerInfo
 	*  @post if settlement is allowed in requested space, then a new Settlement is set in first open spot in settlements array
-	*  @return true if successful, false if not
+	*  @return none
 	*/
 	public boolean setSettlement(PointNode a, PlayerInfo b){
 		if(Set <= 0){
@@ -181,7 +187,7 @@ public class PlayerInfo implements Serializable{
 			if(settlements[i] == null){
 				settlements[i] = new Settlement(a,b);
 				if(a.setSettlement(settlements[i])){
-					/*if(a.getOccupancy().equals("1") || a.getOccupancy().equals("4")){
+					if(a.getOccupancy().equals("1") || a.getOccupancy().equals("4")){
 						miscPort = true;
 					}
 					else if(a.getOccupancy().equals("2") || a.getOccupancy().equals("6")){
@@ -207,7 +213,7 @@ public class PlayerInfo implements Serializable{
 					}
 					else if(a.getOccupancy().equals("12") || a.getOccupancy().equals("17")){
 						orePort = true;
-					}*/
+					}
 					a.setPlayerNumber(playerNumber);
 					System.out.println("success");
 					Set--;
@@ -225,7 +231,7 @@ public class PlayerInfo implements Serializable{
 	
 	/* @pre a is a valid PointNode, b is a valid PlayerInfo
 	*  @post if city is allowed in requested space, then a new City is set in first open spot in cities array
-	*  @return true if successful, false if not
+	*  @return none
 	*/
 	public boolean setCity(PointNode a,PlayerInfo b){
 		for(int i = 0; i < 4; i++){
@@ -250,7 +256,7 @@ public class PlayerInfo implements Serializable{
 	
 	/* @pre a is a valid LineNode, b is a valid PlayerInfo
 	*  @post if road is allowed in requested space, then a new Road is set in first open spot in roads array
-	*  @return true if successful, false if not
+	*  @return none
 	*/
 	public boolean setRoad(LineNode a, PlayerInfo b){
 		for(int i = 0; i < 15; i++){
@@ -337,10 +343,9 @@ public class PlayerInfo implements Serializable{
 			}
 			return false;
 		}
-		System.out.println("Insuficiant funds.");
 		return false;
 	}
-	/*
+	
 	public void buyDCard(PlayerInfo a){
 		if(dCards.getDeck()[0] == 0){
 			if(a.getSheep() >= 1 && a.getOre() >= 1 && a.getWheat() >= 1){
@@ -475,7 +480,7 @@ public class PlayerInfo implements Serializable{
 			a.setSheep(a.getSheep()+numTrading);
 		}
 	}
-	*/
+	
 	/*public void tradeOffer(PlayerInfo a,PlayerInfo b){
 		int[] offer = new int[5];
 		int[] request = new int[5];

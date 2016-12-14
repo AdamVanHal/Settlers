@@ -1,7 +1,7 @@
 /*
 *	@file PlayWindow.java
 *	@author Adam Van Hal
-*	@date 10-17-16
+*	@date 12-13-16
 *	@Creates a place to draw the game boar and interact with players
 */
 package gui;
@@ -39,6 +39,7 @@ public class PlayWindow {
 	private int numTurns     = 0;
 	public  int numPlayers   = 0;
 	public  int playerNumber = 0;
+	public  int rollVal = 0;
 	
 	public boolean ifSetup   = true;
 	public boolean myTurn   = false;
@@ -57,6 +58,7 @@ public class PlayWindow {
 	public JButton btnEndTurn 	= new JButton("End Turn");
 	
 	public JLabel vpVal = new JLabel("0");
+	public JLabel rollShow = new JLabel("");
 		
 
 	/*
@@ -105,7 +107,7 @@ public class PlayWindow {
 
 	/*
 	 * @pre    None
-	 * @post   Initializes all GUI components and their listeners, including the board element 
+	 * @post   Initializes everything the host needs but not the clients
 	 * @return None
 	 */
 	private void hostInitialize() {
@@ -124,6 +126,11 @@ public class PlayWindow {
 		Island.cursorState = 4;
 	}
 	
+	/*
+	 * @pre    None
+	 * @post   Initializes all GUI components and their listeners, including the board element 
+	 * @return None
+	 */
 	public void initialize(GameBoard game2, PlayerInfo[] players2){
 		this.game = game2;
 		this.players = players2;
@@ -217,7 +224,7 @@ public class PlayWindow {
 		GrainVal.setBounds(47, 225, 65, 25);
 		LumberVal.setBounds(47, 250, 65, 25);
 		
-		JLabel rollShow = new JLabel("");
+		
 		rollShow.setBounds(30,75,125,25);
 		Status.add(rollShow);
 		
@@ -230,22 +237,15 @@ public class PlayWindow {
 					int a = d6.roll();
 					int b = d6.roll();
 					System.out.println(a+b);
-					int c = a + b;
-					rollShow.setText("A(n) " + c + " was rolled.");
+					rollVal = a + b;
+					for(int i = 0; i < numPlayers; i ++){
+						players[i].setRollNum(rollVal);;
+					}
+					rollShow.setText("A(n) " + rollVal + " was rolled.");
 					for(int i=0; i<players.length;i++){
 						players[i].gatherResources(a+b);
 					}
-				
-					BrickVal.setText(Integer.toString(players[playerNumber].getBrick()));
-					WoolVal.setText(Integer.toString(players[playerNumber].getSheep()));
-					OreVal.setText(Integer.toString(players[playerNumber].getOre()));
-					GrainVal.setText(Integer.toString(players[playerNumber].getWheat()));
-					LumberVal.setText(Integer.toString(players[playerNumber].getWood()));
-					hasRolled = true;
-					btnRoll.setEnabled(false);
-					
-					
-					if(c==7){
+					if(rollVal==7){
 						for(int i=0;i<19;i++){
 							game.getPiece(i).setRobber(false);
 						}
@@ -303,6 +303,13 @@ public class PlayWindow {
 							}
 						}
 					}
+					BrickVal.setText(Integer.toString(players[playerNumber].getBrick()));
+					WoolVal.setText(Integer.toString(players[playerNumber].getSheep()));
+					OreVal.setText(Integer.toString(players[playerNumber].getOre()));
+					GrainVal.setText(Integer.toString(players[playerNumber].getWheat()));
+					LumberVal.setText(Integer.toString(players[playerNumber].getWood()));
+					hasRolled = true;
+					btnRoll.setEnabled(false);
 					updatePlayerArray();
 					btnEndTurn.setEnabled(true);
 					frame.repaint();
@@ -371,9 +378,9 @@ public class PlayWindow {
 	}
 	
 	/*
-	 * @pre		
-	 * @post
-	 * @return
+	 * @pre	Players array exists, networkConnection exists	
+	 * @post Message was sent to the network
+	 * @return None
 	 */
 	public void updatePlayerArray(){
 		/*Object[] temp = new Object[2];
@@ -389,6 +396,11 @@ public class PlayWindow {
 		}
 	}
 	
+	/*
+	 * @pre    Players array exists, GameBoard game exists, frame is created
+	 * @post   Updates game information and redraws the window
+	 * @return None
+	 */
 	public void receivePlayerArray(PlayerInfo[] players2, GameBoard game2){
 		this.players = players2;
 		this.game = game2;
@@ -400,6 +412,8 @@ public class PlayWindow {
 		LumberVal.setText(Integer.toString(players[playerNumber].getWood()));
 		
 		vpVal.setText(Integer.toString(players[playerNumber].getVP()));
+		rollVal = players[playerNumber].getRollNum();
+		rollShow.setText("A(n) " + rollVal + " was rolled.");
 		if(players[playerNumber].getTurn()){
 			myTurn = true;
 			btnRoll.setEnabled(!ifSetup && !hasRolled);

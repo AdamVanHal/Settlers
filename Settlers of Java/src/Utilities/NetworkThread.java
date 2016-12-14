@@ -7,8 +7,7 @@ import gui.PlayWindow;
 import infoClasses.PlayerInfo;
 import GameBoard.GameBoard;
 
-//class that allows us to put all ongoing network actions in a new thread and not wait on the game thread
-//the host has one thread to listen to each client, while the client has one thread to listen to the host
+
 public class NetworkThread extends Thread {
 	// the socket where to listen/talk
 	private Socket socket;
@@ -23,7 +22,7 @@ public class NetworkThread extends Thread {
 	private String Type;
 	private PlayWindow GameState;
 
-	// Constructor for host side, lets this thread know it is running on a host system
+	// Constructor for host side
 	NetworkThread(HostNetwork Host, Socket socket, int UniqueID) {
 		this.Host = Host;
 		Type = "Host";
@@ -68,15 +67,11 @@ public class NetworkThread extends Thread {
 		}
 	}
 	
-	//get a reference to the game window so that the network thread can make calls to update variables
 	public void gameReference(PlayWindow Game){
 		this.GameState = Game;
 	}
 	
 	// This loop will run forever listening for messages
-	//if the thread is running on the host, it echo's all received messages back to all clients before acting on them
-	//a message is a serializable object that only contains other serializable objects.
-	//a message contains a string to identify what its purpose is, and then 1 or more objects to use.
 	public void run() {
 		// to loop until LOGOUT
 		boolean keepGoing = true;
@@ -105,7 +100,6 @@ public class NetworkThread extends Thread {
 				System.out.println((String) msg.Objects[0]);
 				break;
 			case "Set ID":
-				//this is used to tell players what player number they are.
 				Integer ID =  (Integer) msg.Objects[0];
 				this.playerID = ID.intValue();
 				break;
@@ -116,11 +110,9 @@ public class NetworkThread extends Thread {
 				//Set the user name
 				break;
 			case "initialize":
-				//send information to initialize a new game for players
 				GameState.initialize((GameBoard)msg.Objects[0],(PlayerInfo[])msg.Objects[1]);
 				break;
 			case "updatePlayerArray":
-				//Receive the updated game state and use the reference to the game to call an update function
 				PlayerInfo[] temp =(PlayerInfo[]) msg.Objects[1];
 				System.out.println(temp[1].getSet());
 				GameState.receivePlayerArray((PlayerInfo[])msg.Objects[1],(GameBoard)msg.Objects[0]);
@@ -148,7 +140,7 @@ public class NetworkThread extends Thread {
 	}
 
 	/*
-	 * Write a Message to the output stream
+	 * Write a String to the output stream
 	 */
 	public boolean writeMsg(Message msg) {
 		/*if(this.Type == "Host"){

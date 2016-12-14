@@ -4,7 +4,6 @@ import java.net.*;
 import java.util.ArrayList;
 import java.io.*;
 
-//class that sets up the server side of the network connection
 public class HostNetwork {
 	public int port;
 	public String hostName;
@@ -12,25 +11,22 @@ public class HostNetwork {
 	private ServerSocket serverSocket;
 	public ArrayList<NetworkThread> clients = new ArrayList<NetworkThread>();
 	
-//constructor to initialize a new network connection to start a game
+
 	public HostNetwork(int portNumber, String hostName, String gameName) {
 		this.port=portNumber;
 		this.hostName = hostName;
 		this.gameName = gameName;
 	}
 	
-	//to change the port the game is on, only before starting the server
 	public void Port(int portNumber){
 		this.port = portNumber;
 	}
-	//starts the server so that clients can connect
+	
 	public void StartHost() throws IOException{
 		serverSocket=new ServerSocket(port);
 	}
 	
 	//adds users to your connection
-	//blocks each time until a new client is added
-	//spins up a fresh thread to hold the client in
 	public void addClients(int numClients) throws IOException{
 		for(int i=1; i<=numClients; i++){
 			Socket socket = serverSocket.accept();
@@ -44,7 +40,6 @@ public class HostNetwork {
 		}
 	}
 	
-	//closes the server and emptys the array that stores the client thread references
 	public void close() throws IOException{
 		for(int i=0;i<clients.size();i++){
 			NetworkThread client = clients.get(i);
@@ -64,8 +59,7 @@ public class HostNetwork {
 		}
 		return true;
 	}
-	
-	//stand alone testing remnant
+
 	public static void main(String[] args) throws IOException {
 		HostNetwork Host = new HostNetwork(3000,"Jeff","New Game");
 		Host.StartHost();
