@@ -1,7 +1,7 @@
 /*
 *	@file PlayWindow.java
 *	@author Adam Van Hal
-*	@date 10-17-16
+*	@date 12-13-16
 *	@Creates a place to draw the game boar and interact with players
 */
 package gui;
@@ -102,7 +102,7 @@ public class PlayWindow {
 
 	/*
 	 * @pre    None
-	 * @post   Initializes all GUI components and their listeners, including the board element 
+	 * @post   Initializes everything the host needs but not the clients
 	 * @return None
 	 */
 	private void hostInitialize() {
@@ -121,6 +121,11 @@ public class PlayWindow {
 		Island.cursorState = 4;
 	}
 	
+	/*
+	 * @pre    None
+	 * @post   Initializes all GUI components and their listeners, including the board element 
+	 * @return None
+	 */
 	public void initialize(GameBoard game2, PlayerInfo[] players2){
 		this.game = game2;
 		this.players = players2;
@@ -310,9 +315,9 @@ public class PlayWindow {
 	}
 	
 	/*
-	 * @pre		
-	 * @post
-	 * @return
+	 * @pre	Players array exists, networkConnection exists	
+	 * @post Message was sent to the network
+	 * @return None
 	 */
 	public void updatePlayerArray(){
 		/*Object[] temp = new Object[2];
@@ -328,6 +333,11 @@ public class PlayWindow {
 		}
 	}
 	
+	/*
+	 * @pre    Players array exists, GameBoard game exists, frame is created
+	 * @post   Updates game information and redraws the window
+	 * @return None
+	 */
 	public void receivePlayerArray(PlayerInfo[] players2, GameBoard game2){
 		this.players = players2;
 		this.game = game2;
