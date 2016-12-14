@@ -13,8 +13,8 @@ import Utilities.NetworkThread;
 
 /**
  * @file LaunchWindow.java
- * @author Stuart Wreath
- * @since 2016.11.8
+ * @author Stuart Wreath and Adam Van Hal
+ * @since 2016.12.13
  * @details This class generates the GUI for the window that allows a player to enter the IP Address
  * of the player whose game they want to join, and then join it.
  */
@@ -52,10 +52,6 @@ public class JoinWindow {
 	public JoinWindow() {
 		initialize();
 	}
-
-	/**
-	 * Initialize the contents of the frame.
-	 */
 	 
 	 /*
 	 * @pre    None
@@ -81,6 +77,7 @@ public class JoinWindow {
 		JLabel Title = new JLabel("Settlers of Java!");
 		JTextField txtJoin = new JTextField("127.0.0.1");
 		JTextField txtPort = new JTextField("5000");
+		
 		
 		JButton btnStart = new JButton("Start");
 		btnStart.addMouseListener(new MouseAdapter() {
