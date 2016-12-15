@@ -39,13 +39,14 @@ public class PlayerInfo implements Serializable{
 	int roadBuilding;
 	int yearOfPlenty;
 	int knightCard;
-	DevelopmentCards dCards;
+	/*DevelopmentCards dCards;
 	boolean wheatPort = false;
 	boolean woodPort = false;
 	boolean brickPort = false;
 	boolean orePort = false;
 	boolean sheepPort = false;
 	boolean miscPort = false;
+	*/
 	boolean myTurn = false;
 	int playerNumber;
 	int rollVal;
@@ -61,7 +62,7 @@ public class PlayerInfo implements Serializable{
 		Set = 5;
 		Cities = 4;
 		Roads = 15;
-		dCards = new DevelopmentCards();
+		//dCards = new DevelopmentCards();
 		//myScan = new Scanner(System.in);
 		playerNumber = a;
 	}
@@ -186,7 +187,7 @@ public class PlayerInfo implements Serializable{
 		for(int i = 0; i < 9; i++){
 			if(settlements[i] == null){
 				settlements[i] = new Settlement(a,b);
-				if(a.setSettlement(settlements[i])){
+				if(a.setSettlement(settlements[i])){/*
 					if(a.getOccupancy().equals("1") || a.getOccupancy().equals("4")){
 						miscPort = true;
 					}
@@ -214,6 +215,7 @@ public class PlayerInfo implements Serializable{
 					else if(a.getOccupancy().equals("12") || a.getOccupancy().equals("17")){
 						orePort = true;
 					}
+					*/
 					a.setPlayerNumber(playerNumber);
 					System.out.println("success");
 					Set--;
@@ -343,9 +345,10 @@ public class PlayerInfo implements Serializable{
 			}
 			return false;
 		}
+		System.out.println("Insuficiant funcds.");
 		return false;
 	}
-	
+	/*
 	public void buyDCard(PlayerInfo a){
 		if(dCards.getDeck()[0] == 0){
 			if(a.getSheep() >= 1 && a.getOre() >= 1 && a.getWheat() >= 1){
