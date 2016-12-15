@@ -5,3 +5,7 @@ http://stackoverflow.com/questions/36524796/im-trying-to-underline-text-in-a-jla
 
 randomizing an array
 http://www.programcreek.com/2012/02/java-method-to-shuffle-an-int-array-with-random-order/
+
+Guides used to design the network classes:
+http://way2java.com/networking/chat-program-two-way-communication/
+http://www.dreamincode.net/forums/topic/259777-a-simple-chat-program-with-clientserver-gui-optional/
