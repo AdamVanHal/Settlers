@@ -305,7 +305,17 @@ public class PlayerInfo implements Serializable{
 	}
 	
 	public boolean buySettlement(PointNode a, PlayerInfo b){
-		if(b.getBrick() >= 1 && b.getWood() >= 1 && b.getSheep() >= 1 && b.getWheat() >= 1){
+		LineNode[] adjLines = a.getAdjacentLines();
+		boolean properMove = false;
+		for(int i = 0; i < 3; i++){
+			if(adjLines[i] == null){
+				
+			}
+			else if(adjLines[i].getPlayerNumber() == playerNumber){
+				properMove = true;
+			}
+		}
+		if(b.getBrick() >= 1 && b.getWood() >= 1 && b.getSheep() >= 1 && b.getWheat() >= 1 && properMove){
 			if(setSettlement(a,b)){
 				b.setBrick(b.getBrick()-1);
 				b.setWood(b.getWood()-1);
